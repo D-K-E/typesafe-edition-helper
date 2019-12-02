@@ -1,6 +1,6 @@
 module Model
     ( UnitModel
-    , ContainerData
+    , ContainerData(..)
     , ContainerModel
     , ModelInfo
     , modelId
@@ -10,8 +10,6 @@ module Model
     , containerInfo
     , unitData
     , containerData
-    , fromContainerModel
-    , fromUnitModel
     )
 where
 -- models of data for making computation easier

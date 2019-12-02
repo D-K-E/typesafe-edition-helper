@@ -1,7 +1,9 @@
-{-# LANGUAGE FlexibleInstances #-}
+-- {-# LANGUAGE FlexibleInstances #-}
 module XmlRenderer where
 -- render container and unit as xml
 import           Model                          ( UnitModel
+                                                , ContainerData(NestedCons)
+                                                , ContainerData(SimpleCons)
                                                 , ContainerData
                                                 , ContainerModel
                                                 , ModelInfo
@@ -12,8 +14,6 @@ import           Model                          ( UnitModel
                                                 , unitInfo
                                                 , containerInfo
                                                 , containerData
-                                                , fromContainerModel
-                                                , fromUnitModel
                                                 )
 import           Data.Map                       ( Map )  -- importing type
 import qualified Data.Map                      as Dict  -- importing module
@@ -61,3 +61,8 @@ instance ModelRenderer ContainerModel where
         , Xml.elementNodes      = map (Xml.NodeElement . makeElement)
                                       (containerData cm)
         }
+
+-- transform container data to xml
+instance ModelRenderer ContainerData where
+    makeElement (NestedCons cm) = makeElement cm
+    makeElement (SimpleCons um) = makeElement um
