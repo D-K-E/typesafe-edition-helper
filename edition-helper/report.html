@@ -147,7 +147,7 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li><a id="hint0" href="javascript:show('hint0')">Error: Eta reduce (1)</a></li>
+<li><a id="hint0" href="javascript:show('hint0')">Warning: Parse error: ) (1)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
@@ -164,11 +164,13 @@ v1.9.26
 </p>
 
 <div class="hint0 file0">
-src/XmlRenderer.hs:52:1: Error: Eta reduce<br/>
+src/XmlRenderer.hs:61:89: Warning: Parse error: )<br/>
 Found<br/>
-<pre><span class='hs-definition'>makeCDataElements</span> <span class='hs-varid'>cdatas</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>map</span> <span class='hs-varid'>makeCDataElement</span> <span class='hs-varid'>cdatas</span></pre>
-Why not<br/>
-<pre><span class='hs-definition'>makeCDataElements</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>map</span> <span class='hs-varid'>makeCDataElement</span></pre>
+<pre>          <span class='hs-layout'>,</span> <span class='hs-conid'>Xml</span><span class='hs-varop'>.</span><span class='hs-varid'>elementAttributes</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>convertTxt2NameMap</span>
+                                        <span class='hs-layout'>(</span><span class='hs-varid'>addIdType2Props</span> <span class='hs-varid'>containerInfo</span> <span class='hs-varid'>cm</span><span class='hs-layout'>)</span>
+<span class='hs-varop'>&gt;</span>         <span class='hs-layout'>,</span> <span class='hs-conid'>Xml</span><span class='hs-varop'>.</span><span class='hs-varid'>elementNodes</span>      <span class='hs-keyglyph'>=</span> <span class='hs-varid'>map</span> <span class='hs-layout'>(</span><span class='hs-conid'>Xml</span><span class='hs-varop'>.</span><span class='hs-conid'>NodeElement</span> <span class='hs-varop'>.</span> <span class='hs-varid'>makeElement</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>containerData</span> <span class='hs-varid'>cm</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
+          <span class='hs-layout'>}</span>
+</pre>
 
 </div>
 

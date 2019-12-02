@@ -34,8 +34,3 @@ data ContainerModel = ContainerCons {  containerInfo :: ModelInfo
 data ContainerData = NestedCons ContainerModel
                     | SimpleCons UnitModel
                      deriving (Show, Eq)
-
-fromContainerModel :: ContainerModel -> ContainerData
-fromContainerModel cm = NestedCons cm
-fromUnitModel :: UnitModel -> ContainerData
-fromUnitModel cm = SimpleCons cm

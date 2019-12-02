@@ -58,6 +58,6 @@ instance ModelRenderer ContainerModel where
         { Xml.elementName       = makeName (Txt.pack "container")
         , Xml.elementAttributes = convertTxt2NameMap
                                       (addIdType2Props containerInfo cm)
-        , Xml.elementNodes      = map Xml.NodeElement
-                                      (map makeElement (containerData cm))
+        , Xml.elementNodes      = map (Xml.NodeElement . makeElement)
+                                      (containerData cm)
         }
