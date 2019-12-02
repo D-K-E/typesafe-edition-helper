@@ -23,6 +23,8 @@ dependencies:
 - base >= 4.7 && < 5
 - xml-conduit
 - xml-hamlet
+- containers
+- text
 
 library:
   source-dirs: src

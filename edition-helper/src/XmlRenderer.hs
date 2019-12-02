@@ -1,30 +1,63 @@
+{-# LANGUAGE FlexibleInstances #-}
 module XmlRenderer where
-
 -- render container and unit as xml
-import           Unit                           ( UnitModel )
-import           Container                      ( ContainerModel )
+import           Model                          ( UnitModel
+                                                , ContainerData
+                                                , ContainerModel
+                                                , ModelInfo
+                                                , modelId
+                                                , modelType
+                                                , modelAttrs
+                                                , unitData
+                                                , unitInfo
+                                                , containerInfo
+                                                , containerData
+                                                , fromContainerModel
+                                                , fromUnitModel
+                                                )
 import           Data.Map                       ( Map )  -- importing type
 import qualified Data.Map                      as Dict  -- importing module
-import           Text.Hamlet.XML
-import           Text.XML
+import qualified Data.Text                      ( Text ) -- importing type
+import qualified Data.Text                     as Txt  -- importing module
+import qualified Text.XML                       ( Node
+                                                , Element
+                                                , Name
+                                                )
+import qualified Text.XML                      as Xml
+import           Utils                          ( add2Map
+                                                , makeName
+                                                , makeTagName
+                                                , convertTxt2NameMap
+                                                )
 
+class ModelRenderer model where
+    -- function definition
+    addIdType2Props :: (model -> ModelInfo) -> model -> Map Txt.Text Txt.Text
+    addIdType2Props f mdl = add2Map
+        (modelAttrs (f mdl))
+        [(Txt.pack "id", modelId (f mdl)),
+         (Txt.pack "type", modelType (f mdl))]
 
--- utils functions
+    makeElement :: model -> Xml.Element
 
-add2Map :: Map -> [(k, v)] -> Map
-
-add2Map aMap kvs | kvs == [] = aMap
-                 | otherwise = Dict.union aMap (Dict.fromList kvs)
 
 -- transform unit model to xml
 
-add2UnitProps :: String -> String -> UnitModel -> Map
-add2UnitProps idName typeName um =
-    add2Map (unitProps um) [(idName, (unitId um)), (typeName, (unitType))]
+instance ModelRenderer UnitModel where
+    makeElement um = Xml.Element
+        { Xml.elementName       = makeName (Txt.pack "unit")
+        , Xml.elementAttributes = convertTxt2NameMap
+                                      (addIdType2Props unitInfo um)
+        , Xml.elementNodes      = [Xml.NodeContent (unitData um)]
+        }
 
 
 -- transform container model to xml
-add2ContainerProps :: String -> String -> ContainerModel -> Map
-add2UnitProps idName typeName um = add2Map
-    (containerProps um)
-    [(idName, (containerId um)), (typeName, (containerType))]
+instance ModelRenderer ContainerModel where
+    makeElement cm = Xml.Element
+        { Xml.elementName       = makeName (Txt.pack "container")
+        , Xml.elementAttributes = convertTxt2NameMap
+                                      (addIdType2Props containerInfo cm)
+        , Xml.elementNodes      = map Xml.NodeElement
+                                      (map makeElement (containerData cm))
+        }
