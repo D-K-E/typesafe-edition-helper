@@ -16,10 +16,21 @@ where
 import           Data.Map                       ( Map )  -- importing type
 import           Data.Text                      ( Text )
 
-
+data ModelType = Edition
+                | Transliteration
+                | Translation
+                | Note
+                | Info
+                | Text
+                | Term
+                | Glossary
+                | Inflected
+                | Attestation
+                | Lemma
+                | Analysis
 
 data ModelInfo = InfoCons {
-                    modelId :: Text, modelType :: Text,
+                    modelId :: Text, modelType :: ModelType,
                     modelAttrs :: Map Text Text
                 } deriving (Show, Eq)
 
