@@ -2,7 +2,7 @@ module Model
     ( UnitModel
     , ContainerData(..)
     , ContainerModel
-    , ModelInfo
+    , ModelInfo(..)
     , modelId
     , modelType
     , modelAttrs

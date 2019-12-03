@@ -147,12 +147,12 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li><a id="hint0" href="javascript:show('hint0')">Warning: Parse error: ) (1)</a></li>
+<li><a id="hint0" href="javascript:show('hint0')">Warning: Parse error: { (1)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
-<li><a id="file0" href="javascript:show('file0')">src/XmlRenderer.hs (1)</a></li>
+<li><a id="file0" href="javascript:show('file0')">src/Unit.hs (1)</a></li>
 </ul>
 
 </div>
@@ -164,12 +164,12 @@ v1.9.26
 </p>
 
 <div class="hint0 file0">
-src/XmlRenderer.hs:61:89: Warning: Parse error: )<br/>
+src/Unit.hs:17:28: Warning: Parse error: {<br/>
 Found<br/>
-<pre>          <span class='hs-layout'>,</span> <span class='hs-conid'>Xml</span><span class='hs-varop'>.</span><span class='hs-varid'>elementAttributes</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>convertTxt2NameMap</span>
-                                        <span class='hs-layout'>(</span><span class='hs-varid'>addIdType2Props</span> <span class='hs-varid'>containerInfo</span> <span class='hs-varid'>cm</span><span class='hs-layout'>)</span>
-<span class='hs-varop'>&gt;</span>         <span class='hs-layout'>,</span> <span class='hs-conid'>Xml</span><span class='hs-varop'>.</span><span class='hs-varid'>elementNodes</span>      <span class='hs-keyglyph'>=</span> <span class='hs-varid'>map</span> <span class='hs-layout'>(</span><span class='hs-conid'>Xml</span><span class='hs-varop'>.</span><span class='hs-conid'>NodeElement</span> <span class='hs-varop'>.</span> <span class='hs-varid'>makeElement</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>containerData</span> <span class='hs-varid'>cm</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
-          <span class='hs-layout'>}</span>
+<pre>  <span class='hs-keyword'>data</span> <span class='hs-conid'>EditionUnit</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>UnitCons</span>
+<span class='hs-varop'>&gt;</span>     <span class='hs-layout'>{</span> <span class='hs-varid'>unitInfo</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>InfoCons</span> <span class='hs-layout'>{</span> <span class='hs-varid'>modelId</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Text</span>   
+                            <span class='hs-layout'>,</span> <span class='hs-varid'>modelType</span>  <span class='hs-keyglyph'>=</span> <span class='hs-conid'>Text</span><span class='hs-varop'>.</span><span class='hs-varid'>pack</span> <span class='hs-str'>"edition-unit"</span>
+                            <span class='hs-layout'>,</span> <span class='hs-varid'>modelAttrs</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Map</span> <span class='hs-conid'>Text</span> <span class='hs-conid'>Text</span>
 </pre>
 
 </div>
