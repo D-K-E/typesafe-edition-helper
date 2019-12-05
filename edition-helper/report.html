@@ -147,7 +147,7 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li><a id="hint0" href="javascript:show('hint0')">Warning: Parse error: { (1)</a></li>
+<li><a id="hint0" href="javascript:show('hint0')">Warning: Parse error: ; (1)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
@@ -164,12 +164,11 @@ v1.9.26
 </p>
 
 <div class="hint0 file0">
-src/Unit.hs:17:28: Warning: Parse error: {<br/>
+src/Unit.hs:24:1: Warning: Parse error: ;<br/>
 Found<br/>
-<pre>  <span class='hs-keyword'>data</span> <span class='hs-conid'>EditionUnit</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>UnitCons</span>
-<span class='hs-varop'>&gt;</span>     <span class='hs-layout'>{</span> <span class='hs-varid'>unitInfo</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>InfoCons</span> <span class='hs-layout'>{</span> <span class='hs-varid'>modelId</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Text</span>   
-                            <span class='hs-layout'>,</span> <span class='hs-varid'>modelType</span>  <span class='hs-keyglyph'>=</span> <span class='hs-conid'>Text</span><span class='hs-varop'>.</span><span class='hs-varid'>pack</span> <span class='hs-str'>"edition-unit"</span>
-                            <span class='hs-layout'>,</span> <span class='hs-varid'>modelAttrs</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Map</span> <span class='hs-conid'>Text</span> <span class='hs-conid'>Text</span>
+<pre>  <span class='hs-varid'>makeUnitModel</span> <span class='hs-varid'>unitId</span> <span class='hs-varid'>unitAttrs</span> <span class='hs-varid'>unitType</span> <span class='hs-varid'>unitData</span>
+      <span class='hs-keyglyph'>|</span> <span class='hs-varid'>unitType</span>
+<span class='hs-varop'>&gt;</span> 
 </pre>
 
 </div>
