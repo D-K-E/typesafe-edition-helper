@@ -44,14 +44,14 @@ data ModelId = TextIdCons Txt.Text
                | StringIdCons String
                deriving (Eq, Show)
 
-data ModelAttrs = TextAttrsCons Map Txt.Text Txt.Text
+data ModelAttr = TextAttrsCons Map Txt.Text Txt.Text
                   | StringAttrsCons Map String String
                   deriving (Eq, Show)
 
 
 data ModelInfo = InfoCons {
                     modelId :: ModelId, modelType :: ModelType,
-                    modelAttrs :: ModelAttrs
+                    modelAttr :: ModelAttr
                     } deriving (Show, Eq)
 
 data UnitModel = UnitCons { unitInfo :: ModelInfo,

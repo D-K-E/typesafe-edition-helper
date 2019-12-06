@@ -40,6 +40,7 @@ import qualified Data.Text                     as Txt
 
 
 class MInfoMaker model where
+    fromFields :: ModelId -> ModelType -> ModelAttr -> model
     fromString :: String -> String -> Map String String -> model
     fromText :: Txt.Text -> Txt.Text -> Map Txt.Text Txt.Text -> model
 
@@ -85,13 +86,51 @@ class MInfoMaker model where
     fromTxtKeyVal mid mtype mattr =
         fromString  mid mtype (convertTxtMap2String mattr)
 
-
 -- instances
 
-
 instance ModelInfoMaker ModelInfo where
-    fromString modelId modelType modelAttrs = InfoCons
-        { modelId    = MiMaker.fromString modelId
-        , modelType  = MtMaker.fromString modelType
-        , modelAttrs = MaMaker.fromString modelAttrs
+    fromFields mid mtype mattr =
+        InfoCons { modelId = mid, modelType = mtype, modelAttr = modelAttr }
+
+    fromFields (TextIdCons midtxt) mtype mattr = InfoCons
+        { modelId   = MiMaker.fromText midtxt
+        , modelType = mtype
+        , modelAttr = mattr
         }
+    fromFields (StringIdCons midstr) mtype mattr = InfoCons
+        { modelId   = MiMaker.fromString midtxt
+        , modelType = mtype
+        , modelAttr = mattr
+        }
+    fromFields mid mtype (TextAttrsCons mattrtxt) = InfoCons
+        { modelId   = mid
+        , modelType = mtype
+        , modelAttr = MaMaker.fromText mattrtxt
+        }
+    fromFields mid mtype (StringAttrsCons mattrstr) = InfoCons
+        { modelId   = mid
+        , modelType = mtype
+        , modelAttr = MaMaker.fromString mattrstr
+        }
+    fromFields (TextIdCons midtxt) mtype (StringAttrsCons mattrstr) = InfoCons
+        { modelId   = MiMaker.fromText midtxt
+        , modelType = mtype
+        , modelAttr = MaMaker.fromString mattrstr
+        }
+    fromFields (StringIdCons midtxt) mtype (StringAttrsCons mattrstr) =
+        InfoCons { modelId   = MiMaker.fromString midtxt
+                 , modelType = mtype
+                 , modelAttr = MaMaker.fromString mattrstr
+                 }
+    fromFields (TextIdCons midtxt) mtype (TextAttrsCons mattrstr) = InfoCons
+        { modelId   = MiMaker.fromText midtxt
+        , modelType = mtype
+        , modelAttr = MaMaker.fromText mattrstr
+        }
+    fromFields (StringIdCons midtxt) mtype (TextAttrsCons mattrstr) = InfoCons
+        { modelId   = MiMaker.fromString midtxt
+        , modelType = mtype
+        , modelAttr = MaMaker.fromText mattrstr
+        }
+    fromString mid mtype =
+        fromFields modelId (MtMaker.fromString modelType)
