@@ -147,12 +147,12 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li><a id="hint0" href="javascript:show('hint0')">Warning: Parse error: ; (1)</a></li>
+<li><a id="hint0" href="javascript:show('hint0')">Warning: Redundant bracket (2)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
-<li><a id="file0" href="javascript:show('file0')">src/Unit.hs (1)</a></li>
+<li><a id="file0" href="javascript:show('file0')">src/Model/ModelInfo.hs (2)</a></li>
 </ul>
 
 </div>
@@ -164,12 +164,20 @@ v1.9.26
 </p>
 
 <div class="hint0 file0">
-src/Unit.hs:24:1: Warning: Parse error: ;<br/>
+src/Model/ModelInfo.hs:37:10: Warning: Redundant bracket<br/>
 Found<br/>
-<pre>  <span class='hs-varid'>makeUnitModel</span> <span class='hs-varid'>unitId</span> <span class='hs-varid'>unitAttrs</span> <span class='hs-varid'>unitType</span> <span class='hs-varid'>unitData</span>
-      <span class='hs-keyglyph'>|</span> <span class='hs-varid'>unitType</span>
-<span class='hs-varop'>&gt;</span> 
-</pre>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>pack</span> <span class='hs-str'>"id"</span><span class='hs-layout'>,</span> <span class='hs-layout'>(</span><span class='hs-varid'>modelId</span> <span class='hs-varid'>aModel</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
+Why not<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>pack</span> <span class='hs-str'>"id"</span><span class='hs-layout'>,</span> <span class='hs-varid'>modelId</span> <span class='hs-varid'>aModel</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint0 file0">
+src/Model/ModelInfo.hs:37:41: Warning: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>pack</span> <span class='hs-str'>"type"</span><span class='hs-layout'>,</span> <span class='hs-layout'>(</span><span class='hs-varid'>modelType</span> <span class='hs-varid'>aModel</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
+Why not<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>pack</span> <span class='hs-str'>"type"</span><span class='hs-layout'>,</span> <span class='hs-varid'>modelType</span> <span class='hs-varid'>aModel</span><span class='hs-layout'>)</span></pre>
 
 </div>
 
