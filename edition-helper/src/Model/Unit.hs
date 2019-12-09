@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Unit
+module Model.Unit
     ( UnitModel(..)
     )
 where
@@ -20,5 +20,5 @@ import           Model.UnitData                 ( UnitData )
 -- | unit model: simple text unit with some meta data
 data UnitModel = UnitCons {
     modelInfo :: ModelInfo
-  , unitData :: UnitData
+  , modelData :: UnitData
   } deriving (Eq, Show)

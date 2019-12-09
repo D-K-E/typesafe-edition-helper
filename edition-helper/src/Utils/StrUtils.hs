@@ -1,4 +1,4 @@
-module StrUtils
+module Utils.StrUtils
     ( toLowerStr
     , isAlphaNumStr
     , isAsciiStr
@@ -7,17 +7,14 @@ where
 
 
 import qualified Data.Char                     as Chr
--- string functions
 
--- convert string to lower character
+-- |'toLowerStr' transform all characters to lower characters
 toLowerStr = map Chr.toLower
 
--- alphanumeric check
+-- |'isAlphaNumStr' checks if all characters are alphanumeric
 isAlphaNumStr :: String -> Bool
+isAlphaNumStr = all Chr.isAlphaNum
 
-isAlphaNumStr aStr = and (map isAlphaNum)
-
--- ascii check
+-- |'isAsciiStr' checks if all characters are ascii
 isAsciiStr :: String -> Bool
-
-isAsciiStr = and (map Chr.isAscii)
+isAsciiStr = all Chr.isAscii

@@ -6,21 +6,21 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module ModelId
+module Model.ModelId
     ( ModelId(..)
     )
 where
-import           Data.Map                       ( Map ) -- importing type
+import           Data.Map.Strict                ( Map ) -- importing type
 import           Data.Text                      ( Text
                                                 , pack
                                                 , unpack
                                                 ) -- importing type
-import           Utils.StrUtils                 ( toLowerString
-                                                , isAlphaNumStr
+import           Utils.StrUtils                 ( isAlphaNumStr
                                                 , isAsciiStr
                                                 )
 
-import           Utils.DataUtils                ( StringLikeCons )
+import           Utils.ModelUtils               ( StringLikeCons(..) )
+import           Utils.ViewUtils                ( Model2StringText(..) )
 
 
 -- | model id: alphanumeric non empty string has to be unique for each model

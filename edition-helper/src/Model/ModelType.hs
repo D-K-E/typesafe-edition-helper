@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module ModelType
+module Model.ModelType
     ( ModelType(..)
     )
 where
@@ -15,14 +15,13 @@ import           Data.Text                      ( Text
                                                 , pack
                                                 , unpack
                                                 ) -- importing type
-import           Utils.StrUtils                 ( toLowerString
+import           Utils.StrUtils                 ( toLowerStr
                                                 , isAlphaNumStr
                                                 , isAsciiStr
                                                 )
 
-import           Utils.DataUtils                ( StringLikeCons
-                                                , Model2StringText
-                                                )
+import           Utils.ModelUtils               ( StringLikeCons(..) )
+import           Utils.ViewUtils                ( Model2StringText(..) )
 
 -- | model type: edition, inflected, glossary it can be constructed from string
 data ModelType = TextTypeCons Text
@@ -31,19 +30,19 @@ data ModelType = TextTypeCons Text
 
 instance StringLikeCons ModelType where
     fromString typeName
-        | toLowerString typeName == "edition" = StringTypeCons "edition"
-        | toLowerString typeName == "transliteration" = StringTypeCons
+        | toLowerStr typeName == "edition" = StringTypeCons "edition"
+        | toLowerStr typeName == "transliteration" = StringTypeCons
             "transliteration"
-        | toLowerString typeName == "translation" = StringTypeCons "translation"
-        | toLowerString typeName == "note" = StringTypeCons "note"
-        | toLowerString typeName == "info" = StringTypeCons "info"
-        | toLowerString typeName == "text" = StringTypeCons "text"
-        | toLowerString typeName == "term" = StringTypeCons "term"
-        | toLowerString typeName == "glossary" = StringTypeCons "glossary"
-        | toLowerString typeName == "inflected" = StringTypeCons "inflected"
-        | toLowerString typeName == "attestation" = StringTypeCons "attestation"
-        | toLowerString typeName == "lemma" = StringTypeCons "lemma"
-        | toLowerString typeName == "analysis" = StringTypeCons "analysis"
+        | toLowerStr typeName == "translation" = StringTypeCons "translation"
+        | toLowerStr typeName == "note" = StringTypeCons "note"
+        | toLowerStr typeName == "info" = StringTypeCons "info"
+        | toLowerStr typeName == "text" = StringTypeCons "text"
+        | toLowerStr typeName == "term" = StringTypeCons "term"
+        | toLowerStr typeName == "glossary" = StringTypeCons "glossary"
+        | toLowerStr typeName == "inflected" = StringTypeCons "inflected"
+        | toLowerStr typeName == "attestation" = StringTypeCons "attestation"
+        | toLowerStr typeName == "lemma" = StringTypeCons "lemma"
+        | toLowerStr typeName == "analysis" = StringTypeCons "analysis"
         | otherwise = error ("unknown model type " ++ typeName)
 
 

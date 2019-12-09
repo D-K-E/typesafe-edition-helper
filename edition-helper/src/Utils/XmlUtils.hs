@@ -1,24 +1,34 @@
-module XmlUtils
-    ()
+module Utils.XmlUtils
+    ( makeName
+    , makeTagName
+    )
 where
-import qualified Text.XML                      as Xml
+import           Data.Text                      ( Text
+                                                , empty
+                                                , pack
+                                                )
 import           Text.XML                       ( Node
                                                 , Element
-                                                , Name
+                                                , Name(..)
+                                                , nameLocalName
+                                                , nameNamespace
+                                                , namePrefix
                                                 )
-makeName :: Text -> Xml.Name
+-- | 'makeName' make an xml name from a text
+makeName :: Text -> Name
 
 makeName myText
-    | myText == Txt.empty = Xml.Name { Xml.nameLocalName = Txt.pack "name"
-                                     , Xml.nameNamespace = Nothing
-                                     , Xml.namePrefix    = Nothing
-                                     }
-    | otherwise = Xml.Name { Xml.nameLocalName = myText
-                           , Xml.nameNamespace = Nothing
-                           , Xml.namePrefix    = Nothing
-                           }
+    | myText == empty = Name { nameLocalName = pack "name"
+                             , nameNamespace = Nothing
+                             , namePrefix    = Nothing
+                             }
+    | otherwise = Name { nameLocalName = myText
+                       , nameNamespace = Nothing
+                       , namePrefix    = Nothing
+                       }
 
+-- | 'makeTagName' make a xml tag from a text
 makeTagName :: Text -> Text -> Name
 
-makeTagName tagName eltype | Txt.empty == tagName = makeName eltype
-                           | otherwise            = makeName tagName
+makeTagName tagName eltype | empty == tagName = makeName eltype
+                           | otherwise        = makeName tagName

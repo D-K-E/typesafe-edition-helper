@@ -1,33 +1,44 @@
 {-|
 Module : Model
 License : see LICENSE
-Description : XmlRender renders models as xml
+Description : XmlRenderer renders models as xml
 Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module XmlRenderer where
-import           Utils.DataUtils                ( StringLikeCons
-                                                , ModelAttrMaker
-                                                )
+module View.XmlRenderer where
 import           Model.ModelId                  ( ModelId(..) )
 import           Model.ModelAttr                ( ModelAttr(..) )
 import           Model.ModelInfo                ( ModelInfo(..) )
 import           Model.ModelType                ( ModelType(..) )
-import           Model.Unit                     ( UnitModel(..) )
+import qualified Model.Unit                    as Um
+                                                ( UnitModel(..)
+                                                , modelInfo
+                                                , modelData
+                                                )
 import           Model.UnitData                 ( UnitData(..) )
-import           Model.Container                ( ContainerModel(..) )
-import           Model.ContainerData            ( ContainerData(..) )
+import           Model.Container               as Cm
+                                                ( ContainerModel(..)
+                                                , ContainerData(..)
+                                                )
+import           Data.Map.Strict                ( Map )
 import           Data.Text                      ( Text
                                                 , unpack
                                                 , pack
                                                 )
 import           Text.XML                       ( Node(..)
-                                                , Element
-                                                , Name
+                                                , Element(..)
+                                                , Name(..)
+                                                , elementName
+                                                , elementAttributes
+                                                , elementNodes
                                                 )
 import           Utils.MapUtils                 ( add2Map
                                                 , convertTxt2NameMap
+                                                )
+import qualified Utils.ViewUtils               as VUtils
+                                                ( Model2StringText(..)
+                                                , Model2Map(..)
                                                 )
 import           Utils.XmlUtils                 ( makeName
                                                 , makeTagName
@@ -42,16 +53,6 @@ class Model2XmlNode model where
 class Model2XmlElement model where
     toElement :: model -> Element
 
-class ModelRenderer model where
-    -- function definition
-    addIdType2Props :: (model -> ModelInfo) -> model -> Map Txt.Text Txt.Text
-    addIdType2Props f mdl = add2Map
-        (modelAttrs (f mdl))
-        [(Txt.pack "id", modelId (f mdl)),
-         (Txt.pack "type", modelType (f mdl))]
-
-    makeElement :: model -> Xml.Element
-
 -- instances
 instance Model2XmlNode UnitData where
     toNode (TextUnitDataCons   aMdl) = NodeContent aMdl
@@ -59,26 +60,25 @@ instance Model2XmlNode UnitData where
 
 -- transform unit model to xml
 
-instance ModelRenderer UnitModel where
-    makeElement um = Xml.Element
-        { Xml.elementName       = makeName (Txt.pack "unit")
-        , Xml.elementAttributes = convertTxt2NameMap
-                                      (addIdType2Props unitInfo um)
-        , Xml.elementNodes      = [Xml.NodeContent (unitData um)]
+instance Model2XmlElement Um.UnitModel where
+    toElement um = Element
+        { elementName       = makeName (pack "unit")
+        , elementAttributes = convertTxt2NameMap
+                                  (VUtils.toTxtMap (Um.modelInfo um))
+        , elementNodes      = [NodeContent (VUtils.toText (Um.modelData um))]
         }
 
 
 -- transform container model to xml
-instance ModelRenderer ContainerModel where
-    makeElement cm = Xml.Element
-        { Xml.elementName       = makeName (Txt.pack "container")
-        , Xml.elementAttributes = convertTxt2NameMap
-                                      (addIdType2Props containerInfo cm)
-        , Xml.elementNodes      = map (Xml.NodeElement . makeElement)
-                                      (containerData cm)
+instance Model2XmlElement Cm.ContainerModel where
+    toElement cm = Element
+        { elementName       = makeName (pack "container")
+        , elementAttributes = convertTxt2NameMap
+                                  (VUtils.toTxtMap (Cm.modelInfo cm))
+        , elementNodes      = map (NodeElement . toElement) (Cm.modelData cm)
         }
 
 -- transform container data to xml
-instance ModelRenderer ContainerData where
-    makeElement (NestedCons cm) = makeElement cm
-    makeElement (SimpleCons um) = makeElement um
+instance Model2XmlElement Cm.ContainerData where
+    toElement (NestedCons cm) = toElement cm
+    toElement (SimpleCons um) = toElement um

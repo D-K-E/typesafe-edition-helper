@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module ModelInfo
+module Model.ModelInfo
     ( ModelInfo(..)
     )
 where
@@ -14,8 +14,12 @@ where
 import           Model.ModelId                  ( ModelId )
 import           Model.ModelType                ( ModelType )
 import           Model.ModelAttr                ( ModelAttr )
-import           Utils.DataUtils                ( StringLikeCons )
-import           Data.Map                       ( fromList
+import           Utils.ModelUtils               ( StringLikeCons(..) )
+import           Utils.ViewUtils                ( Model2StringText(..)
+                                                , Model2Map(..)
+                                                )
+import           Utils.MapUtils                 ( convertTxtMap2String )
+import           Data.Map.Strict                ( fromList
                                                 , Map
                                                 , union
                                                 )
@@ -32,12 +36,22 @@ data ModelInfo = InfoCons {
     , modelAttr :: ModelAttr
     } deriving (Eq, Show)
 
-instance Model2Map ModelInfo where
-    getModelIdTypeMap :: model -> Map Text Text
-    getInfoMap :: model -> Map Text Text
-    getModelIdTypeMap aModel =
-        fromList [(pack "id", modelId aModel), (pack "type", modelType aModel)]
 
-    getInfoMap aModel = union (getModelIdTypeMap aModel) (modelAttr aModel)
-    toTxtMap aModel = getInfoMap aModel
+-- |'getModelIdTypeMap' transform model id type field
+-- to map with key value both as Text
+getModelIdTypeMap :: ModelInfo -> Map Text Text
+getModelIdTypeMap aModel = fromList
+    [ (pack "id"  , toText (modelId aModel))
+    , (pack "type", toText (modelType aModel))
+    ]
+
+-- |'getInfoMap' transform model info to map with key value both as Text
+getInfoMap :: ModelInfo -> Map Text Text
+getInfoMap aModel =
+    getModelIdTypeMap aModel `union` toTxtMap (modelAttr aModel)
+
+
+-- | convert model info to map
+instance Model2Map ModelInfo where
+    toTxtMap = getInfoMap
     toStringMap aModel = convertTxtMap2String (getInfoMap aModel)
