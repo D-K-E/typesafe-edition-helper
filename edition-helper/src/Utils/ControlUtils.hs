@@ -20,9 +20,10 @@ import           Utils.MapUtils                 ( convertStringKey
                                                 , convertStringVal
                                                 , convertTxtMap2String
                                                 )
+import           Utils.ViewUtils                (Model2StringText(..) )
 import           Model.ModelId                  ( ModelId )
 import           Model.ModelType                ( ModelType )
-import           Model.ModelInfo                ( ModelInfo )
+import           Model.ModelInfo                ( ModelInfo(..) )
 import           Model.ModelAttr                ( ModelAttr )
 import           Model.ModelData                ( ModelData(..) )
 
@@ -34,7 +35,7 @@ class MatchModel model where
     containsId :: model -> ModelId -> Bool
     containsType :: model -> ModelType -> Bool
     containsAttr :: model -> ModelAttr -> Bool
-    containsSameData :: model -> ModelData -> Bool
+    containsData :: model -> ModelData -> Bool
 
 class ReplaceField model where
     replaceId :: model -> ModelId -> model
