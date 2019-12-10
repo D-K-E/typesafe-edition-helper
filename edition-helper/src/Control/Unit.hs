@@ -52,22 +52,11 @@ instance ReplaceField UnitModel where
         UnitCons { modelInfo = minfo, modelData = modelData umodel }
 
 instance MatchModel UnitModel where
-    hasSameId umodel mid = modelId (modelInfo umodel) == mid
-    hasSameType umodel mtype = modelType (modelInfo umodel) == mtype
-    hasSameAttr umodel mattr = modelAttr (modelInfo umodel) == mattr
     hasSameData umodel (UData udata) = modelData umodel == udata
     hasSameData umodel (CData udata) =
         error
             "only UnitData is accepted for\
         \ equality check. ContainerData is given"
-    containsId umodel mid =
-        toString (modelId (modelInfo umodel)) `isInfixOf` toString mid
-    containsType umodel mtype =
-        toString (modelType (modelInfo umodel)) `isInfixOf` toString mtype
-    containsAttr umodel mattr = isSubmapOfBy
-        (==)
-        (toStringMap (modelAttr (modelInfo umodel)))
-        (toStringMap mattr)
     containsData umodel (UData udata) =
         toString (modelData umodel) `isInfixOf` toString udata
     containsData umodel (CData udata) =

@@ -147,12 +147,12 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li><a id="hint0" href="javascript:show('hint0')">Warning: Parse error: { (1)</a></li>
+<li><a id="hint0" href="javascript:show('hint0')">Warning: Redundant bracket (1)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
-<li><a id="file0" href="javascript:show('file0')">src/Control/Unit.hs (1)</a></li>
+<li><a id="file0" href="javascript:show('file0')">src/Utils/ControlUtils.hs (1)</a></li>
 </ul>
 
 </div>
@@ -164,14 +164,11 @@ v1.9.26
 </p>
 
 <div class="hint0 file0">
-src/Control/Unit.hs:33:5: Warning: Parse error: {<br/>
+src/Utils/ControlUtils.hs:105:22: Warning: Redundant bracket<br/>
 Found<br/>
-<pre>      <span class='hs-layout'>}</span>
-      <span class='hs-varid'>replaceType</span> <span class='hs-varid'>umodel</span> <span class='hs-varid'>mtype</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>UnitCons</span>
-<span class='hs-varop'>&gt;</span>     <span class='hs-layout'>{</span> <span class='hs-varid'>modelInfo</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>CMInfo</span><span class='hs-varop'>.</span><span class='hs-varid'>changeModelInfoType</span> <span class='hs-layout'>(</span><span class='hs-varid'>modelInfo</span> <span class='hs-varid'>umodel</span><span class='hs-layout'>)</span> <span class='hs-varid'>mtype</span>
-      <span class='hs-layout'>,</span> <span class='hs-varid'>modelData</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>modelData</span> <span class='hs-varid'>umodel</span>
-      <span class='hs-layout'>}</span>
-</pre>
+<pre><span class='hs-str'>"-"</span> <span class='hs-varop'>++</span> <span class='hs-layout'>(</span><span class='hs-varid'>toString</span> <span class='hs-varid'>mid</span><span class='hs-layout'>)</span></pre>
+Why not<br/>
+<pre><span class='hs-str'>"-"</span> <span class='hs-varop'>++</span> <span class='hs-varid'>toString</span> <span class='hs-varid'>mid</span></pre>
 
 </div>
 

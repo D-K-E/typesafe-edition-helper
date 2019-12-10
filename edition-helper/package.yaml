@@ -25,6 +25,8 @@ dependencies:
 - xml-hamlet
 - containers
 - text
+- filepath
+- directory
 
 library:
   source-dirs: src
