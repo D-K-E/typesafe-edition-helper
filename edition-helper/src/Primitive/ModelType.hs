@@ -21,7 +21,7 @@ import           Utils.StrUtils                 ( toLowerStr
                                                 )
 
 import           Utils.ModelUtils               ( StringLikeCons(..) )
-import           Utils.ViewUtils                ( Model2StringText(..) )
+import           View.Transformer               ( Model2StringText(..) )
 
 -- | model type: edition, inflected, glossary it can be constructed from string
 data ModelType = TextTypeCons Text

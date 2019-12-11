@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Model.ModelData
+module Model.Definition.ModelData
     ( ModelData(..)
     )
 where

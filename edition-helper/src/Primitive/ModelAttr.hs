@@ -15,10 +15,7 @@ import           Data.Map.Strict                ( Map
                                                 , elems
                                                 , keys
                                                 ) -- importing type
-import           Data.Text                      ( unpack
-                                                , pack
-                                                , Text
-                                                )
+import           Data.Text                      ( Text )
 import           Utils.StrUtils                 ( toLowerStr
                                                 , isAlphaNumStr
                                                 , isAsciiStr
@@ -30,7 +27,7 @@ import           Utils.MapUtils                 ( convertStringMap2Txt
 import           Utils.ModelUtils               ( StringLikeCons(..)
                                                 , ModelAttrMaker(..)
                                                 )
-import           Utils.ViewUtils                ( Model2Map(..) )
+import           View.Transformer               ( Model2Map(..) )
 
 
 -- | model attribute: unique key value non nested pairs
@@ -56,7 +53,7 @@ instance ModelAttrMaker ModelAttr where
         = StringAttrCons aMap
 
 instance Model2Map ModelAttr where
-    toTxtMap (TextAttrCons   aModel) = aModel
-    toTxtMap (StringAttrCons aModel) = convertStringMap2Txt aModel
+    toTextMap (TextAttrCons   aModel) = aModel
+    toTextMap (StringAttrCons aModel) = convertStringMap2Txt aModel
     toStringMap (StringAttrCons aModel) = aModel
     toStringMap (TextAttrCons   aModel) = convertTxtMap2String aModel
