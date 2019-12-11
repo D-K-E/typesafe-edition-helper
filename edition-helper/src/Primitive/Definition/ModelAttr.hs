@@ -6,8 +6,8 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Model.ModelAttr
-    ( ModelAttr
+module Primitive.ModelAttr
+    ( ModelAttr(..)
     )
 where
 
@@ -24,8 +24,8 @@ import           Utils.MapUtils                 ( convertStringMap2Txt
                                                 , convertTxtMap2String
                                                 )
 
-import           Utils.ModelUtils               ( StringLikeCons(..)
-                                                , ModelAttrMaker(..)
+import           PrimitiveFn.Setter             ( StringLikeSetter(..)
+                                                , ModelAttrSetter(..)
                                                 )
 import           View.Transformer               ( Model2Map(..) )
 
@@ -35,7 +35,7 @@ data ModelAttr = TextAttrCons (Map Text Text)
                 | StringAttrCons (Map String String)
                 deriving (Eq, Show)
 
-instance ModelAttrMaker ModelAttr where
+instance ModelAttrSetter ModelAttr where
     fromStringMap aMap
         | all null (elems aMap)
         = error "Attributes must have non empty values"

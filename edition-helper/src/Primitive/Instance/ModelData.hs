@@ -6,17 +6,17 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Model.ModelData
+module Primitive.ModelData
     ( ModelData(..)
     )
 where
-import           Model.UnitData                 ( UnitData )
-import           Model.Container                ( ContainerData )
-import           Model.Container                ( ContainerModel(..) )
-import           Utils.ViewUtils                ( Model2Tuple(..)
+import           Primitive.UnitData             ( UnitData )
+import           Primitive.Container            ( ContainerData )
+import           Primitive.Container            ( ContainerModel(..) )
+import           View.Transformer               ( Model2Tuple(..)
                                                 , Model2StringText(..)
                                                 )
-import           Utils.ModelUtils               ( StringLikeCons(..)
+import           PrimitiveFn.Setter             ( StringLikeSetter(..)
                                                 , ModelAttrMaker(..)
                                                 )
 
@@ -24,5 +24,5 @@ data ModelData = UData UnitData
                 | CData ContainerData
                 deriving (Eq, Show)
 
-instance StringLikeCons ModelData where
+instance StringLikeSetter ModelData where
     fromString astr = UData (fromString astr)

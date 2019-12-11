@@ -13,11 +13,11 @@ module Control.ModelInfo
     )
 where
 
-import           Model.ModelInfo               as MInfo
-                                                ( ModelInfo(..) )
-import           Model.ModelId                  ( ModelId )
-import           Model.ModelType                ( ModelType )
-import           Model.ModelAttr                ( ModelAttr )
+import           Primitive.ModelInfo               as MInfo
+                                                ( PrimitiveInfo(..) )
+import           Primitive.ModelId                  ( ModelId )
+import           Primitive.ModelType                ( ModelType )
+import           Primitive.ModelAttr                ( ModelAttr )
 
 -- |'changeModelInfoId' change id field of given model info
 changeModelInfoId :: ModelInfo -> ModelId -> ModelInfo

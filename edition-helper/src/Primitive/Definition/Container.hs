@@ -7,12 +7,12 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 
-module Model.Container where
+module Primitive.Container where
 
 -- definition related imports
-import           Model.ModelInfo                ( ModelInfo )
-import           Model.Unit                     ( UnitModel )
-import           Model.ModelData                ( CData )
+import           Primitive.Definition.ModelInfo ( ModelInfo )
+import           Primitive.Definition.Unit      ( UnitModel )
+import           Primitive.Definition.ModelData ( CData )
 -- end of definition related imports
 
 import           View.Transformer               ( Model2Tuple(..) )

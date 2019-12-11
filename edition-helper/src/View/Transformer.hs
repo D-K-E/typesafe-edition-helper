@@ -1,12 +1,12 @@
 {-|
-Module : ModelTransformer
+Module : Transformer
 License : see LICENSE
 Description : Regroups classes that transforms models into native data types
 Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module View.ModelTransformer
+module View.Transformer
     ( Model2StringText(..)
     , Model2Tuple(..)
     , Model2Map(..)
@@ -15,9 +15,8 @@ where
 
 import           Data.Map.Strict                ( Map )
 import           Data.Text                      ( Text )
-import           Model.ModelData                ( ModelData )
-import           Model.ModelInfo                ( ModelInfo )
-
+import           Primitive.ModelData            ( ModelData )
+import           Primitive.ModelInfo            ( ModelInfo )
 
 
 class Model2StringText model where

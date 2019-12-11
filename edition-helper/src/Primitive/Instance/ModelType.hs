@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Model.ModelType
+module Primitive.ModelType
     ( ModelType(..)
     )
 where
@@ -20,7 +20,7 @@ import           Utils.StrUtils                 ( toLowerStr
                                                 , isAsciiStr
                                                 )
 
-import           Utils.ModelUtils               ( StringLikeCons(..) )
+import           PrimitiveFn.Setter             ( StringLikeSetter(..) )
 import           View.Transformer               ( Model2StringText(..) )
 
 -- | model type: edition, inflected, glossary it can be constructed from string

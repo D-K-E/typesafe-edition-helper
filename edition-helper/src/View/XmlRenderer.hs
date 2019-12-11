@@ -7,17 +7,17 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 module View.XmlRenderer where
-import           Model.ModelId                  ( ModelId(..) )
-import           Model.ModelAttr                ( ModelAttr(..) )
-import           Model.ModelInfo                ( ModelInfo(..) )
-import           Model.ModelType                ( ModelType(..) )
-import qualified Model.Unit                    as Um
+import           Primitive.ModelId              ( ModelId(..) )
+import           Primitive.ModelAttr            ( ModelAttr(..) )
+import           Primitive.ModelInfo            ( ModelInfo(..) )
+import           Primitive.ModelType            ( ModelType(..) )
+import qualified Primitive.Unit                as Um
                                                 ( UnitModel(..)
                                                 , modelInfo
                                                 , modelData
                                                 )
-import           Model.UnitData                 ( UnitData(..) )
-import           Model.Container               as Cm
+import           Primitive.UnitData             ( UnitData(..) )
+import           Primitive.Container           as Cm
                                                 ( ContainerModel(..)
                                                 , ContainerData(..)
                                                 )
@@ -36,7 +36,7 @@ import           Text.XML                       ( Node(..)
 import           Utils.MapUtils                 ( add2Map
                                                 , convertTxt2NameMap
                                                 )
-import qualified Utils.ViewUtils               as VUtils
+import qualified View.Transformer              as VUtils
                                                 ( Model2StringText(..)
                                                 , Model2Map(..)
                                                 )

@@ -6,16 +6,16 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Model.ModelInfo
+module Primitive.ModelInfo
     ( ModelInfo(..)
     )
 where
 
-import           Model.ModelId                  ( ModelId )
-import           Model.ModelType                ( ModelType )
-import           Model.ModelAttr                ( ModelAttr )
-import           Utils.ModelUtils               ( StringLikeCons(..) )
-import           Utils.ViewUtils                ( Model2StringText(..)
+import           Primitive.ModelId              ( ModelId )
+import           Primitive.ModelType            ( ModelType )
+import           Primitive.ModelAttr            ( ModelAttr )
+import           PrimtiveFn.Setter              ( StringLikeSetter(..) )
+import           View.Transformer               ( Model2StringText(..)
                                                 , Model2Map(..)
                                                 )
 import           Utils.MapUtils                 ( convertTxtMap2String )

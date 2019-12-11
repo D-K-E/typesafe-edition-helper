@@ -6,20 +6,20 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Model.Unit
+module Primitive.Unit
     ( UnitModel(..)
     )
 where
 
-import           Model.ModelId                  ( ModelId )
-import           Model.ModelType                ( ModelType )
-import           Model.ModelAttr                ( ModelAttr )
-import           Model.ModelInfo                ( ModelInfo )
-import           Model.UnitData                 ( UnitData )
-import           Model.ModelData                ( ModelData
+import           Primitive.ModelId              ( ModelId )
+import           Primitive.ModelType            ( ModelType )
+import           Primitive.ModelAttr            ( ModelAttr )
+import           Primitive.ModelInfo            ( ModelInfo )
+import           Primitive.UnitData             ( UnitData )
+import           Primitive.ModelData            ( ModelData
                                                 , UData
                                                 )
-import           Utils.ViewUtils                ( Model2Tuple(..) )
+import           View.Transformer               ( Model2Tuple(..) )
 
 -- | unit model: simple text unit with some meta data
 data UnitModel = UnitCons {

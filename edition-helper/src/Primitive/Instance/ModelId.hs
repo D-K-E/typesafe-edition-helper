@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Model.ModelId
+module Primitive.ModelId
     ( ModelId(..)
     )
 where
@@ -19,8 +19,8 @@ import           Utils.StrUtils                 ( isAlphaNumStr
                                                 , isAsciiStr
                                                 )
 
-import           Utils.ModelUtils               ( StringLikeCons(..) )
-import           Utils.ViewUtils                ( Model2StringText(..) )
+import           PrimitiveFn.Setter             ( StringLikeSetter(..) )
+import           View.Transformer               ( Model2StringText(..) )
 
 
 -- | model id: alphanumeric non empty string has to be unique for each model
@@ -28,7 +28,7 @@ data ModelId = TextIdCons Text
                 | StringIdCons String
                 deriving (Eq, Show)
 
-instance StringLikeCons ModelId where
+instance StringLikeSetter ModelId where
     fromString aStr
         | null aStr
         = error "empty string is not allowed as id"
