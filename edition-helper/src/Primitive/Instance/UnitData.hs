@@ -6,22 +6,23 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.UnitData
-    ( UnitData(..)
-    )
-where
+module Primitive.Instance.UnitData where
 
+import           Primitive.Definition.UnitData  ( UnitData
+                                                , StringUnitDataCons
+                                                , TextUnitDataCons
+                                                )
 import           Data.Text                      ( Text
                                                 , unpack
                                                 , pack
                                                 ) -- importing type
-import           PrimitiveFn.Setter             ( StringLikeSetter(..) )
-import           View.Transformer               ( Model2StringText(..) )
-
--- | unit data: a string like data
-data UnitData = StringUnitDataCons String
-                | TextUnitDataCons Text
-                deriving (Eq, Show)
+import           FunctionDef.Setter             ( StringLikeSetter
+                                                , fromString
+                                                )
+import           View.Transformer               ( Model2StringText
+                                                , toString
+                                                , toText
+                                                )
 
 instance StringLikeSetter UnitData where
     fromString aStr | null aStr = error "empty string is not allowed as data"

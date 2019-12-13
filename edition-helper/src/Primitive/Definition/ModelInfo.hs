@@ -6,28 +6,14 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.ModelInfo
+module Primitive.Definition.ModelInfo
     ( ModelInfo(..)
     )
 where
 
-import           Primitive.ModelId              ( ModelId )
-import           Primitive.ModelType            ( ModelType )
-import           Primitive.ModelAttr            ( ModelAttr )
-import           PrimtiveFn.Setter              ( StringLikeSetter(..) )
-import           View.Transformer               ( Model2StringText(..)
-                                                , Model2Map(..)
-                                                )
-import           Utils.MapUtils                 ( convertTxtMap2String )
-import           Data.Map.Strict                ( fromList
-                                                , Map
-                                                , union
-                                                )
-import           Data.Text                      ( Text
-                                                , pack
-                                                , unpack
-                                                )
-
+import           Primitive.Definition.ModelId   ( ModelId )
+import           Primitive.Definition.ModelType ( ModelType )
+import           Primitive.Definition.ModelAttr ( ModelAttr )
 
 -- | model info: contains meta data with regard to unit/container model
 data ModelInfo = InfoCons {
@@ -35,23 +21,3 @@ data ModelInfo = InfoCons {
     , modelType :: ModelType
     , modelAttr :: ModelAttr
     } deriving (Eq, Show)
-
-
--- |'getModelIdTypeMap' transform model id type field
--- to map with key value both as Text
-getModelIdTypeMap :: ModelInfo -> Map Text Text
-getModelIdTypeMap aModel = fromList
-    [ (pack "id"  , toText (modelId aModel))
-    , (pack "type", toText (modelType aModel))
-    ]
-
--- |'getInfoMap' transform model info to map with key value both as Text
-getInfoMap :: ModelInfo -> Map Text Text
-getInfoMap aModel =
-    getModelIdTypeMap aModel `union` toTxtMap (modelAttr aModel)
-
-
--- | convert model info to map
-instance Model2Map ModelInfo where
-    toTxtMap = getInfoMap
-    toStringMap aModel = convertTxtMap2String (getInfoMap aModel)

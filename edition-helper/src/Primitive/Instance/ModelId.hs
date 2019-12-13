@@ -6,10 +6,11 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.ModelId
-    ( ModelId(..)
-    )
-where
+module Primitive.Instance.ModelId where
+
+import           Primitive.Definition.ModelId   ( StringIdCons
+                                                , TextIdCons
+                                                )
 import           Data.Map.Strict                ( Map ) -- importing type
 import           Data.Text                      ( Text
                                                 , pack
@@ -19,14 +20,14 @@ import           Utils.StrUtils                 ( isAlphaNumStr
                                                 , isAsciiStr
                                                 )
 
-import           PrimitiveFn.Setter             ( StringLikeSetter(..) )
-import           View.Transformer               ( Model2StringText(..) )
+import           PrimitiveFn.Setter             ( StringLikeSetter
+                                                , fromString
+                                                )
+import           View.Transformer               ( Model2StringText
+                                                , toString
+                                                , toText
+                                                )
 
-
--- | model id: alphanumeric non empty string has to be unique for each model
-data ModelId = TextIdCons Text
-                | StringIdCons String
-                deriving (Eq, Show)
 
 instance StringLikeSetter ModelId where
     fromString aStr

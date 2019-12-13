@@ -6,10 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.ModelType
-    ( ModelType(..)
-    )
-where
+module Primitive.Instance.ModelType where
 
 import           Data.Text                      ( Text
                                                 , pack
@@ -20,15 +17,19 @@ import           Utils.StrUtils                 ( toLowerStr
                                                 , isAsciiStr
                                                 )
 
-import           PrimitiveFn.Setter             ( StringLikeSetter(..) )
-import           View.Transformer               ( Model2StringText(..) )
+import           PrimitiveFn.Setter             ( StringLikeSetter
+                                                , fromString
+                                                )
+import           Primitive.Definition.ModelType ( ModelType
+                                                , StringTypeCons
+                                                , TextTypeCons
+                                                )
+import           View.Transformer               ( Model2StringText
+                                                , toString
+                                                , toText
+                                                )
 
--- | model type: edition, inflected, glossary it can be constructed from string
-data ModelType = TextTypeCons Text
-                | StringTypeCons String
-                deriving (Eq, Show)
-
-instance StringLikeCons ModelType where
+instance StringLikeSetter ModelType where
     fromString typeName
         | toLowerStr typeName == "edition" = StringTypeCons "edition"
         | toLowerStr typeName == "transliteration" = StringTypeCons

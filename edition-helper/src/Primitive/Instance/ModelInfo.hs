@@ -6,17 +6,17 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.ModelInfo
+module Primitive.Instance.ModelInfo
     ( ModelInfo(..)
     )
 where
 
-import           Primitive.ModelId              ( ModelId )
-import           Primitive.ModelType            ( ModelType )
-import           Primitive.ModelAttr            ( ModelAttr )
-import           PrimtiveFn.Setter              ( StringLikeSetter(..) )
+import           Primitive.Definition.ModelInfo ( ModelInfo )
+import           FunctionDef.Setter             ( StringLikeSetter(..) )
 import           View.Transformer               ( Model2StringText(..)
-                                                , Model2Map(..)
+                                                , Model2Map
+                                                , toTxtMap
+                                                , toStringMap
                                                 )
 import           Utils.MapUtils                 ( convertTxtMap2String )
 import           Data.Map.Strict                ( fromList
@@ -25,16 +25,7 @@ import           Data.Map.Strict                ( fromList
                                                 )
 import           Data.Text                      ( Text
                                                 , pack
-                                                , unpack
                                                 )
-
-
--- | model info: contains meta data with regard to unit/container model
-data ModelInfo = InfoCons {
-      modelId :: ModelId
-    , modelType :: ModelType
-    , modelAttr :: ModelAttr
-    } deriving (Eq, Show)
 
 
 -- |'getModelIdTypeMap' transform model id type field

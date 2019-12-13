@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module PrimitiveFn.Setter
+module FunctionDef.Setter
     ( StringLikeSetter(..)
     , ModelAttrSetter(..)
     )

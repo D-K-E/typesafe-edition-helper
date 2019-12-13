@@ -10,7 +10,10 @@ Stability : Experimental
 module Primitive.Instance.Container where
 
 -- definition related imports
-import           Primitive.Definition.Container ( CData )
+import           Primitive.Definition.Container ( CData
+                                                , modelInfo
+                                                , modelData
+                                                )
 -- end of definition related imports
 
 import           View.Transformer               ( Model2Tuple(..) )

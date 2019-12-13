@@ -6,26 +6,19 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Unit
-    ( UnitModel(..)
-    )
-where
+module Primitive.Instance.Unit where
 
-import           Primitive.ModelId              ( ModelId )
-import           Primitive.ModelType            ( ModelType )
-import           Primitive.ModelAttr            ( ModelAttr )
-import           Primitive.ModelInfo            ( ModelInfo )
-import           Primitive.UnitData             ( UnitData )
-import           Primitive.ModelData            ( ModelData
+
+import           Primitive.Definition.Unit      ( UnitModel
+                                                , modelInfo
+                                                , modelData
+                                                )
+import           Primitive.Definition.ModelData ( ModelData
                                                 , UData
                                                 )
-import           View.Transformer               ( Model2Tuple(..) )
-
--- | unit model: simple text unit with some meta data
-data UnitModel = UnitCons {
-    modelInfo :: ModelInfo
-  , modelData :: UnitData
-  } deriving (Eq, Show)
+import           View.Transformer               ( Model2Tuple
+                                                , toTuple
+                                                )
 
 instance Model2Tuple UnitModel where
     toTuple model = (modelInfo model, UData (modelData model))

@@ -1,39 +1,30 @@
 {-|
 Module : Model
 License : see LICENSE
-Description : ModelAttr primitive
+Description : ModelAttr primitive instance
 Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.ModelAttr
-    ( ModelAttr(..)
-    )
-where
+module Primitive.Instance.ModelAttr where
 
-import           Data.Map.Strict                ( Map
-                                                , elems
+import           Data.Map.Strict                ( elems
                                                 , keys
                                                 ) -- importing type
-import           Data.Text                      ( Text )
-import           Utils.StrUtils                 ( toLowerStr
-                                                , isAlphaNumStr
+import           Utils.StrUtils                 ( isAlphaNumStr
                                                 , isAsciiStr
                                                 )
 import           Utils.MapUtils                 ( convertStringMap2Txt
                                                 , convertTxtMap2String
                                                 )
 
-import           PrimitiveFn.Setter             ( StringLikeSetter(..)
-                                                , ModelAttrSetter(..)
+import           PrimitiveFn.Setter             ( ModelAttrSetter(..) )
+import           Primitive.Definition.ModelAttr ( ModelAttr
+                                                , StringAttrCons
+                                                , TextAttrCons
                                                 )
 import           View.Transformer               ( Model2Map(..) )
 
-
--- | model attribute: unique key value non nested pairs
-data ModelAttr = TextAttrCons (Map Text Text)
-                | StringAttrCons (Map String String)
-                deriving (Eq, Show)
 
 instance ModelAttrSetter ModelAttr where
     fromStringMap aMap

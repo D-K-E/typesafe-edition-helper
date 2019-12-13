@@ -9,30 +9,31 @@ Stability : Experimental
 module Control.Unit
     ()
 where
-import           Model.Unit                     ( UnitModel(..) )
-import           Model.UnitData                 ( UnitData(..) )
-import           Model.ModelInfo               as MInfo
+import           Primitive.Definition.Unit      ( UnitModel(..) )
+import           Primitive.Definition.UnitData  ( UnitData(..) )
+import           Primitive.Definition.ModelInfo
+                                               as MInfo
                                                 ( ModelInfo(..) )
-import           Model.ModelId                  ( ModelId )
-import           Model.ModelType                ( ModelType )
-import           Model.ModelAttr                ( ModelAttr )
-import           Model.ModelData                ( ModelData(..) )
+import           Primitive.Definition.ModelId   ( ModelId )
+import           Primitive.Definition.ModelType ( ModelType )
+import           Primitive.Definition.ModelAttr ( ModelAttr )
+import           Primitive.Definition.ModelData ( ModelData(..) )
 import           Control.ModelInfo             as CMInfo
                                                 ( changeModelInfoId
                                                 , changeModelInfoType
                                                 , changeModelInfoAttr
                                                 )
-import           Utils.ModelUtils               ( StringLikeCons(..)
-                                                , ModelAttrMaker(..)
+import           FunctionDef.Setter             ( StringLikeSetter(..)
+                                                , ModelAttrSetter(..)
                                                 )
-import           Utils.ViewUtils                ( Model2StringText(..)
+import           View.Transformer               ( Model2StringText(..)
                                                 , Model2Map(..)
                                                 )
 import           Utils.StrUtils                 ( appendOrPrepend )
-import           Utils.ControlUtils             ( ReplaceField(..)
-                                                , MatchModel(..)
+import           FunctionDef.Modifier           ( ReplaceField(..)
                                                 , Add2Field(..)
                                                 )
+import           FunctionDef.Matcher            ( MatchModel(..) )
 import           Data.List                      ( isInfixOf )
 import           Data.Map.Strict                ( isSubmapOfBy
                                                 , union

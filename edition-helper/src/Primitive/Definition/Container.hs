@@ -7,7 +7,7 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 
-module Primitive.Container where
+module Primitive.Definition.Container where
 
 -- definition related imports
 import           Primitive.Definition.ModelInfo ( ModelInfo )
@@ -29,6 +29,3 @@ data ContainerModel = ContainerCons {
       modelInfo :: ModelInfo
     , modelData :: [ContainerData]
     } deriving (Eq, Show)
-
-instance Model2Tuple ContainerModel where
-    toTuple model = (modelInfo model, CData (modelData model))
