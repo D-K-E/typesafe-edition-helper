@@ -6,10 +6,15 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.ModelId where
+module Primitive.Instance.ModelId
+    ( ModelId
+    )
+where
 
-import           Primitive.Definition.ModelId   ( StringIdCons
-                                                , TextIdCons
+import           Primitive.Definition.ModelId   ( ModelId
+                                                    ( StringIdCons
+                                                    , TextIdCons
+                                                    )
                                                 )
 import           Data.Map.Strict                ( Map ) -- importing type
 import           Data.Text                      ( Text
@@ -20,7 +25,7 @@ import           Utils.StrUtils                 ( isAlphaNumStr
                                                 , isAsciiStr
                                                 )
 
-import           PrimitiveFn.Setter             ( StringLikeSetter
+import           FunctionDef.Setter             ( StringLikeSetter
                                                 , fromString
                                                 )
 import           View.Transformer               ( Model2StringText

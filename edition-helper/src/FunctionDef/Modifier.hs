@@ -15,7 +15,6 @@ import           Primitive.Definition.ModelData ( ModelData )
 import           Primitive.Definition.ModelInfo ( ModelInfo )
 
 
-
 -- | 'ReplaceField' class outlines methods to replace model to given field
 class ReplaceField model where
 

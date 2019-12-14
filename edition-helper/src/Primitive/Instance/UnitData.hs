@@ -6,11 +6,15 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.UnitData where
+module Primitive.Instance.UnitData
+    ( UnitData
+    )
+where
 
 import           Primitive.Definition.UnitData  ( UnitData
-                                                , StringUnitDataCons
-                                                , TextUnitDataCons
+                                                    ( StringUnitDataCons
+                                                    , TextUnitDataCons
+                                                    )
                                                 )
 import           Data.Text                      ( Text
                                                 , unpack

@@ -6,7 +6,10 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.ModelAttr where
+module Primitive.Instance.ModelAttr
+    ( ModelAttr
+    )
+where
 
 import           Data.Map.Strict                ( elems
                                                 , keys
@@ -18,12 +21,17 @@ import           Utils.MapUtils                 ( convertStringMap2Txt
                                                 , convertTxtMap2String
                                                 )
 
-import           PrimitiveFn.Setter             ( ModelAttrSetter(..) )
+import           FunctionDef.Setter             ( ModelAttrSetter(..) )
 import           Primitive.Definition.ModelAttr ( ModelAttr
-                                                , StringAttrCons
-                                                , TextAttrCons
+                                                    ( StringAttrCons
+                                                    , TextAttrCons
+                                                    )
                                                 )
-import           View.Transformer               ( Model2Map(..) )
+import           View.Transformer               ( Model2Map
+                                                    ( toTextMap
+                                                    , toStringMap
+                                                    )
+                                                )
 
 
 instance ModelAttrSetter ModelAttr where

@@ -6,7 +6,10 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.ModelType where
+module Primitive.Instance.ModelType
+    ( ModelType
+    )
+where
 
 import           Data.Text                      ( Text
                                                 , pack
@@ -17,12 +20,13 @@ import           Utils.StrUtils                 ( toLowerStr
                                                 , isAsciiStr
                                                 )
 
-import           PrimitiveFn.Setter             ( StringLikeSetter
+import           FunctionDef.Setter             ( StringLikeSetter
                                                 , fromString
                                                 )
 import           Primitive.Definition.ModelType ( ModelType
-                                                , StringTypeCons
-                                                , TextTypeCons
+                                                    ( StringTypeCons
+                                                    , TextTypeCons
+                                                    )
                                                 )
 import           View.Transformer               ( Model2StringText
                                                 , toString

@@ -11,11 +11,14 @@ module Primitive.Instance.ModelInfo
     )
 where
 
-import           Primitive.Definition.ModelInfo ( ModelInfo )
+import           Primitive.Definition.ModelInfo ( ModelInfo(..) )
+import           Primitive.Instance.ModelId     ( ModelId )
+import           Primitive.Instance.ModelType   ( ModelType )
+import           Primitive.Instance.ModelAttr   ( ModelAttr )
 import           FunctionDef.Setter             ( StringLikeSetter(..) )
 import           View.Transformer               ( Model2StringText(..)
                                                 , Model2Map
-                                                , toTxtMap
+                                                , toTextMap
                                                 , toStringMap
                                                 )
 import           Utils.MapUtils                 ( convertTxtMap2String )
@@ -39,10 +42,10 @@ getModelIdTypeMap aModel = fromList
 -- |'getInfoMap' transform model info to map with key value both as Text
 getInfoMap :: ModelInfo -> Map Text Text
 getInfoMap aModel =
-    getModelIdTypeMap aModel `union` toTxtMap (modelAttr aModel)
+    getModelIdTypeMap aModel `union` toTextMap (modelAttr aModel)
 
 
 -- | convert model info to map
 instance Model2Map ModelInfo where
-    toTxtMap = getInfoMap
+    toTextMap = getInfoMap
     toStringMap aModel = convertTxtMap2String (getInfoMap aModel)

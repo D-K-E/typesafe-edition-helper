@@ -15,8 +15,8 @@ where
 
 import           Data.Map.Strict                ( Map )
 import           Data.Text                      ( Text )
-import           Primitive.ModelData            ( ModelData )
-import           Primitive.ModelInfo            ( ModelInfo )
+import           Primitive.Definition.ModelData ( ModelData )
+import           Primitive.Definition.ModelInfo ( ModelInfo )
 
 
 class Model2StringText model where
@@ -27,5 +27,5 @@ class Model2Tuple model where
     toTuple :: model -> (ModelInfo, ModelData)
 
 class Model2Map model where
-    toTxtMap :: model -> Map Text Text
+    toTextMap :: model -> Map Text Text
     toStringMap :: model -> Map String String

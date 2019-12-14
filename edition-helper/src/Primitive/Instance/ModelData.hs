@@ -7,12 +7,11 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 module Primitive.Instance.ModelData
-    ( ModelData(..)
+    ( ModelData
     )
 where
-import           Primitive.Definition.ModelData ( ModelData
-                                                , UData
-                                                )
+import           Primitive.Definition.ModelData ( ModelData(UData) )
+import           Primitive.Instance.UnitData    ( UnitData )
 import           FunctionDef.Setter             ( StringLikeSetter
                                                 , fromString
                                                 )

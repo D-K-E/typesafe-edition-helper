@@ -7,15 +7,16 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 
-module Primitive.Definition.Container where
+module Primitive.Definition.Container
+    ( ContainerData(..)
+    , ContainerModel(..)
+    )
+where
 
 -- definition related imports
 import           Primitive.Definition.ModelInfo ( ModelInfo )
 import           Primitive.Definition.Unit      ( UnitModel )
-import           Primitive.Definition.ModelData ( CData )
 -- end of definition related imports
-
-import           View.Transformer               ( Model2Tuple(..) )
 
 -- | container data: container data model which can be either a container
 -- model or unit model

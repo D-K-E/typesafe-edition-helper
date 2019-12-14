@@ -6,7 +6,10 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module FunctionDef.Matcher where
+module FunctionDef.Matcher
+    ( MatchModel(..)
+    )
+where
 
 import           Primitive.Definition.ModelId   ( ModelId )
 import           Primitive.Definition.ModelType ( ModelType )

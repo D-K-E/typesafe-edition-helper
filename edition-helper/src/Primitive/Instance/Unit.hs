@@ -13,9 +13,7 @@ import           Primitive.Definition.Unit      ( UnitModel
                                                 , modelInfo
                                                 , modelData
                                                 )
-import           Primitive.Definition.ModelData ( ModelData
-                                                , UData
-                                                )
+import           Primitive.Definition.ModelData ( ModelData(UData) )
 import           View.Transformer               ( Model2Tuple
                                                 , toTuple
                                                 )
