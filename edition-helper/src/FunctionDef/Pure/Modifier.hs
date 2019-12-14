@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module FunctionDef.Modifier
+module FunctionDef.Pure.Modifier
     ( ReplaceInfoField(..)
     , ReplaceField(..)
     , Add2Field(..)

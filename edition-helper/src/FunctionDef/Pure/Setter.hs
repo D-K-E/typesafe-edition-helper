@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module FunctionDef.Setter
+module FunctionDef.Pure.Setter
     ( StringLikeSetter(..)
     , ModelAttrSetter(..)
     )
@@ -21,19 +21,18 @@ import           Utils.MapUtils                 ( convertStringKey
                                                 , convertStringVal
                                                 , convertTxtMap2String
                                                 )
-import           Control.Monad                  ( Monad )
 
 
 class StringLikeSetter model where
-    fromString :: (Monad m) => String -> m model
-    fromText :: (Monad m) => Text -> m model
+    fromString :: String -> model
+    fromText :: Text -> model
     fromText aText = fromString (unpack aText)
 
 class ModelAttrSetter model where
-    fromStringMap :: (Monad m) => Map String String -> m model
-    fromTextMap :: (Monad m) => Map Text Text -> m model
-    fromMixedStrMap :: (Monad m) => Map String Text -> m model
-    fromMixedTextMap :: (Monad m) => Map Text String -> m model
+    fromStringMap :: Map String String -> m model
+    fromTextMap :: Map Text Text -> m model
+    fromMixedStrMap :: Map String Text -> m model
+    fromMixedTextMap :: Map Text String -> m model
 
     fromMixedStrMap aMap = fromTextMap (convertStringKey aMap)
     fromMixedTextMap aMap = fromTextMap (convertStringVal aMap)
