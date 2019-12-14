@@ -6,7 +6,12 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module FunctionDef.Modifier where
+module FunctionDef.Modifier
+    ( ReplaceInfoField(..)
+    , ReplaceField(..)
+    , Add2Field(..)
+    )
+where
 
 import           Primitive.Definition.ModelId   ( ModelId )
 import           Primitive.Definition.ModelType ( ModelType )
@@ -15,20 +20,22 @@ import           Primitive.Definition.ModelData ( ModelData )
 import           Primitive.Definition.ModelInfo ( ModelInfo )
 
 
--- | 'ReplaceField' class outlines methods to replace model to given field
-class ReplaceField model where
+-- | 'ReplaceInfoField' class outlines methods to replace model info fields
+class ReplaceInfoField model where
 
     -- |'replaceId' replaces id of model with given ModelId
     replaceId :: model -> ModelId -> model
     -- |'replaceType' replaces Type of model with given ModelType
     replaceType :: model -> ModelType -> model
-
     -- |'replaceAttr' replaces Attr of model with given ModelAttr
     replaceAttr :: model -> ModelAttr -> model
 
+
+-- | 'ReplaceField' class outlines methods to replace model to given field
+class (ReplaceInfoField model) => ReplaceField model where
+
     -- |'replaceInfo' replaces Info of model with given ModelInfo
     replaceInfo :: model -> ModelInfo -> model
-
     -- |'replaceData' replaces Data of model with given ModelData
     replaceData :: model -> ModelData -> model
 

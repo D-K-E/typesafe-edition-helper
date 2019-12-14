@@ -21,18 +21,19 @@ import           Utils.MapUtils                 ( convertStringKey
                                                 , convertStringVal
                                                 , convertTxtMap2String
                                                 )
+import           Control.Monad                  ( Monad )
 
 
 class StringLikeSetter model where
-    fromString :: String -> model
-    fromText :: Text -> model
+    fromString :: (Monad m) => String -> m model
+    fromText :: (Monad m) => Text -> m model
     fromText aText = fromString (unpack aText)
 
 class ModelAttrSetter model where
-    fromStringMap :: Map String String -> model
-    fromTextMap :: Map Text Text -> model
-    fromMixedStrMap :: Map String Text -> model
-    fromMixedTextMap :: Map Text String -> model
+    fromStringMap :: (Monad m) => Map String String -> m model
+    fromTextMap :: (Monad m) => Map Text Text -> m model
+    fromMixedStrMap :: (Monad m) => Map String Text -> m model
+    fromMixedTextMap :: (Monad m) => Map Text String -> m model
 
     fromMixedStrMap aMap = fromTextMap (convertStringKey aMap)
     fromMixedTextMap aMap = fromTextMap (convertStringVal aMap)

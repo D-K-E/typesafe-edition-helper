@@ -11,11 +11,18 @@ module Primitive.Instance.ModelInfo
     )
 where
 
-import           Primitive.Definition.ModelInfo ( ModelInfo(..) )
+import           Primitive.Definition.ModelInfo ( ModelInfo
+                                                    ( modelId
+                                                    , modelType
+                                                    , modelAttr
+                                                    , InfoCons
+                                                    )
+                                                )
 import           Primitive.Instance.ModelId     ( ModelId )
 import           Primitive.Instance.ModelType   ( ModelType )
 import           Primitive.Instance.ModelAttr   ( ModelAttr )
 import           FunctionDef.Setter             ( StringLikeSetter(..) )
+import           FunctionDef.Modifier           ( ReplaceInfoField(..) )
 import           View.Transformer               ( Model2StringText(..)
                                                 , Model2Map
                                                 , toTextMap
@@ -49,3 +56,17 @@ getInfoMap aModel =
 instance Model2Map ModelInfo where
     toTextMap = getInfoMap
     toStringMap aModel = convertTxtMap2String (getInfoMap aModel)
+
+instance ReplaceInfoField ModelInfo where
+    replaceId minfo mid = InfoCons { modelId   = mid
+                                   , modelType = modelType minfo
+                                   , modelAttr = modelAttr minfo
+                                   }
+    replaceType minfo mtype = InfoCons { modelId   = modelId minfo
+                                       , modelType = mtype
+                                       , modelAttr = modelAttr minfo
+                                       }
+    replaceAttr minfo mattr = InfoCons { modelId   = modelId minfo
+                                       , modelType = modelType minfo
+                                       , modelAttr = mattr
+                                       }

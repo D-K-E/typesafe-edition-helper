@@ -21,7 +21,9 @@ import           Primitive.Definition.Container ( modelInfo
 import           Primitive.Definition.ModelData ( ModelData(CData) )
 -- end of definition related imports
 
-import           FunctionDef.Modifier           ( ReplaceField(..)
+import           Primitive.Instance.ModelInfo   ( ModelInfo )
+import           FunctionDef.Modifier           ( ReplaceInfoField
+                                                , ReplaceField(..)
                                                 , Add2Field(..)
                                                 )
 import           FunctionDef.Matcher            ( MatchModel(..) )
@@ -32,19 +34,21 @@ instance Model2Tuple ContainerModel where
     toTuple model = (modelInfo model, CData (modelData model))
 
 
-instance ReplaceField ContainerModel where
+instance ReplaceInfoField ContainerModel where
     replaceId cmodel mid = ContainerCons
-        { modelInfo = CMInfo.changeModelInfoId (modelInfo cmodel) mid
+        { modelInfo = replaceId (modelInfo cmodel) mid
         , modelData = modelData cmodel
         }
     replaceType cmodel mtype = ContainerCons
-        { modelInfo = CMInfo.changeModelInfoType (modelInfo cmodel) mtype
+        { modelInfo = replaceType (modelInfo cmodel) mtype
         , modelData = modelData cmodel
         }
     replaceAttr cmodel mattr = ContainerCons
-        { modelInfo = CMInfo.changeModelInfoAttr (modelInfo cmodel) mattr
+        { modelInfo = replaceAttr (modelInfo cmodel) mattr
         , modelData = modelData cmodel
         }
+
+instance ReplaceField ContainerModel where
     replaceData cmodel (CData cdata) =
         ContainerCons { modelInfo = modelInfo cmodel, modelData = cdata }
     replaceData cmodel (UData cdata) = error

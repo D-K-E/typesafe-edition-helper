@@ -29,8 +29,8 @@ import           View.Transformer               ( Model2StringText
                                                 )
 
 instance StringLikeSetter UnitData where
-    fromString aStr | null aStr = error "empty string is not allowed as data"
-                    | otherwise = StringUnitDataCons aStr
+    fromString aStr | null aStr = fail "empty string is not allowed as data"
+                    | otherwise = return (StringUnitDataCons aStr)
 
 instance Model2StringText UnitData where
     toString (StringUnitDataCons ud) = ud

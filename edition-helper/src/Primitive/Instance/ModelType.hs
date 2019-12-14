@@ -35,20 +35,23 @@ import           View.Transformer               ( Model2StringText
 
 instance StringLikeSetter ModelType where
     fromString typeName
-        | toLowerStr typeName == "edition" = StringTypeCons "edition"
-        | toLowerStr typeName == "transliteration" = StringTypeCons
+        | toLowerStr typeName == "edition" = return StringTypeCons "edition"
+        | toLowerStr typeName == "transliteration" = return
+            StringTypeCons
             "transliteration"
-        | toLowerStr typeName == "translation" = StringTypeCons "translation"
-        | toLowerStr typeName == "note" = StringTypeCons "note"
-        | toLowerStr typeName == "info" = StringTypeCons "info"
-        | toLowerStr typeName == "text" = StringTypeCons "text"
-        | toLowerStr typeName == "term" = StringTypeCons "term"
-        | toLowerStr typeName == "glossary" = StringTypeCons "glossary"
-        | toLowerStr typeName == "inflected" = StringTypeCons "inflected"
-        | toLowerStr typeName == "attestation" = StringTypeCons "attestation"
-        | toLowerStr typeName == "lemma" = StringTypeCons "lemma"
-        | toLowerStr typeName == "analysis" = StringTypeCons "analysis"
-        | otherwise = error ("unknown model type " ++ typeName)
+        | toLowerStr typeName == "translation" = return StringTypeCons
+                                                        "translation"
+        | toLowerStr typeName == "note" = return StringTypeCons "note"
+        | toLowerStr typeName == "info" = return StringTypeCons "info"
+        | toLowerStr typeName == "text" = return StringTypeCons "text"
+        | toLowerStr typeName == "term" = return StringTypeCons "term"
+        | toLowerStr typeName == "glossary" = return StringTypeCons "glossary"
+        | toLowerStr typeName == "inflected" = return StringTypeCons "inflected"
+        | toLowerStr typeName == "attestation" = return StringTypeCons
+                                                        "attestation"
+        | toLowerStr typeName == "lemma" = return StringTypeCons "lemma"
+        | toLowerStr typeName == "analysis" = return StringTypeCons "analysis"
+        | otherwise = fail ("unknown model type " ++ typeName)
 
 
 instance Model2StringText ModelType where

@@ -37,13 +37,13 @@ import           View.Transformer               ( Model2StringText
 instance StringLikeSetter ModelId where
     fromString aStr
         | null aStr
-        = error "empty string is not allowed as id"
+        = fail "empty string is not allowed as id"
         | not (isAlphaNumStr aStr)
-        = error "Only ascii alphanumeric strings are allowed"
+        = fail "Only ascii alphanumeric strings are allowed"
         | not (isAsciiStr aStr)
-        = error "Only ascii alphanumeric strings are allowed"
+        = fail "Only ascii alphanumeric strings are allowed"
         | otherwise
-        = StringIdCons aStr
+        = return (StringIdCons aStr)
 
 instance Model2StringText ModelId where
     toString (StringIdCons aModel) = aModel

@@ -17,4 +17,4 @@ import           FunctionDef.Setter             ( StringLikeSetter
                                                 )
 
 instance StringLikeSetter ModelData where
-    fromString astr = UData (fromString astr)
+    fromString astr = return (UData makeUData astr)

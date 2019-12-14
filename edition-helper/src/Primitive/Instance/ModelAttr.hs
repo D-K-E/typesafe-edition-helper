@@ -37,22 +37,22 @@ import           View.Transformer               ( Model2Map
 instance ModelAttrSetter ModelAttr where
     fromStringMap aMap
         | all null (elems aMap)
-        = error "Attributes must have non empty values"
+        = fail "Attributes must have non empty values"
         | not (all isAlphaNumStr (elems aMap))
-        = error "Attributes must have alphanumeric values"
+        = fail "Attributes must have alphanumeric values"
         | not (all isAsciiStr (elems aMap))
-        = error "Attributes must have ascii values"
+        = fail "Attributes must have ascii values"
         | not (all isAlphaNumStr (keys aMap))
-        = error "Attributes must have alphanumeric keys"
+        = fail "Attributes must have alphanumeric keys"
         | not (all isAsciiStr (keys aMap))
-        = error "Attributes must have ascii keys"
+        = fail "Attributes must have ascii keys"
         | all null (keys aMap)
-        = error "Attributes must have non empty keys"
+        = fail "Attributes must have non empty keys"
         | otherwise
-        = StringAttrCons aMap
+        = return StringAttrCons aMap
 
 instance Model2Map ModelAttr where
-    toTextMap (TextAttrCons   aModel) = aModel
-    toTextMap (StringAttrCons aModel) = convertStringMap2Txt aModel
-    toStringMap (StringAttrCons aModel) = aModel
-    toStringMap (TextAttrCons   aModel) = convertTxtMap2String aModel
+    toTextMap (TextAttrCons   aModel) = return aModel
+    toTextMap (StringAttrCons aModel) = return convertStringMap2Txt aModel
+    toStringMap (StringAttrCons aModel) = return aModel
+    toStringMap (TextAttrCons   aModel) = return convertTxtMap2String aModel
