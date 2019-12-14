@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.UnitData
+module Primitive.Instance.Pure.UnitData
     ( UnitData
     )
 where
@@ -29,8 +29,7 @@ import           View.Transformer               ( Model2StringText
                                                 )
 
 instance StringLikeSetter UnitData where
-    fromString aStr | null aStr = fail "empty string is not allowed as data"
-                    | otherwise = return (StringUnitDataCons aStr)
+    fromString aStr = (StringUnitDataCons aStr)
 
 instance Model2StringText UnitData where
     toString (StringUnitDataCons ud) = ud

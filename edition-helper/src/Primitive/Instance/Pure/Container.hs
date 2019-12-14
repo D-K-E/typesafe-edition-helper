@@ -7,7 +7,7 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 
-module Primitive.Instance.Container
+module Primitive.Instance.Pure.Container
     ( ContainerModel
     , ContainerData
     )
@@ -21,13 +21,14 @@ import           Primitive.Definition.Container ( modelInfo
 import           Primitive.Definition.ModelData ( ModelData(CData) )
 -- end of definition related imports
 
-import           Primitive.Instance.ModelInfo   ( ModelInfo )
-import           FunctionDef.Pure.Modifier      ( ReplaceInfoField
+import           Primitive.Instance.Pure.ModelInfo
+                                                ( ModelInfo )
+import           FunctionDef.Pure.Modifier      ( ReplaceInfoField(..)
                                                 , ReplaceField(..)
                                                 , Add2Field(..)
                                                 )
-import           FunctionDef.Matcher            ( MatchModel(..) )
-import           View.Transformer               ( Model2Tuple(..) )
+import           FunctionDef.Pure.Matcher       ( MatchModel(..) )
+import           FunctionDef.Pure.Transformer   ( Model2Tuple(..) )
 import           Utils.StrUtils                 ( appendOrPrepend )
 
 instance Model2Tuple ContainerModel where
@@ -51,8 +52,6 @@ instance ReplaceInfoField ContainerModel where
 instance ReplaceField ContainerModel where
     replaceData cmodel (CData cdata) =
         ContainerCons { modelInfo = modelInfo cmodel, modelData = cdata }
-    replaceData cmodel (UData cdata) = error
-        "only ContainerData is accepted for replacement. UnitData is given"
     replaceInfo cmodel minfo =
         ContainerCons { modelInfo = minfo, modelData = modelData cmodel }
 
@@ -70,20 +69,9 @@ instance MatchModel ContainerModel where
 
     containsId cmodel mid =
         toString (modelId (modelInfo cmodel)) `isInfixOf` toString mid
-
     hasSameData cmodel (CData cdata) = modelData cmodel == cdata
-    hasSameData cmodel (UData cdata) =
-        error
-            "only ContainerData is accepted for\
-        \ equality check. UnitData is given"
-
     containsData cmodel (CData cdata) =
         toString (modelData cmodel) `isInfixOf` toString cdata
-    containsData cmodel (UData cdata) =
-        error
-            "only ContainerData is accepted for\
-        \ containement comparaison. UnitData is given"
-
 
 instance Add2Field ContainerModel where
     append2Id model mid = replaceId
@@ -124,10 +112,6 @@ instance Add2Field ContainerModel where
 
     append2Data model (CData mdata) =
         replaceData model (modelData model ++ mdata)
-    append2Data model (UData mdata) =
-        error
-            "Only ContainerData is accepted for\
-        \ appending data. UnitData is given"
 
     prepend2Data model (CData mdata) =
         replaceData model (mdata ++ modelData model)

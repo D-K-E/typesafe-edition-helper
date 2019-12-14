@@ -6,16 +6,18 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.ModelData
+module Primitive.Instance.Pure.ModelData
     ( ModelData
     )
 where
+
 import           Primitive.Definition.ModelData ( ModelData(UData) )
-import           Primitive.Instance.UnitData    ( UnitData )
-import           Control.UnitData               ( makeUData )
-import           FunctionDef.Setter             ( StringLikeSetter
+import           Primitive.Instance.Pure.UnitData
+                                                ( UnitData )
+import           Control.Pure.UnitData          ( makeUData )
+import           FunctionDef.Pure.Setter        ( StringLikeSetter
                                                 , fromString
                                                 )
 
 instance StringLikeSetter ModelData where
-    fromString astr = return (UData (makeUData astr))
+    fromString astr = UData (makeUData astr)

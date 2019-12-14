@@ -7,7 +7,7 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 
-module Primitive.Instance.Container
+module Primitive.Instance.Impure.Container
     ( ContainerModel
     , ContainerData
     )
@@ -19,122 +19,93 @@ import           Primitive.Definition.Container ( modelInfo
                                                 , ContainerModel(ContainerCons)
                                                 )
 import           Primitive.Definition.ModelData ( ModelData(CData) )
+import           Primitive.Instance.Pure.Container
+                                                ( ContainerModel )
 -- end of definition related imports
 
 import           FunctionDef.Pure.Container     ( ContainerModel )
 import           Primitive.Instance.Impure.ModelInfo
                                                 ( ModelInfo )
-import           FunctionDef.Impure.Modifier    ( ReplaceInfoField
-                                                , ReplaceField(..)
-                                                , Add2Field(..)
+import           FunctionDef.Impure.Modifier    ( ReplaceInfoFieldM
+                                                , ReplaceFieldM(..)
+                                                , Add2FieldM(..)
                                                 )
-import           FunctionDef.Matcher            ( MatchModel(..) )
-import           View.Transformer               ( Model2Tuple(..) )
+import           FunctionDef.Impure.Matcher     ( MatchModelM(..) )
+import           FunctionDef.Impure.Transformer ( Model2TupleM(..) )
 import           Utils.StrUtils                 ( appendOrPrepend )
 
-instance Model2Tuple ContainerModel where
-    toTuple model = (modelInfo model, CData (modelData model))
+instance Model2TupleM ContainerModel where
+    toTupleM model = return (modelInfo model, CData (modelData model))
+    toTupleM model = fail "transforming container model to tuple has failed"
 
+instance ReplaceInfoFieldM ContainerModel where
+    replaceIdM cmodel mid = fail "replacing id of container model has failed"
+    replaceTypeM cmodel mtype =
+        fail "replacing type of container model has failed"
+    replaceAttrM cmodel mattr =
+        fail "replacing attributes of container model has failed"
 
-instance ReplaceInfoField ContainerModel where
-    replaceId cmodel mid = ContainerCons
-        { modelInfo = replaceId (modelInfo cmodel) mid
-        , modelData = modelData cmodel
-        }
-    replaceType cmodel mtype = ContainerCons
-        { modelInfo = replaceType (modelInfo cmodel) mtype
-        , modelData = modelData cmodel
-        }
-    replaceAttr cmodel mattr = ContainerCons
-        { modelInfo = replaceAttr (modelInfo cmodel) mattr
-        , modelData = modelData cmodel
-        }
+instance ReplaceFieldM ContainerModel where
+    replaceDataM cmodel (UData cdata) =
+        fail "only ContainerData is accepted for replacement. UnitData is given"
+    replaceInfoM cmodel minfo = fail "Replacing model info has failed"
 
-instance ReplaceField ContainerModel where
-    replaceData cmodel (CData cdata) =
-        ContainerCons { modelInfo = modelInfo cmodel, modelData = cdata }
-    replaceData cmodel (UData cdata) = error
-        "only ContainerData is accepted for replacement. UnitData is given"
-    replaceInfo cmodel minfo =
-        ContainerCons { modelInfo = minfo, modelData = modelData cmodel }
+instance MatchModelM ContainerModel where
+    hasSameIdM cmodel mid =
+        fail "equality comparison with given model id and model has failed"
+    hasSameTypeM cmodel mtype =
+        fail
+            "equality comparison comparison with given\
+            \ model type and model has failed"
 
-instance MatchModel ContainerModel where
-    hasSameId cmodel mid = cmodelId (modelInfo cmodel) == mid
-    hasSameType cmodel mtype = cmodelType (modelInfo cmodel) == mtype
-    hasSameAttr cmodel mattr = cmodelAttr (modelInfo cmodel) == mattr
-    containsAttr cmodel mattr = isSubmapOfBy
-        (==)
-        (toStringMap (modelAttr (modelInfo cmodel)))
-        (toStringMap mattr)
+    hasSameAttrM cmodel mattr =
+        fail
+            "equality comparison with given\
+        \ model attribute and model has failed"
+    containsAttrM cmodel mattr =
+        fail
+            "containement check failed for given\
+        \ model attribute and model has failed"
+    containsTypeM cmodel mtype =
+        fail
+            "containement check failed for given\
+        \ model type and model has failed"
 
-    containsType cmodel mtype =
-        toString (modelType (modelInfo cmodel)) `isInfixOf` toString mtype
+    containsIdM cmodel mid =
+        fail
+            "containement check failed for given\
+        \ model id and model has failed"
 
-    containsId cmodel mid =
-        toString (modelId (modelInfo cmodel)) `isInfixOf` toString mid
-
-    hasSameData cmodel (CData cdata) = modelData cmodel == cdata
-    hasSameData cmodel (UData cdata) =
-        error
+    hasSameDataM cmodel (UData cdata) =
+        fail
             "only ContainerData is accepted for\
         \ equality check. UnitData is given"
 
-    containsData cmodel (CData cdata) =
-        toString (modelData cmodel) `isInfixOf` toString cdata
-    containsData cmodel (UData cdata) =
-        error
+    containsDataM cmodel (UData cdata) =
+        fail
             "only ContainerData is accepted for\
         \ containement comparaison. UnitData is given"
 
 
-instance Add2Field ContainerModel where
-    append2Id model mid = replaceId
-        model
-        (fromString
-            (appendOrPrepend (toString (modelId (modelInfo model)))
-                             (toString mid)
-                             True
-            )
-        )
+instance Add2FieldM ContainerModel where
 
-    prepend2Id model mid = replaceId
-        model
-        (fromString
-            (appendOrPrepend (toString (modelId (modelInfo model)))
-                             (toString mid)
-                             False
-            )
-        )
+    append2IdM model mid = fail "Appending model id to given model has failed"
 
-    append2Type model mtype = replaceType
-        model
-        (fromString
-            (appendOrPrepend (toString (modelType (modelInfo model)))
-                             (toString mid)
-                             True
-            )
-        )
+    prepend2IdM model mid =
+        fail "Prepending model id to given model has failed"
+    append2TypeM model mtype =
+        fail "Appending model type to given model has failed"
 
-    prepend2Type model mtype = replaceType
-        model
-        (fromString
-            (appendOrPrepend (toString (modelType (modelInfo model)))
-                             (toString mid)
-                             False
-            )
-        )
-
-    append2Data model (CData mdata) =
-        replaceData model (modelData model ++ mdata)
-    append2Data model (UData mdata) =
-        error
+    prepend2TypeM model mtype =
+        fail "Prepending model type to given model has failed"
+    append2DataM model (UData mdata) =
+        fail
             "Only ContainerData is accepted for\
         \ appending data. UnitData is given"
 
-    prepend2Data model (CData mdata) =
-        replaceData model (mdata ++ modelData model)
+    prepend2DataM model (UData mdata) =
+        fail
+            "Only ContainerData is accepted for\
+        \ appending data. UnitData is given"
 
-    add2Attr model mattr = replaceAttr
-        model
-        fromStringMap
-        (toStringMap (modelAttr (modelInfo model)) `union` toStringMap mattr)
+    add2AttrM model mattr = fail "adding attributes to given model has failed"

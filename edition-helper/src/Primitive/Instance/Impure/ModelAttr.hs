@@ -1,15 +1,20 @@
 {-|
 Module : Model
 License : see LICENSE
-Description : ModelAttr primitive instance
+Description : ModelAttr primitive impure instance
 Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.ModelAttr
+module Primitive.Instance.Impure.ModelAttr
     ( ModelAttr
     )
 where
+
+-- start def
+import           Primitive.Instance.Pure.ModelAttr
+                                                ( ModelAttr )
+-- end def
 
 import           Data.Map.Strict                ( elems
                                                 , keys
@@ -21,21 +26,16 @@ import           Utils.MapUtils                 ( convertStringMap2Txt
                                                 , convertTxtMap2String
                                                 )
 
-import           FunctionDef.Setter             ( ModelAttrSetter(..) )
-import           Primitive.Definition.ModelAttr ( ModelAttr
-                                                    ( StringAttrCons
-                                                    , TextAttrCons
-                                                    )
-                                                )
-import           View.Transformer               ( Model2Map
-                                                    ( toTextMap
-                                                    , toStringMap
+import           FunctionDef.Impure.Setter      ( ModelAttrSetterM(..) )
+import           FunctionDef.Impure.Transformer ( Model2MapM
+                                                    ( toTextMapM
+                                                    , toStringMapM
                                                     )
                                                 )
 
 
-instance ModelAttrSetter ModelAttr where
-    fromStringMap aMap
+instance ModelAttrSetterM ModelAttr where
+    fromStringMapM aMap
         | all null (elems aMap)
         = fail "Attributes must have non empty values"
         | not (all isAlphaNumStr (elems aMap))
@@ -48,11 +48,13 @@ instance ModelAttrSetter ModelAttr where
         = fail "Attributes must have ascii keys"
         | all null (keys aMap)
         = fail "Attributes must have non empty keys"
-        | otherwise
-        = return StringAttrCons aMap
 
-instance Model2Map ModelAttr where
-    toTextMap (TextAttrCons   aModel) = return aModel
-    toTextMap (StringAttrCons aModel) = return convertStringMap2Txt aModel
-    toStringMap (StringAttrCons aModel) = return aModel
-    toStringMap (TextAttrCons   aModel) = return convertTxtMap2String aModel
+instance Model2MapM ModelAttr where
+    toTextMapM (TextAttrCons aModel) =
+        fail "transforming to text map has failed"
+    toTextMapM (StringAttrCons aModel) =
+        fail "transforming to text map from underlaying string map has failed"
+    toStringMapM (StringAttrCons aModel) =
+        fail "transforming to string map has failed"
+    toStringMapM (TextAttrCons aModel) =
+        fail "transforming to string map from underlaying text map has failed"

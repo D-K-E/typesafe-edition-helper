@@ -25,20 +25,20 @@ import           Utils.MapUtils                 ( convertStringKey
                                                 , convertStringVal
                                                 , convertTxtMap2String
                                                 )
-import           Control.Monad                  ( Monad )
+import           Control.Monad.Fail             ( MonadFail )
 
 
 class (StringLikeSetter model) => StringLikeSetterM model where
-    fromString :: (Monad m) => String -> m model
-    fromText :: (Monad m) => Text -> m model
+    fromString :: (MonadFail m) => String -> m model
+    fromText :: (MonadFail m) => Text -> m model
     fromString =  return PS.fromString
     fromText aText = fromString (unpack aText)
 
 class (ModelAttrSetter model) => ModelAttrSetterM model where
-    fromStringMap :: (Monad m) => Map String String -> m model
-    fromTextMap :: (Monad m) => Map Text Text -> m model
-    fromMixedStrMap :: (Monad m) => Map String Text -> m model
-    fromMixedTextMap :: (Monad m) => Map Text String -> m model
+    fromStringMap :: (MonadFail m) => Map String String -> m model
+    fromTextMap :: (MonadFail m) => Map Text Text -> m model
+    fromMixedStrMap :: (MonadFail m) => Map String Text -> m model
+    fromMixedTextMap :: (MonadFail m) => Map Text String -> m model
     fromStringMap = return PS.fromStringMap
 
     fromMixedStrMap aMap = fromTextMap (convertStringKey aMap)

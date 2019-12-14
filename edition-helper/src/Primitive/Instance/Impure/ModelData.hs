@@ -10,12 +10,12 @@ module Primitive.Instance.ModelData
     ( ModelData
     )
 where
-import           Primitive.Definition.ModelData ( ModelData(UData) )
-import           Primitive.Instance.UnitData    ( UnitData )
-import           Control.UnitData               ( makeUData )
-import           FunctionDef.Setter             ( StringLikeSetter
-                                                , fromString
+
+import           Primitive.Instance.Impure.UnitData
+                                                ( UnitData )
+import           Control.Impure.UnitData        ( makeUDataM )
+import           FunctionDef.Impure.Setter      ( StringLikeSetterM(fromStringM)
                                                 )
 
-instance StringLikeSetter ModelData where
-    fromString astr = return (UData (makeUData astr))
+instance StringLikeSetterM ModelData where
+    fromStringM astr = return (makeUDataM astr)
