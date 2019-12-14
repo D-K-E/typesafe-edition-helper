@@ -1,7 +1,7 @@
 {-|
 Module : Model
 License : see LICENSE
-Description : Container primitive
+Description : Container primitive pure instance
 Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
@@ -22,7 +22,7 @@ import           Primitive.Definition.ModelData ( ModelData(CData) )
 -- end of definition related imports
 
 import           Primitive.Instance.ModelInfo   ( ModelInfo )
-import           FunctionDef.Modifier           ( ReplaceInfoField
+import           FunctionDef.Pure.Modifier      ( ReplaceInfoField
                                                 , ReplaceField(..)
                                                 , Add2Field(..)
                                                 )

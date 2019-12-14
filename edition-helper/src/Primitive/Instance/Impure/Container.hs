@@ -21,8 +21,10 @@ import           Primitive.Definition.Container ( modelInfo
 import           Primitive.Definition.ModelData ( ModelData(CData) )
 -- end of definition related imports
 
-import           Primitive.Instance.ModelInfo   ( ModelInfo )
-import           FunctionDef.Modifier           ( ReplaceInfoField
+import           FunctionDef.Pure.Container     ( ContainerModel )
+import           Primitive.Instance.Impure.ModelInfo
+                                                ( ModelInfo )
+import           FunctionDef.Impure.Modifier    ( ReplaceInfoField
                                                 , ReplaceField(..)
                                                 , Add2Field(..)
                                                 )

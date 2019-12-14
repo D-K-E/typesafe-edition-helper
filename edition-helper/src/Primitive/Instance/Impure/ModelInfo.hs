@@ -6,11 +6,12 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.ModelInfo
-    ( ModelInfo(..)
+module Primitive.Instance.Impure.ModelInfo
+    ( ModelInfoM(..)
     )
 where
 
+-- start definition
 import           Primitive.Definition.ModelInfo ( ModelInfo
                                                     ( modelId
                                                     , modelType
@@ -18,11 +19,19 @@ import           Primitive.Definition.ModelInfo ( ModelInfo
                                                     , InfoCons
                                                     )
                                                 )
-import           Primitive.Instance.ModelId     ( ModelId )
-import           Primitive.Instance.ModelType   ( ModelType )
-import           Primitive.Instance.ModelAttr   ( ModelAttr )
-import           FunctionDef.Setter             ( StringLikeSetter(..) )
-import           FunctionDef.Modifier           ( ReplaceInfoField(..) )
+import           Primitive.Instance.Pure.ModelInfo
+                                                ( ModelInfo )
+-- end definition
+-- start import functionality
+import           Primitive.Instance.Impure.ModelId
+                                                ( ModelId )
+import           Primitive.Instance.Impure.ModelType
+                                                ( ModelType )
+import           Primitive.Instance.Impure.ModelAttr
+                                                ( ModelAttr )
+
+import           FunctionDef.Impure.Setter      ( StringLikeSetterM(..) )
+import           FunctionDef.Impure.Modifier    ( ReplaceInfoFieldM(..) )
 import           View.Transformer               ( Model2StringText(..)
                                                 , Model2Map
                                                 , toTextMap
@@ -36,7 +45,7 @@ import           Data.Map.Strict                ( fromList
 import           Data.Text                      ( Text
                                                 , pack
                                                 )
-
+-- end import functionality
 
 -- |'getModelIdTypeMap' transform model id type field
 -- to map with key value both as Text
@@ -52,21 +61,8 @@ getInfoMap aModel =
     getModelIdTypeMap aModel `union` toTextMap (modelAttr aModel)
 
 
--- | convert model info to map
-instance Model2Map ModelInfo where
-    toTextMap = getInfoMap
-    toStringMap aModel = convertTxtMap2String (getInfoMap aModel)
-
-instance ReplaceInfoField ModelInfo where
-    replaceId minfo mid = InfoCons { modelId   = mid
-                                   , modelType = modelType minfo
-                                   , modelAttr = modelAttr minfo
-                                   }
-    replaceType minfo mtype = InfoCons { modelId   = modelId minfo
-                                       , modelType = mtype
-                                       , modelAttr = modelAttr minfo
-                                       }
-    replaceAttr minfo mattr = InfoCons { modelId   = modelId minfo
-                                       , modelType = modelType minfo
-                                       , modelAttr = mattr
-                                       }
+instance ReplaceInfoFieldM ModelInfo where
+    replaceIdM minfo mid = fail "replacing id of model info has failed"
+    replaceTypeM minfo mtype = fail "replacing type of model info has failed"
+    replaceAttrM minfo mattr =
+        fail "replacing attribute of model info has failed"

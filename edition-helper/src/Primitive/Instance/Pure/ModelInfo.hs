@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.ModelInfo
+module Primitive.Instance.Pure.ModelInfo
     ( ModelInfo(..)
     )
 where
@@ -21,8 +21,8 @@ import           Primitive.Definition.ModelInfo ( ModelInfo
 import           Primitive.Instance.ModelId     ( ModelId )
 import           Primitive.Instance.ModelType   ( ModelType )
 import           Primitive.Instance.ModelAttr   ( ModelAttr )
-import           FunctionDef.Setter             ( StringLikeSetter(..) )
-import           FunctionDef.Modifier           ( ReplaceInfoField(..) )
+import           FunctionDef.Pure.Setter        ( StringLikeSetter(..) )
+import           FunctionDef.Pure.Modifier      ( ReplaceInfoField(..) )
 import           View.Transformer               ( Model2StringText(..)
                                                 , Model2Map
                                                 , toTextMap

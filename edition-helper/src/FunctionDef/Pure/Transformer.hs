@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module View.Transformer
+module FunctionDef.Pure.Transformer
     ( Model2StringText(..)
     , Model2Tuple(..)
     , Model2Map(..)
