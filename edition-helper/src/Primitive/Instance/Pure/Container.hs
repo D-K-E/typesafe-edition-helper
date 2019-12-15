@@ -13,23 +13,50 @@ module Primitive.Instance.Pure.Container
     )
 where
 
--- definition related imports
-import           Primitive.Definition.Container ( modelInfo
+-- start def
+import           Primitive.Definition.Container ( ContainerModel(ContainerCons)
+                                                , modelInfo
                                                 , modelData
-                                                , ContainerModel(ContainerCons)
+                                                , ContainerData
                                                 )
-import           Primitive.Definition.ModelData ( ModelData(CData) )
--- end of definition related imports
-
+import           Primitive.Definition.ModelData ( ModelData(UData, CData) )
+import           Primitive.Definition.ModelInfo ( ModelInfo
+                                                    ( modelId
+                                                    , modelType
+                                                    , modelAttr
+                                                    )
+                                                )
 import           Primitive.Instance.Pure.ModelInfo
                                                 ( ModelInfo )
+import           Primitive.Instance.Pure.ModelAttr
+                                                ( ModelAttr )
+import           Primitive.Instance.Pure.ModelType
+                                                ( ModelType )
+import           Primitive.Instance.Pure.ModelId
+                                                ( ModelId )
+import           Primitive.Instance.Pure.UnitData
+                                                ( UnitData )
+import           Primitive.Instance.Pure.ModelData
+                                                ( ModelData )
+-- end def
 import           FunctionDef.Pure.Modifier      ( ReplaceInfoField(..)
                                                 , ReplaceField(..)
                                                 , Add2Field(..)
                                                 )
 import           FunctionDef.Pure.Matcher       ( MatchModel(..) )
-import           FunctionDef.Pure.Transformer   ( Model2Tuple(..) )
+import           FunctionDef.Pure.Transformer   ( Model2Tuple(toTuple)
+                                                , Model2StringText(toString)
+                                                , Model2Map(toStringMap)
+                                                )
+import           FunctionDef.Pure.Setter        ( StringLikeSetter(fromString)
+                                                , ModelAttrSetter(fromStringMap)
+                                                )
 import           Utils.StrUtils                 ( appendOrPrepend )
+import           Data.Map.Strict                ( union
+                                                , isSubmapOfBy
+                                                )
+import           Data.List                      ( isInfixOf )
+
 
 instance Model2Tuple ContainerModel where
     toTuple model = (modelInfo model, CData (modelData model))
@@ -56,9 +83,9 @@ instance ReplaceField ContainerModel where
         ContainerCons { modelInfo = minfo, modelData = modelData cmodel }
 
 instance MatchModel ContainerModel where
-    hasSameId cmodel mid = cmodelId (modelInfo cmodel) == mid
-    hasSameType cmodel mtype = cmodelType (modelInfo cmodel) == mtype
-    hasSameAttr cmodel mattr = cmodelAttr (modelInfo cmodel) == mattr
+    hasSameId cmodel mid = modelId (modelInfo cmodel) == mid
+    hasSameType cmodel mtype = modelType (modelInfo cmodel) == mtype
+    hasSameAttr cmodel mattr = modelAttr (modelInfo cmodel) == mattr
     containsAttr cmodel mattr = isSubmapOfBy
         (==)
         (toStringMap (modelAttr (modelInfo cmodel)))

@@ -15,8 +15,14 @@ where
 
 -- start def
 import           FunctionDef.Pure.Transformer   ( Model2StringText
-                                                , Model2Tuple
+                                                    ( toString
+                                                    , toText
+                                                    )
+                                                , Model2Tuple(toTuple)
                                                 , Model2Map
+                                                    ( toTextMap
+                                                    , toStringMap
+                                                    )
                                                 )
 -- end def
 -- start functionality
@@ -40,5 +46,5 @@ class (Model2Tuple model) => Model2TupleM model where
 
 -- |'Model2MapM' monadic version of 'Model2Map'
 class (Model2Map model) => (Model2MapM model) where
-    toTextMapM :: (MonadFail m) model -> m Map Text Text
-    toStringMapM :: (MonadFail m) model -> m Map String String
+    toTextMapM :: (MonadFail m) => model -> m (Map Text Text)
+    toStringMapM :: (MonadFail m) => model -> m (Map String String)

@@ -18,6 +18,7 @@ import           Primitive.Instance.Pure.ModelAttr
 
 import           Data.Map.Strict                ( elems
                                                 , keys
+                                                , empty
                                                 ) -- importing type
 import           Utils.StrUtils                 ( isAlphaNumStr
                                                 , isAsciiStr
@@ -50,11 +51,11 @@ instance ModelAttrSetterM ModelAttr where
         = fail "Attributes must have non empty keys"
 
 instance Model2MapM ModelAttr where
-    toTextMapM (TextAttrCons aModel) =
+    toTextMapM (TextAttrCons aModel) | empty aModel =
         fail "transforming to text map has failed"
-    toTextMapM (StringAttrCons aModel) =
+    toTextMapM (StringAttrCons aModel) | empty aModel =
         fail "transforming to text map from underlaying string map has failed"
-    toStringMapM (StringAttrCons aModel) =
+    toStringMapM (StringAttrCons aModel) | empty aModel =
         fail "transforming to string map has failed"
-    toStringMapM (TextAttrCons aModel) =
+    toStringMapM (TextAttrCons aModel) | empty aModel =
         fail "transforming to string map from underlaying text map has failed"

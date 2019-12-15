@@ -31,44 +31,51 @@ class (ReplaceInfoField model) => ReplaceInfoFieldM model where
 
     -- |'replaceIdM' monadic version of 'replaceId'
     replaceIdM :: (MonadFail m) => model -> ModelId -> m model
-    replaceIdM = return replaceId
+    replaceIdM model mid = return (replaceId model mid)
     -- |'replaceTypeM' monadic version of 'replaceType'
     replaceTypeM :: (MonadFail m) => model -> ModelType -> m model
-    replaceTypeM = return replaceType
+    replaceTypeM model mtype = return (replaceType model mtype)
     -- |'replaceAttrM' monadic version of 'replaceAttr'
-    replaceAttr :: model -> ModelAttr -> model
-    replaceAttrM = return replaceAttr
+    replaceAttrM :: (MonadFail m) => model -> ModelAttr -> m model
+    replaceAttrM model mattr = return (replaceAttr model mattr)
 
 
--- | 'ReplaceField' generalizes ReplaceField class to monads
+-- | 'ReplaceFieldM' generalizes ReplaceField class to monads
 class (ReplaceField model) => ReplaceFieldM model where
 
     -- |'replaceInfoM' monadic version of 'replaceInfo'
     replaceInfoM :: (MonadFail m) => model -> ModelInfo -> m model
-    replaceInfoM = return replaceInfo
+    replaceInfoM model minfo = return (replaceInfo model minfo)
     -- |'replaceDataM' monadic version of 'replaceData'
     replaceDataM :: (MonadFail m) => model -> ModelData -> m model
-    replaceDataM = return replaceData
+    replaceDataM model mdata = return (replaceData model mdata)
 
--- | 'Add2Field' class outlines methods to add new value to given field
+-- | 'Add2FieldM' class outlines methods to add new value to given field
 class (Add2Field model) => Add2FieldM model where
-    -- |'append2Id' append new model id at the end of model id
+    -- |'append2IdM' monadic version of 'append2Id'
     append2IdM :: (MonadFail m) => model -> ModelId -> m model
+    append2IdM model mid = return (append2Id model mid)
 
-    -- |'prepend2Id' prepend new model id at the start of model id
+    -- |'prepend2IdM' monadic version of 'prepend2Id'
     prepend2IdM :: (MonadFail m) => model -> ModelId -> m model
+    prepend2IdM model mid = return (prepend2Id model mid)
 
-    -- |'append2Type' append new model Type at the end of model Type
+    -- |'append2TypeM' monadic version of 'append2Type'
     append2TypeM :: (MonadFail m) => model -> ModelType -> m model
+    append2TypeM model mtype = return (append2Type model mtype)
 
-    -- |'prepend2Type' prepend new model Type at the start of model Type
+    -- |'prepend2TypeM' monadic version of 'prepend2Type'
     prepend2TypeM :: (MonadFail m) => model -> ModelType -> m model
+    prepend2TypeM model mtype = return (prepend2Type model mtype)
 
-    -- |'append2Attr' append new model Attr at the end of model Attr
+    -- |'add2AttrM' monadic version of 'add2Attr'
     add2AttrM :: (MonadFail m) => model -> ModelAttr -> m model
+    add2AttrM model mattr = return (add2Attr model mattr)
 
-    -- |'append2Data' append new model Data at the end of model Data
+    -- |'append2DataM' monadic version of 'append2Data'
     append2DataM :: (MonadFail m) => model -> ModelData -> m model
+    append2DataM model mdata = return (append2Data model mdata)
 
-    -- |'prepend2Data' prepend new model Data at the start of model Data
+    -- |'prepend2DataM' monadic version of 'prepend2Data'
     prepend2DataM :: (MonadFail m) => model -> ModelData -> m model
+    prepend2DataM model mdata = return (prepend2Data model mdata)

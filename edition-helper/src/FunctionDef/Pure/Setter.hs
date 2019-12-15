@@ -29,10 +29,10 @@ class StringLikeSetter model where
     fromText aText = fromString (unpack aText)
 
 class ModelAttrSetter model where
-    fromStringMap :: Map String String -> m model
-    fromTextMap :: Map Text Text -> m model
-    fromMixedStrMap :: Map String Text -> m model
-    fromMixedTextMap :: Map Text String -> m model
+    fromStringMap :: Map String String -> model
+    fromTextMap :: Map Text Text -> model
+    fromMixedStrMap :: Map String Text -> model
+    fromMixedTextMap :: Map Text String -> model
 
     fromMixedStrMap aMap = fromTextMap (convertStringKey aMap)
     fromMixedTextMap aMap = fromTextMap (convertStringVal aMap)

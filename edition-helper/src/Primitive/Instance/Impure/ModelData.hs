@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.ModelData
+module Primitive.Instance.Impure.ModelData
     ( ModelData
     )
 where

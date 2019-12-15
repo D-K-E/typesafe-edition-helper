@@ -20,16 +20,15 @@ import           Data.Text                      ( Text
                                                 , unpack
                                                 , pack
                                                 ) -- importing type
-import           FunctionDef.Setter             ( StringLikeSetter
-                                                , fromString
-                                                )
-import           View.Transformer               ( Model2StringText
-                                                , toString
-                                                , toText
+import           FunctionDef.Pure.Setter        ( StringLikeSetter(fromString) )
+import           FunctionDef.Pure.Transformer   ( Model2StringText
+                                                    ( toString
+                                                    , toText
+                                                    )
                                                 )
 
 instance StringLikeSetter UnitData where
-    fromString aStr = (StringUnitDataCons aStr)
+    fromString = StringUnitDataCons
 
 instance Model2StringText UnitData where
     toString (StringUnitDataCons ud) = ud

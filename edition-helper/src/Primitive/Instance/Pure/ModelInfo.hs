@@ -7,7 +7,7 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 module Primitive.Instance.Pure.ModelInfo
-    ( ModelInfo(..)
+    ( ModelInfo
     )
 where
 
@@ -18,15 +18,19 @@ import           Primitive.Definition.ModelInfo ( ModelInfo
                                                     , InfoCons
                                                     )
                                                 )
-import           Primitive.Instance.ModelId     ( ModelId )
-import           Primitive.Instance.ModelType   ( ModelType )
-import           Primitive.Instance.ModelAttr   ( ModelAttr )
+import           Primitive.Instance.Pure.ModelId
+                                                ( ModelId )
+import           Primitive.Instance.Pure.ModelType
+                                                ( ModelType )
+import           Primitive.Instance.Pure.ModelAttr
+                                                ( ModelAttr )
 import           FunctionDef.Pure.Setter        ( StringLikeSetter(..) )
 import           FunctionDef.Pure.Modifier      ( ReplaceInfoField(..) )
-import           View.Transformer               ( Model2StringText(..)
+import           FunctionDef.Pure.Transformer   ( Model2StringText(..)
                                                 , Model2Map
-                                                , toTextMap
-                                                , toStringMap
+                                                    ( toTextMap
+                                                    , toStringMap
+                                                    )
                                                 )
 import           Utils.MapUtils                 ( convertTxtMap2String )
 import           Data.Map.Strict                ( fromList

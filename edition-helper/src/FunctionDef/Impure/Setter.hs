@@ -29,18 +29,18 @@ import           Control.Monad.Fail             ( MonadFail )
 
 
 class (StringLikeSetter model) => StringLikeSetterM model where
-    fromString :: (MonadFail m) => String -> m model
-    fromText :: (MonadFail m) => Text -> m model
-    fromString =  return PS.fromString
-    fromText aText = fromString (unpack aText)
+    fromStringM :: (MonadFail m) => String -> m model
+    fromTextM :: (MonadFail m) => Text -> m model
+    fromStringM =  return PS.fromString
+    fromTextM aText = fromStringM (unpack aText)
 
 class (ModelAttrSetter model) => ModelAttrSetterM model where
-    fromStringMap :: (MonadFail m) => Map String String -> m model
-    fromTextMap :: (MonadFail m) => Map Text Text -> m model
-    fromMixedStrMap :: (MonadFail m) => Map String Text -> m model
-    fromMixedTextMap :: (MonadFail m) => Map Text String -> m model
-    fromStringMap = return PS.fromStringMap
+    fromStringMapM :: (MonadFail m) => Map String String -> m model
+    fromTextMapM :: (MonadFail m) => Map Text Text -> m model
+    fromMixedStrMapM :: (MonadFail m) => Map String Text -> m model
+    fromMixedTextMapM :: (MonadFail m) => Map Text String -> m model
+    fromStringMapM = return PS.fromStringMap
 
-    fromMixedStrMap aMap = fromTextMap (convertStringKey aMap)
-    fromMixedTextMap aMap = fromTextMap (convertStringVal aMap)
-    fromTextMap aMap = fromStringMap (convertTxtMap2String aMap)
+    fromMixedStrMapM aMap = fromTextMapM (convertStringKey aMap)
+    fromMixedTextMapM aMap = fromTextMapM (convertStringVal aMap)
+    fromTextMapM aMap = fromStringMapM (convertTxtMap2String aMap)

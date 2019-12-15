@@ -11,6 +11,11 @@ module Primitive.Instance.Pure.ModelAttr
     )
 where
 
+import           Primitive.Definition.ModelAttr ( ModelAttr
+                                                    ( StringAttrCons
+                                                    , TextAttrCons
+                                                    )
+                                                )
 import           Data.Map.Strict                ( elems
                                                 , keys
                                                 ) -- importing type

@@ -6,34 +6,60 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.Unit where
+module Primitive.Instance.Pure.Unit where
 
-
-import           Primitive.Definition.Unit      ( UnitModel(UnitCons)
-                                                , modelInfo
-                                                , modelData
+-- start def
+import           Primitive.Definition.Unit      ( UnitModel
+                                                    ( UnitCons
+                                                    , modelInfo
+                                                    , modelData
+                                                    )
                                                 )
 import           Primitive.Definition.ModelData ( ModelData(UData, CData) )
-import           Primitive.Instance.ModelInfo   ( ModelInfo
+import           Primitive.Definition.ModelInfo ( ModelInfo
                                                     ( modelId
                                                     , modelType
                                                     , modelAttr
                                                     )
                                                 )
-import           Primitive.Instance.ModelAttr   ( ModelAttr )
-import           Primitive.Instance.ModelType   ( ModelType )
-import           Primitive.Instance.ModelId     ( ModelId )
+import           Primitive.Instance.Pure.ModelInfo
+                                                ( ModelInfo )
+import           Primitive.Instance.Pure.ModelAttr
+                                                ( ModelAttr )
+import           Primitive.Instance.Pure.ModelType
+                                                ( ModelType )
+import           Primitive.Instance.Pure.ModelId
+                                                ( ModelId )
+import           Primitive.Instance.Pure.UnitData
+                                                ( UnitData )
+import           Primitive.Instance.Pure.ModelData
+                                                ( ModelData )
 
+-- end def
 -- Function definition
-import           FunctionDef.Modifier           ( ReplaceInfoField(..)
+import           FunctionDef.Pure.Setter        ( StringLikeSetter
+                                                    ( fromString
+                                                    , fromText
+                                                    )
+                                                , ModelAttrSetter(fromStringMap)
+                                                )
+
+import           FunctionDef.Pure.Modifier      ( ReplaceInfoField(..)
                                                 , ReplaceField(..)
                                                 , Add2Field(..)
                                                 )
-import           FunctionDef.Matcher            ( MatchModel(..) )
-import           View.Transformer               ( Model2Tuple
-                                                , toTuple
-                                                , toStringMap
+import           FunctionDef.Pure.Matcher       ( MatchModel(..) )
+import           FunctionDef.Pure.Transformer   ( Model2Tuple(toTuple)
+                                                , Model2Map
+                                                    ( toStringMap
+                                                    , toTextMap
+                                                    )
+                                                , Model2StringText
+                                                    ( toString
+                                                    , toText
+                                                    )
                                                 )
+import           Utils.StrUtils                 ( appendOrPrepend )
 import           Data.Map.Strict                ( isSubmapOfBy
                                                 , union
                                                 )
@@ -61,8 +87,6 @@ instance ReplaceInfoField UnitModel where
 instance ReplaceField UnitModel where
     replaceData umodel (UData udata) =
         UnitCons { modelInfo = modelInfo umodel, modelData = udata }
-    replaceData umodel (CData cdata) = error
-        "only UnitData is accepted for replacement. ContainerData is given"
     replaceInfo umodel minfo =
         UnitCons { modelInfo = minfo, modelData = modelData umodel }
 
@@ -82,16 +106,8 @@ instance MatchModel UnitModel where
         toString (modelId (modelInfo umodel)) `isInfixOf` toString mid
 
     hasSameData umodel (UData udata) = modelData umodel == udata
-    hasSameData umodel (CData udata) =
-        error
-            "only UnitData is accepted for\
-        \ equality check. ContainerData is given"
     containsData umodel (UData udata) =
         toString (modelData umodel) `isInfixOf` toString udata
-    containsData umodel (CData udata) =
-        error
-            "only UnitData is accepted for\
-        \ containement comparaison. ContainerData is given"
 
 instance Add2Field UnitModel where
     append2Id model mid = replaceId
@@ -142,11 +158,6 @@ instance Add2Field UnitModel where
         (fromString
             (appendOrPrepend (toString (modelData model)) (toString mdata) True)
         )
-
-    append2Data model (CData mdata) =
-        error
-            "Only UnitData is accepted for\
-        \ appending data. ContainerData is given"
 
     prepend2Data model (UData mdata) = replaceData
         model

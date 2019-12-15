@@ -7,7 +7,7 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 module Primitive.Instance.Impure.ModelInfo
-    ( ModelInfoM(..)
+    ( ModelInfo
     )
 where
 

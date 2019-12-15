@@ -12,12 +12,16 @@ module Primitive.Instance.Pure.ModelData
 where
 
 import           Primitive.Definition.ModelData ( ModelData(UData) )
+import           Primitive.Definition.UnitData  ( UnitData
+                                                    ( StringUnitDataCons
+                                                    , TextUnitDataCons
+                                                    )
+                                                )
 import           Primitive.Instance.Pure.UnitData
                                                 ( UnitData )
-import           Control.Pure.UnitData          ( makeUData )
 import           FunctionDef.Pure.Setter        ( StringLikeSetter
                                                 , fromString
                                                 )
 
 instance StringLikeSetter ModelData where
-    fromString astr = UData (makeUData astr)
+    fromString astr = UData (StringUnitDataCons astr)

@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.ModelId
+module Primitive.Instance.Pure.ModelId
     ( ModelId
     )
 where
@@ -25,25 +25,16 @@ import           Utils.StrUtils                 ( isAlphaNumStr
                                                 , isAsciiStr
                                                 )
 
-import           FunctionDef.Setter             ( StringLikeSetter
-                                                , fromString
-                                                )
-import           View.Transformer               ( Model2StringText
-                                                , toString
-                                                , toText
+import           FunctionDef.Pure.Setter        ( StringLikeSetter(fromString) )
+import           FunctionDef.Pure.Transformer   ( Model2StringText
+                                                    ( toString
+                                                    , toText
+                                                    )
                                                 )
 
 
 instance StringLikeSetter ModelId where
-    fromString aStr
-        | null aStr
-        = fail "empty string is not allowed as id"
-        | not (isAlphaNumStr aStr)
-        = fail "Only ascii alphanumeric strings are allowed"
-        | not (isAsciiStr aStr)
-        = fail "Only ascii alphanumeric strings are allowed"
-        | otherwise
-        = return (StringIdCons aStr)
+    fromString = StringIdCons
 
 instance Model2StringText ModelId where
     toString (StringIdCons aModel) = aModel
