@@ -11,23 +11,37 @@ module Primitive.Instance.Pure.UnitData
     )
 where
 
+-- start def
 import           Primitive.Definition.UnitData  ( UnitData
                                                     ( StringUnitDataCons
                                                     , TextUnitDataCons
                                                     )
                                                 )
-import           Data.Text                      ( Text
-                                                , unpack
-                                                , pack
-                                                ) -- importing type
-import           FunctionDef.Pure.Setter        ( StringLikeSetter(fromString) )
+-- end def
+-- start fn
+import           FunctionDef.Pure.Setter        ( StringLike2Primitive
+                                                    ( fromString
+                                                    )
+                                                )
 import           FunctionDef.Pure.Transformer   ( Model2StringText
                                                     ( toString
                                                     , toText
                                                     )
+                                                , Model2IdTuple(toIdTuple)
                                                 )
 
-instance StringLikeSetter UnitData where
+-- end fn
+-- start utility
+import           Data.Text                      ( Text
+                                                , unpack
+                                                , pack
+                                                ) -- importing type
+-- end utility
+
+instance Model2IdTuple UnitData where
+    toIdTuple udata = ("data-unit", udata)
+
+instance StringLike2Primitive UnitData where
     fromString = StringUnitDataCons
 
 instance Model2StringText UnitData where

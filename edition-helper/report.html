@@ -147,12 +147,15 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li><a id="hint0" href="javascript:show('hint0')">Warning: Redundant bracket (1)</a></li>
+<li><a id="hint0" href="javascript:show('hint0')">Error: Evaluate (1)</a></li>
+<li><a id="hint1" href="javascript:show('hint1')">Error: Use fewer imports (1)</a></li>
+<li><a id="hint2" href="javascript:show('hint2')">Warning: Redundant bracket (1)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
-<li><a id="file0" href="javascript:show('file0')">src/Utils/ControlUtils.hs (1)</a></li>
+<li><a id="file0" href="javascript:show('file0')">src/Primitive/Instance/Impure/UnitData.hs (1)</a></li>
+<li><a id="file1" href="javascript:show('file1')">src/Primitive/Instance/Pure/Unit.hs (2)</a></li>
 </ul>
 
 </div>
@@ -163,12 +166,36 @@ v1.9.26
 	- a tool to suggest improvements to your Haskell code.
 </p>
 
-<div class="hint0 file0">
-src/Utils/ControlUtils.hs:105:22: Warning: Redundant bracket<br/>
+<div class="hint1 file0">
+src/Primitive/Instance/Impure/UnitData.hs:15:1: Error: Use fewer imports<br/>
 Found<br/>
-<pre><span class='hs-str'>"-"</span> <span class='hs-varop'>++</span> <span class='hs-layout'>(</span><span class='hs-varid'>toString</span> <span class='hs-varid'>mid</span><span class='hs-layout'>)</span></pre>
+<pre><span class='hs-keyword'>import</span> <span class='hs-conid'>Primitive</span><span class='hs-varop'>.</span><span class='hs-conid'>Definition</span><span class='hs-varop'>.</span><span class='hs-conid'>UnitData</span>
+       <span class='hs-layout'>(</span><span class='hs-conid'>UnitData</span><span class='hs-layout'>(</span><span class='hs-conid'>StringUnitDataCons</span><span class='hs-layout'>,</span> <span class='hs-conid'>TextUnitDataCons</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
+<span class='hs-keyword'>import</span> <span class='hs-conid'>Primitive</span><span class='hs-varop'>.</span><span class='hs-conid'>Definition</span><span class='hs-varop'>.</span><span class='hs-conid'>UnitData</span>
+       <span class='hs-layout'>(</span><span class='hs-conid'>UnitData</span><span class='hs-layout'>(</span><span class='hs-conid'>StringUnitDataCons</span><span class='hs-layout'>,</span> <span class='hs-conid'>TextUnitDataCons</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
+</pre>
 Why not<br/>
-<pre><span class='hs-str'>"-"</span> <span class='hs-varop'>++</span> <span class='hs-varid'>toString</span> <span class='hs-varid'>mid</span></pre>
+<pre><span class='hs-keyword'>import</span> <span class='hs-conid'>Primitive</span><span class='hs-varop'>.</span><span class='hs-conid'>Definition</span><span class='hs-varop'>.</span><span class='hs-conid'>UnitData</span>
+       <span class='hs-layout'>(</span><span class='hs-conid'>UnitData</span><span class='hs-layout'>(</span><span class='hs-conid'>StringUnitDataCons</span><span class='hs-layout'>,</span> <span class='hs-conid'>TextUnitDataCons</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
+</pre>
+
+</div>
+
+<div class="hint0 file1">
+src/Primitive/Instance/Pure/Unit.hs:99:18: Error: Evaluate<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>pack</span> <span class='hs-layout'>(</span><span class='hs-varid'>fst</span> <span class='hs-varid'>tpl</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>snd</span> <span class='hs-varid'>tpl</span><span class='hs-layout'>)</span></pre>
+Why not<br/>
+<pre><span class='hs-definition'>uncurry</span> <span class='hs-varid'>pack</span> <span class='hs-varid'>tpl</span></pre>
+
+</div>
+
+<div class="hint2 file1">
+src/Primitive/Instance/Pure/Unit.hs:99:18: Warning: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>pack</span> <span class='hs-layout'>(</span><span class='hs-varid'>fst</span> <span class='hs-varid'>tpl</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>snd</span> <span class='hs-varid'>tpl</span><span class='hs-layout'>)</span></pre>
+Why not<br/>
+<pre><span class='hs-definition'>pack</span> <span class='hs-layout'>(</span><span class='hs-varid'>fst</span> <span class='hs-varid'>tpl</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>snd</span> <span class='hs-varid'>tpl</span><span class='hs-layout'>)</span></pre>
 
 </div>
 

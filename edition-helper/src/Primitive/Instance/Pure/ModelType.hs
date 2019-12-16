@@ -11,6 +11,33 @@ module Primitive.Instance.Pure.ModelType
     )
 where
 
+-- start def
+
+import           Primitive.Definition.ModelType ( ModelType
+                                                    ( StringTypeCons
+                                                    , TextTypeCons
+                                                    )
+                                                )
+
+-- end def
+
+-- start fn
+
+import           FunctionDef.Pure.Setter        ( StringLike2Primitive
+                                                    ( fromString
+                                                    )
+                                                )
+import           FunctionDef.Pure.Transformer   ( Model2StringText
+                                                    ( toString
+                                                    , toText
+                                                    )
+                                                , Model2IdTuple(toIdTuple)
+                                                )
+
+-- end fn
+
+-- start utility
+
 import           Data.Text                      ( Text
                                                 , pack
                                                 , unpack
@@ -20,17 +47,10 @@ import           Utils.StrUtils                 ( toLowerStr
                                                 , isAsciiStr
                                                 )
 
-import           FunctionDef.Pure.Setter        ( StringLikeSetter(fromString) )
-import           Primitive.Definition.ModelType ( ModelType
-                                                    ( StringTypeCons
-                                                    , TextTypeCons
-                                                    )
-                                                )
-import           FunctionDef.Pure.Transformer   ( Model2StringText
-                                                    ( toString
-                                                    , toText
-                                                    )
-                                                )
+-- end utility
+
+instance Model2IdTuple ModelType where
+    toIdTuple mtype = ("model-type", mtype)
 
 instance StringLikeSetter ModelType where
     fromString typeName

@@ -14,5 +14,5 @@ import           Primitive.Definition.UnitData  ( UnitData )
 import           Primitive.Definition.Container ( ContainerData )
 
 data ModelData = UData UnitData
-                | CData ContainerData
+                | CData [ContainerData]
                 deriving (Eq, Show)

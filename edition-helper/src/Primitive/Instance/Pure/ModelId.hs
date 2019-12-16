@@ -11,11 +11,28 @@ module Primitive.Instance.Pure.ModelId
     )
 where
 
+-- start def
 import           Primitive.Definition.ModelId   ( ModelId
                                                     ( StringIdCons
                                                     , TextIdCons
                                                     )
                                                 )
+-- end def
+-- start fn
+import           FunctionDef.Pure.Setter        ( StringLike2Primitive
+                                                    ( fromString
+                                                    )
+                                                , TupleString2Primitive(..)
+                                                )
+import           FunctionDef.Pure.Transformer   ( Model2StringText
+                                                    ( toString
+                                                    , toText
+                                                    )
+                                                , Model2IdTuple(toIdTuple)
+                                                )
+
+-- end fn
+-- start utility
 import           Data.Map.Strict                ( Map ) -- importing type
 import           Data.Text                      ( Text
                                                 , pack
@@ -24,17 +41,20 @@ import           Data.Text                      ( Text
 import           Utils.StrUtils                 ( isAlphaNumStr
                                                 , isAsciiStr
                                                 )
+-- end utility
 
-import           FunctionDef.Pure.Setter        ( StringLikeSetter(fromString) )
-import           FunctionDef.Pure.Transformer   ( Model2StringText
-                                                    ( toString
-                                                    , toText
-                                                    )
-                                                )
+-- start setter
 
-
-instance StringLikeSetter ModelId where
+instance StringLike2Primitive ModelId where
     fromString = StringIdCons
+
+instance TupleString2Primitive ModelId where
+    fromTupleString tpl = fromString (snd tpl)
+
+-- end setter
+
+instance Model2IdTuple ModelId where
+    toIdTuple mid = ("id", mid)
 
 instance Model2StringText ModelId where
     toString (StringIdCons aModel) = aModel

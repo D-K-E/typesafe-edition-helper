@@ -31,27 +31,23 @@ import           Utils.StrUtils                 ( isAlphaNumStr
                                                 , isAsciiStr
                                                 )
 
-import           FunctionDef.Impure.Setter      ( StringLikeSetterM(fromString)
+import           FunctionDef.Impure.Setter      ( StringLikeSetterM(fromStringM)
                                                 )
 import           FunctionDef.Impure.Transformer ( Model2StringTextM
                                                     ( toStringM
                                                     , toTextM
                                                     )
                                                 )
+import qualified Control.Monad.Fail            as Fail
+                                                ( fail )
 -- end functionality
 
 instance StringLikeSetterM ModelId where
     fromStringM aStr
-        | null aStr
-        = fail "empty string is not allowed as id"
-        | not (isAlphaNumStr aStr)
-        = fail "Only ascii alphanumeric strings are allowed"
-        | not (isAsciiStr aStr)
-        = fail "Only ascii alphanumeric strings are allowed"
+        | null aStr = Fail.fail "empty string is not allowed as id"
+        | not (isAlphaNumStr aStr) = Fail.fail
+            "Only ascii alphanumeric strings are allowed"
+        | not (isAsciiStr aStr) = Fail.fail
+            "Only ascii alphanumeric strings are allowed"
 
 instance Model2StringTextM ModelId where
-    toStringM (StringIdCons aModel) | null aModel =
-        fail "Null model id to string"
-    toStringM (TextIdCons aModel) | empty aModel = fail "Null model id to text"
-    toTextM (TextIdCons aModel) | empty aModel  = fail "Null model id to text"
-    toTextM (StringIdCons aModel) | null aModel = fail "Null model id to string"

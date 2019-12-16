@@ -6,7 +6,10 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.Pure.Unit where
+module Primitive.Instance.Pure.Unit
+    ( UnitModel(..)
+    )
+where
 
 -- start def
 import           Primitive.Definition.Unit      ( UnitModel
@@ -36,12 +39,13 @@ import           Primitive.Instance.Pure.ModelData
                                                 ( ModelData )
 
 -- end def
--- Function definition
-import           FunctionDef.Pure.Setter        ( StringLikeSetter
+-- start fn
+import           FunctionDef.Pure.Setter        ( StringLike2Primitive
                                                     ( fromString
                                                     , fromText
                                                     )
-                                                , ModelAttrSetter(fromStringMap)
+                                                , Map2Primitive(fromStringMap)
+                                                , Tuple2Primitive(fromTuple)
                                                 )
 
 import           FunctionDef.Pure.Modifier      ( ReplaceInfoField(..)
@@ -50,6 +54,7 @@ import           FunctionDef.Pure.Modifier      ( ReplaceInfoField(..)
                                                 )
 import           FunctionDef.Pure.Matcher       ( MatchModel(..) )
 import           FunctionDef.Pure.Transformer   ( Model2Tuple(toTuple)
+                                                , Model2IdTuple(toIdTuple)
                                                 , Model2Map
                                                     ( toStringMap
                                                     , toTextMap
@@ -59,15 +64,51 @@ import           FunctionDef.Pure.Transformer   ( Model2Tuple(toTuple)
                                                     , toText
                                                     )
                                                 )
+-- end fn
+-- start utility
 import           Utils.StrUtils                 ( appendOrPrepend )
 import           Data.Map.Strict                ( isSubmapOfBy
                                                 , union
+                                                , fromList
+                                                , insert
                                                 )
 import           Data.List                      ( isInfixOf )
+-- end utility
+
+-- start setter
+
+instance TupleLikeSetter UnitModel where
+    fromTuple (minfo, UData mdata) =
+        UnitCons { modelInfo = minfo, modelData = mdata }
+
+-- end setter
+
+-- start transform
 
 instance Model2Tuple UnitModel where
     toTuple model = (modelInfo model, UData (modelData model))
 
+instance Model2IdTuple UnitModel where
+    toIdTuple model = ("unit", model)
+
+instance Model2Map UnitModel where
+    toStringMap umodel = insert (fst tpl)
+                                (snd tpl)
+                                (toStringMap (modelInfo umodel))
+      where
+        tpl = (fst tp1, toString (snd tp1))
+            where tp1 = toIdTuple (modelData umodel)
+
+    toTextMap umodel = insert (pack (fst tpl))
+                              (snd tpl)
+                              (toTextMap (modelInfo umodel))
+      where
+        tpl = (fst tp1, toText (snd tp1))
+            where tp1 = toIdTuple (modelData umodel)
+
+-- end transform
+
+-- start modify
 
 instance ReplaceInfoField UnitModel where
     replaceId umodel mid = UnitCons
@@ -165,3 +206,5 @@ instance Add2Field UnitModel where
             (appendOrPrepend (toString (modelData model)) (toString mdata) False
             )
         )
+
+-- end modify

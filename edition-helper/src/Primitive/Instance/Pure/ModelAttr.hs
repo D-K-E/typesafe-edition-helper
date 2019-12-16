@@ -11,11 +11,27 @@ module Primitive.Instance.Pure.ModelAttr
     )
 where
 
+-- start def
 import           Primitive.Definition.ModelAttr ( ModelAttr
                                                     ( StringAttrCons
                                                     , TextAttrCons
                                                     )
                                                 )
+-- end def
+
+-- start functionality
+import           FunctionDef.Pure.Setter        ( Map2Primitive(..)
+                                                , TupleMap2Primitive(..)
+                                                )
+
+import           FunctionDef.Pure.Transformer   ( Model2Map
+                                                    ( toTextMap
+                                                    , toStringMap
+                                                    )
+                                                , Model2IdTuple(toIdTuple)
+                                                )
+-- end functionality
+-- start utility
 import           Data.Map.Strict                ( elems
                                                 , keys
                                                 ) -- importing type
@@ -25,21 +41,20 @@ import           Utils.StrUtils                 ( isAlphaNumStr
 import           Utils.MapUtils                 ( convertStringMap2Txt
                                                 , convertTxtMap2String
                                                 )
+-- end utility
 
-import           FunctionDef.Pure.Setter        ( ModelAttrSetter(..) )
-import           Primitive.Definition.ModelAttr ( ModelAttr
-                                                    ( StringAttrCons
-                                                    , TextAttrCons
-                                                    )
-                                                )
-import           FunctionDef.Pure.Transformer   ( Model2Map
-                                                    ( toTextMap
-                                                    , toStringMap
-                                                    )
-                                                )
+-- start setter
 
-instance ModelAttrSetter ModelAttr where
+instance Map2Primitive ModelAttr where
     fromStringMap = StringAttrCons
+
+instance TupleMap2Primitive ModelAttr where
+    fromTupleStringMap tpl = fromStringMap (snd tpl)
+
+-- end setter
+
+instance Model2IdTuple ModelAttr where
+    toIdTuple mattr = ("attribute", mattr)
 
 instance Model2Map ModelAttr where
     toTextMap (TextAttrCons   aModel) = aModel

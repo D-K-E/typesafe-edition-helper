@@ -19,6 +19,11 @@ import           Primitive.Definition.UnitData  ( UnitData
                                                 )
 import           Primitive.Instance.Pure.UnitData
                                                 ( UnitData )
+import           Primitive.Definition.UnitData  ( UnitData
+                                                    ( StringUnitDataCons
+                                                    , TextUnitDataCons
+                                                    )
+                                                )
 -- end def
 -- start functionality
 import           Data.Text                      ( Text
@@ -26,6 +31,12 @@ import           Data.Text                      ( Text
                                                 , empty
                                                 , pack
                                                 ) -- importing type
+import           FunctionDef.Pure.Setter        ( StringLikeSetter(fromString) )
+import           FunctionDef.Pure.Transformer   ( Model2StringText
+                                                    ( toString
+                                                    , toText
+                                                    )
+                                                )
 import           FunctionDef.Impure.Setter      ( StringLikeSetterM(fromStringM)
                                                 )
 import           FunctionDef.Impure.Transformer ( Model2StringTextM
@@ -33,14 +44,16 @@ import           FunctionDef.Impure.Transformer ( Model2StringTextM
                                                     , toTextM
                                                     )
                                                 )
+import qualified Control.Monad.Fail            as Fail
+                                                ( fail )
+
 import           Control.Monad.Fail             ( MonadFail )
+import           Control.Monad                  ( Monad )
+
 -- end functionality
 
 instance StringLikeSetterM UnitData where
-    fromStringM aStr | null aStr = fail "empty string is not allowed as data"
+    fromStringM aStr | null aStr =
+        Fail.fail "empty string is not allowed as data"
 
 instance Model2StringTextM UnitData where
-    toStringM (StringUnitDataCons astr) | null astr = fail "empty unit data"
-    toStringM (TextUnitDataCons astr) | empty astr  = fail "empty unit data"
-    toTextM (TextUnitDataCons astr) | empty astr  = fail "empty unit data"
-    toTextM (StringUnitDataCons astr) | null astr = fail "empty unit data"

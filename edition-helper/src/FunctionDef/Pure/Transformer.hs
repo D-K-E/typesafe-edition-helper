@@ -10,8 +10,16 @@ module FunctionDef.Pure.Transformer
     ( Model2StringText(..)
     , Model2Tuple(..)
     , Model2Map(..)
+    , Model2IdTuple(..)
     )
 where
+
+-- start fn
+import           FunctionDef.Pure.Setter        ( Map2Primitive
+                                                , StringLike2Primitive
+                                                , Tuple2Primitive
+                                                )
+-- end fn
 
 import           Data.Map.Strict                ( Map )
 import           Data.Text                      ( Text )
@@ -19,13 +27,16 @@ import           Primitive.Definition.ModelData ( ModelData )
 import           Primitive.Definition.ModelInfo ( ModelInfo )
 
 
-class Model2StringText model where
+class (StringLike2Primitive model) => Model2StringText model where
     toString :: model -> String
     toText :: model -> Text
 
-class Model2Tuple model where
+class (Tuple2Primitive model) => Model2Tuple where
     toTuple :: model -> (ModelInfo, ModelData)
 
-class Model2Map model where
+class Model2IdTuple model where
+    toIdTuple :: model -> (String, model)
+
+class (Map2Primitive model) => Model2Map model where
     toTextMap :: model -> Map Text Text
     toStringMap :: model -> Map String String

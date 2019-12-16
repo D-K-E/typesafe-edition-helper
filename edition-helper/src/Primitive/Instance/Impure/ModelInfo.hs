@@ -7,7 +7,7 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 module Primitive.Instance.Impure.ModelInfo
-    ( ModelInfo
+    ( ModelInfo(..)
     )
 where
 
@@ -32,10 +32,11 @@ import           Primitive.Instance.Impure.ModelAttr
 
 import           FunctionDef.Impure.Setter      ( StringLikeSetterM(..) )
 import           FunctionDef.Impure.Modifier    ( ReplaceInfoFieldM(..) )
-import           View.Transformer               ( Model2StringText(..)
-                                                , Model2Map
-                                                , toTextMap
-                                                , toStringMap
+import           FunctionDef.Impure.Transformer ( Model2StringTextM(..)
+                                                , Model2MapM
+                                                    ( toTextMapM
+                                                    , toStringMapM
+                                                    )
                                                 )
 import           Utils.MapUtils                 ( convertTxtMap2String )
 import           Data.Map.Strict                ( fromList
@@ -45,24 +46,8 @@ import           Data.Map.Strict                ( fromList
 import           Data.Text                      ( Text
                                                 , pack
                                                 )
+import qualified Control.Monad.Fail            as Fail
+                                                ( fail )
 -- end import functionality
 
--- |'getModelIdTypeMap' transform model id type field
--- to map with key value both as Text
-getModelIdTypeMap :: ModelInfo -> Map Text Text
-getModelIdTypeMap aModel = fromList
-    [ (pack "id"  , toText (modelId aModel))
-    , (pack "type", toText (modelType aModel))
-    ]
-
--- |'getInfoMap' transform model info to map with key value both as Text
-getInfoMap :: ModelInfo -> Map Text Text
-getInfoMap aModel =
-    getModelIdTypeMap aModel `union` toTextMap (modelAttr aModel)
-
-
 instance ReplaceInfoFieldM ModelInfo where
-    replaceIdM minfo mid = fail "replacing id of model info has failed"
-    replaceTypeM minfo mtype = fail "replacing type of model info has failed"
-    replaceAttrM minfo mattr =
-        fail "replacing attribute of model info has failed"

@@ -43,8 +43,11 @@ class (Model2StringText model) => Model2StringTextM model where
 -- |'Model2TupleM' monadic version of 'Model2Tuple'
 class (Model2Tuple model) => Model2TupleM model where
     toTupleM :: (MonadFail m) => model -> m (ModelInfo, ModelData)
+    toTupleM model = return (toTuple model)
 
 -- |'Model2MapM' monadic version of 'Model2Map'
 class (Model2Map model) => (Model2MapM model) where
     toTextMapM :: (MonadFail m) => model -> m (Map Text Text)
     toStringMapM :: (MonadFail m) => model -> m (Map String String)
+    toStringMapM model = return (toStringMap model)
+    toTextMapM model = return (toTextMap model)

@@ -39,6 +39,13 @@ import           Primitive.Instance.Pure.UnitData
 import           Primitive.Instance.Pure.ModelData
                                                 ( ModelData )
 -- end def
+-- start fn
+
+import           FunctionDef.Pure.Setter        ( StringLike2Primitive
+                                                    ( fromString
+                                                    )
+                                                , Map2Primitive(fromStringMap)
+                                                )
 import           FunctionDef.Pure.Modifier      ( ReplaceInfoField(..)
                                                 , ReplaceField(..)
                                                 , Add2Field(..)
@@ -47,10 +54,10 @@ import           FunctionDef.Pure.Matcher       ( MatchModel(..) )
 import           FunctionDef.Pure.Transformer   ( Model2Tuple(toTuple)
                                                 , Model2StringText(toString)
                                                 , Model2Map(toStringMap)
+                                                , Model2IdTuple(toIdTuple)
                                                 )
-import           FunctionDef.Pure.Setter        ( StringLikeSetter(fromString)
-                                                , ModelAttrSetter(fromStringMap)
-                                                )
+
+-- end fn
 import           Utils.StrUtils                 ( appendOrPrepend )
 import           Data.Map.Strict                ( union
                                                 , isSubmapOfBy
@@ -60,6 +67,9 @@ import           Data.List                      ( isInfixOf )
 
 instance Model2Tuple ContainerModel where
     toTuple model = (modelInfo model, CData (modelData model))
+
+instance Model2IdTuple ContainerModel where
+    toIdTuple model = ("container", model)
 
 
 instance ReplaceInfoField ContainerModel where
@@ -97,8 +107,7 @@ instance MatchModel ContainerModel where
     containsId cmodel mid =
         toString (modelId (modelInfo cmodel)) `isInfixOf` toString mid
     hasSameData cmodel (CData cdata) = modelData cmodel == cdata
-    containsData cmodel (CData cdata) =
-        toString (modelData cmodel) `isInfixOf` toString cdata
+    containsData cmodel (CData cdata) = modelData cmodel `isInfixOf` cdata
 
 instance Add2Field ContainerModel where
     append2Id model mid = replaceId
@@ -123,7 +132,7 @@ instance Add2Field ContainerModel where
         model
         (fromString
             (appendOrPrepend (toString (modelType (modelInfo model)))
-                             (toString mid)
+                             (toString mtype)
                              True
             )
         )
@@ -132,18 +141,20 @@ instance Add2Field ContainerModel where
         model
         (fromString
             (appendOrPrepend (toString (modelType (modelInfo model)))
-                             (toString mid)
+                             (toString mtype)
                              False
             )
         )
 
     append2Data model (CData mdata) =
-        replaceData model (modelData model ++ mdata)
+        replaceData model (CData (modelData model ++ mdata))
 
     prepend2Data model (CData mdata) =
-        replaceData model (mdata ++ modelData model)
+        replaceData model (CData (mdata ++ modelData model))
 
     add2Attr model mattr = replaceAttr
         model
-        fromStringMap
-        (toStringMap (modelAttr (modelInfo model)) `union` toStringMap mattr)
+        (fromStringMap
+            (toStringMap (modelAttr (modelInfo model)) `union` toStringMap mattr
+            )
+        )

@@ -24,13 +24,14 @@ import           Primitive.Instance.Pure.ModelType
                                                 ( ModelType )
 import           Primitive.Instance.Pure.ModelAttr
                                                 ( ModelAttr )
-import           FunctionDef.Pure.Setter        ( StringLikeSetter(..) )
+import           FunctionDef.Pure.Setter        ( StringLike2Primitive(..) )
 import           FunctionDef.Pure.Modifier      ( ReplaceInfoField(..) )
 import           FunctionDef.Pure.Transformer   ( Model2StringText(..)
                                                 , Model2Map
                                                     ( toTextMap
                                                     , toStringMap
                                                     )
+                                                , Model2IdTuple(toIdTuple)
                                                 )
 import           Utils.MapUtils                 ( convertTxtMap2String )
 import           Data.Map.Strict                ( fromList
@@ -55,6 +56,12 @@ getInfoMap :: ModelInfo -> Map Text Text
 getInfoMap aModel =
     getModelIdTypeMap aModel `union` toTextMap (modelAttr aModel)
 
+-- start setter
+
+-- end setter
+
+instance Model2IdTuple ModelInfo where
+    toIdTuple minfo = ("info", minfo)
 
 -- | convert model info to map
 instance Model2Map ModelInfo where

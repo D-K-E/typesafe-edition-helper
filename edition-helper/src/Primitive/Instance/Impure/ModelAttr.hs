@@ -33,29 +33,23 @@ import           FunctionDef.Impure.Transformer ( Model2MapM
                                                     , toStringMapM
                                                     )
                                                 )
+import qualified Control.Monad.Fail            as Fail
+                                                ( fail )
 
 
 instance ModelAttrSetterM ModelAttr where
     fromStringMapM aMap
         | all null (elems aMap)
-        = fail "Attributes must have non empty values"
+        = Fail.fail "Attributes must have non empty values"
         | not (all isAlphaNumStr (elems aMap))
-        = fail "Attributes must have alphanumeric values"
+        = Fail.fail "Attributes must have alphanumeric values"
         | not (all isAsciiStr (elems aMap))
-        = fail "Attributes must have ascii values"
+        = Fail.fail "Attributes must have ascii values"
         | not (all isAlphaNumStr (keys aMap))
-        = fail "Attributes must have alphanumeric keys"
+        = Fail.fail "Attributes must have alphanumeric keys"
         | not (all isAsciiStr (keys aMap))
-        = fail "Attributes must have ascii keys"
+        = Fail.fail "Attributes must have ascii keys"
         | all null (keys aMap)
-        = fail "Attributes must have non empty keys"
+        = Fail.fail "Attributes must have non empty keys"
 
 instance Model2MapM ModelAttr where
-    toTextMapM (TextAttrCons aModel) | empty aModel =
-        fail "transforming to text map has failed"
-    toTextMapM (StringAttrCons aModel) | empty aModel =
-        fail "transforming to text map from underlaying string map has failed"
-    toStringMapM (StringAttrCons aModel) | empty aModel =
-        fail "transforming to string map has failed"
-    toStringMapM (TextAttrCons aModel) | empty aModel =
-        fail "transforming to string map from underlaying text map has failed"

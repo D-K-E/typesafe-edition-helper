@@ -11,7 +11,7 @@ module Primitive.Instance.Pure.ModelData
     )
 where
 
-import           Primitive.Definition.ModelData ( ModelData(UData) )
+import           Primitive.Definition.ModelData ( ModelData(UData, CData) )
 import           Primitive.Definition.UnitData  ( UnitData
                                                     ( StringUnitDataCons
                                                     , TextUnitDataCons
@@ -19,9 +19,21 @@ import           Primitive.Definition.UnitData  ( UnitData
                                                 )
 import           Primitive.Instance.Pure.UnitData
                                                 ( UnitData )
-import           FunctionDef.Pure.Setter        ( StringLikeSetter
+import           FunctionDef.Pure.Setter        ( StringLike2Primitive
                                                 , fromString
+                                                , TupleString2Primitive(..)
                                                 )
+import           FunctionDef.Pure.Transformer   ( Model2IdTuple(toIdTuple) )
 
-instance StringLikeSetter ModelData where
+-- start setter
+instance StringLike2Primitive ModelData where
     fromString astr = UData (StringUnitDataCons astr)
+
+instance TupleString2Primitive ModelData where
+    fromTupleString tpl = fromString (snd tpl)
+
+-- end setter
+
+instance Model2IdTuple ModelData where
+    toIdTuple (UData mdata) = ("data-unit", UData mdata)
+    toIdTuple (CData mdata) = ("data-container", CData mdata)

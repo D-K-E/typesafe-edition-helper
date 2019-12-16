@@ -34,6 +34,8 @@ import           Data.Text                      ( Text
                                                 , empty
                                                 , unpack
                                                 ) -- importing type
+import qualified Control.Monad.Fail            as Fail
+                                                ( fail )
 import           Utils.StrUtils                 ( toLowerStr
                                                 , isAlphaNumStr
                                                 , isAsciiStr
@@ -56,15 +58,7 @@ instance StringLikeSetterM ModelType where
                       , "lemma"
                       , "analysis"
                       ]
-        = fail ("unknown model type " ++ typeName)
+        = Fail.fail ("unknown model type " ++ typeName)
 
 
 instance Model2StringTextM ModelType where
-    toStringM (StringTypeCons aModel) | null aModel =
-        fail "Null model type to string"
-    toStringM (TextTypeCons aModel) | empty aModel =
-        fail "Null model type to text"
-    toTextM (StringTypeCons aModel) | null aModel =
-        fail "Null model type to string"
-    toTextM (TextTypeCons aModel) | empty aModel =
-        fail "Null model type to text"
