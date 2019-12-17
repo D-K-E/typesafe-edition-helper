@@ -52,7 +52,7 @@ import           Utils.StrUtils                 ( toLowerStr
 instance Model2IdTuple ModelType where
     toIdTuple mtype = ("model-type", mtype)
 
-instance StringLikeSetter ModelType where
+instance StringLike2Primitive ModelType where
     fromString typeName
         | toLowerStr typeName == "edition" = StringTypeCons "edition"
         | toLowerStr typeName == "transliteration" = StringTypeCons

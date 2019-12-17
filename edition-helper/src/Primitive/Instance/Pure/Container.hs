@@ -71,7 +71,6 @@ instance Model2Tuple ContainerModel where
 instance Model2IdTuple ContainerModel where
     toIdTuple model = ("container", model)
 
-
 instance ReplaceInfoField ContainerModel where
     replaceId cmodel mid = ContainerCons
         { modelInfo = replaceId (modelInfo cmodel) mid

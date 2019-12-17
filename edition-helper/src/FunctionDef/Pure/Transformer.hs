@@ -31,7 +31,7 @@ class (StringLike2Primitive model) => Model2StringText model where
     toString :: model -> String
     toText :: model -> Text
 
-class (Tuple2Primitive model) => Model2Tuple where
+class (Tuple2Primitive model) => Model2Tuple model where
     toTuple :: model -> (ModelInfo, ModelData)
 
 class Model2IdTuple model where

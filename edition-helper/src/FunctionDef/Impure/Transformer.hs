@@ -23,6 +23,7 @@ import           FunctionDef.Pure.Transformer   ( Model2StringText
                                                     ( toTextMap
                                                     , toStringMap
                                                     )
+                                                , Model2IdTuple(..)
                                                 )
 -- end def
 -- start functionality
@@ -44,6 +45,11 @@ class (Model2StringText model) => Model2StringTextM model where
 class (Model2Tuple model) => Model2TupleM model where
     toTupleM :: (MonadFail m) => model -> m (ModelInfo, ModelData)
     toTupleM model = return (toTuple model)
+
+-- |'Model2IdTupleM' monadic version of 'Model2Map'
+class (Model2IdTuple model) => Model2IdTupleM model where
+    toIdTupleM :: (MonadFail m) => model -> m (String, model)
+    toIdTupleM model = return (toIdTuple model)
 
 -- |'Model2MapM' monadic version of 'Model2Map'
 class (Model2Map model) => (Model2MapM model) where

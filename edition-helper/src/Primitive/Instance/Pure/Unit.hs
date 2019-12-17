@@ -77,7 +77,7 @@ import           Data.List                      ( isInfixOf )
 
 -- start setter
 
-instance TupleLikeSetter UnitModel where
+instance Tuple2Primitive UnitModel where
     fromTuple (minfo, UData mdata) =
         UnitCons { modelInfo = minfo, modelData = mdata }
 

@@ -19,12 +19,14 @@ import           Primitive.Definition.ModelInfo ( ModelInfo
                                                     )
                                                 )
 import           Primitive.Instance.Pure.ModelId
-                                                ( ModelId )
+                                                ( ModelId(..) )
 import           Primitive.Instance.Pure.ModelType
-                                                ( ModelType )
+                                                ( ModelType(..) )
 import           Primitive.Instance.Pure.ModelAttr
-                                                ( ModelAttr )
-import           FunctionDef.Pure.Setter        ( StringLike2Primitive(..) )
+                                                ( ModelAttr(..) )
+import           FunctionDef.Pure.Setter        ( StringLike2Primitive(..)
+                                                , Map2Primitive(..)
+                                                )
 import           FunctionDef.Pure.Modifier      ( ReplaceInfoField(..) )
 import           FunctionDef.Pure.Transformer   ( Model2StringText(..)
                                                 , Model2Map
@@ -37,6 +39,11 @@ import           Utils.MapUtils                 ( convertTxtMap2String )
 import           Data.Map.Strict                ( fromList
                                                 , Map
                                                 , union
+                                                )
+import qualified Data.Map.Strict               as Mp
+                                                ( lookup
+                                                , delete
+                                                , (!)
                                                 )
 import           Data.Text                      ( Text
                                                 , pack
@@ -57,6 +64,16 @@ getInfoMap aModel =
     getModelIdTypeMap aModel `union` toTextMap (modelAttr aModel)
 
 -- start setter
+
+instance Map2Primitive ModelInfo where
+    fromStringMap minfo = InfoCons { modelId   = mid
+                                   , modelType = mtype
+                                   , modelAttr = mattr
+                                   }
+      where
+        mid   = fromString (minfo Mp.! "id")
+        mtype = fromString (minfo Mp.! "type")
+        mattr = fromStringMap (Mp.delete "type" (Mp.delete "id" minfo))
 
 -- end setter
 

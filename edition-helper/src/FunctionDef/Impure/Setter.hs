@@ -7,9 +7,9 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 module FunctionDef.Impure.Setter
-    ( StringLikeSetterM(..)
-    , ModelAttrSetterM(..)
-    , TupleLikeSetterM(..)
+    ( StringLike2PrimitiveM(..)
+    , Map2PrimitiveM(..)
+    , Tuple2PrimitiveM(..)
     )
 where
 
@@ -21,9 +21,9 @@ import           Primitive.Definition.ModelData ( ModelData )
 -- end def
 
 import qualified FunctionDef.Pure.Setter       as PS
-                                                ( StringLikeSetter(..)
-                                                , ModelAttrSetter(..)
-                                                , TupleLikeSetter(..)
+                                                ( StringLike2Primitive(..)
+                                                , Map2Primitive(..)
+                                                , Tuple2Primitive(..)
                                                 )
 import           Data.Text                      ( Text
                                                 , pack
@@ -37,17 +37,17 @@ import           Utils.MapUtils                 ( convertStringKey
 import           Control.Monad.Fail             ( MonadFail )
 
 
-class (PS.TupleLikeSetter model) => TupleLikeSetterM model where
+class (PS.Tuple2Primitive model) => Tuple2PrimitiveM model where
     fromTupleM :: (MonadFail m) => (ModelInfo, ModelData) -> m model
     fromTupleM tpl = return (PS.fromTuple tpl)
 
-class (PS.StringLikeSetter model) => StringLikeSetterM model where
+class (PS.StringLike2Primitive model) => StringLike2PrimitiveM model where
     fromStringM :: (MonadFail m) => String -> m model
     fromTextM :: (MonadFail m) => Text -> m model
     fromStringM astr =  return (PS.fromString astr)
     fromTextM aText = fromStringM (unpack aText)
 
-class (PS.ModelAttrSetter model) => ModelAttrSetterM model where
+class (PS.Map2Primitive model) => Map2PrimitiveM model where
     fromStringMapM :: (MonadFail m) => Map String String -> m model
     fromTextMapM :: (MonadFail m) => Map Text Text -> m model
     fromMixedStrMapM :: (MonadFail m) => Map String Text -> m model
