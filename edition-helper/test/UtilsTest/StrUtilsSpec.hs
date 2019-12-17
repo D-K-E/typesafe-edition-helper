@@ -51,5 +51,5 @@ main = hspec $ do
             `shouldBe` "edition-note"
 
         it "if bool arg is false it should prepend"
-            $          appendOrPrepend "edition" "note" True
+            $          appendOrPrepend "edition" "note" False
             `shouldBe` "note-edition"
