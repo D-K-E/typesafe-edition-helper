@@ -30,7 +30,7 @@ import           Primitive.Instance.Impure.ModelType
 import           Primitive.Instance.Impure.ModelAttr
                                                 ( ModelAttr )
 
-import           FunctionDef.Impure.Setter      ( StringLikeSetterM(..) )
+import           FunctionDef.Impure.Setter      ( StringLike2PrimitiveM(..) )
 import           FunctionDef.Impure.Modifier    ( ReplaceInfoFieldM(..) )
 import           FunctionDef.Impure.Transformer ( Model2StringTextM(..)
                                                 , Model2MapM

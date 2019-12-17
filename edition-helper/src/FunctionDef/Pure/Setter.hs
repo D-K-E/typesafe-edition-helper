@@ -9,12 +9,26 @@ Stability : Experimental
 module FunctionDef.Pure.Setter
     ( StringLike2Primitive(..)
     , Map2Primitive(..)
-    , Tuple2Primitive(..)
+    , ModelTuple2Primitive(..)
+    , InfoTuple2Primitive(..)
     , TupleString2Primitive(..)
     , TupleMap2Primitive(..)
     )
 where
 
+-- start def
+
+-- end def
+import           Primitive.Definition.ModelInfo ( ModelInfo )
+import           Primitive.Definition.ModelData ( ModelData )
+import           Primitive.Definition.ModelId   ( ModelId )
+import           Primitive.Definition.ModelType ( ModelType )
+import           Primitive.Definition.ModelAttr ( ModelAttr )
+-- start fn
+
+-- end fn
+
+-- start utility
 import           Data.Text                      ( Text
                                                 , pack
                                                 , unpack
@@ -24,9 +38,8 @@ import           Utils.MapUtils                 ( convertStringKey
                                                 , convertStringVal
                                                 , convertTxtMap2String
                                                 )
-import           Primitive.Definition.ModelInfo ( ModelInfo )
-import           Primitive.Definition.ModelData ( ModelData )
 
+-- end utility
 
 class StringLike2Primitive model where
     fromString :: String -> model
@@ -43,8 +56,11 @@ class Map2Primitive model where
     fromMixedTextMap aMap = fromTextMap (convertStringVal aMap)
     fromTextMap aMap = fromStringMap (convertTxtMap2String aMap)
 
-class Tuple2Primitive model where
-    fromTuple :: (ModelInfo, ModelData) -> model
+class ModelTuple2Primitive model where
+    fromModelTuple :: (ModelInfo, ModelData) -> model
+
+class InfoTuple2Primitive model where
+    fromInfoTuple :: (ModelId, ModelType, ModelAttr) -> model
 
 class (StringLike2Primitive model) => TupleString2Primitive model where
     fromTupleString :: (String, String) -> model

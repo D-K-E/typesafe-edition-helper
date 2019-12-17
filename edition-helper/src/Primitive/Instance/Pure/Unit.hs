@@ -45,7 +45,9 @@ import           FunctionDef.Pure.Setter        ( StringLike2Primitive
                                                     , fromText
                                                     )
                                                 , Map2Primitive(fromStringMap)
-                                                , Tuple2Primitive(fromTuple)
+                                                , ModelTuple2Primitive
+                                                    ( fromModelTuple
+                                                    )
                                                 )
 
 import           FunctionDef.Pure.Modifier      ( ReplaceInfoField(..)
@@ -72,13 +74,14 @@ import           Data.Map.Strict                ( isSubmapOfBy
                                                 , fromList
                                                 , insert
                                                 )
+import           Data.Text                      ( pack )
 import           Data.List                      ( isInfixOf )
 -- end utility
 
 -- start setter
 
-instance Tuple2Primitive UnitModel where
-    fromTuple (minfo, UData mdata) =
+instance ModelTuple2Primitive UnitModel where
+    fromModelTuple (minfo, UData mdata) =
         UnitCons { modelInfo = minfo, modelData = mdata }
 
 -- end setter
@@ -91,20 +94,6 @@ instance Model2Tuple UnitModel where
 instance Model2IdTuple UnitModel where
     toIdTuple model = ("unit", model)
 
-instance Model2Map UnitModel where
-    toStringMap umodel = insert (fst tpl)
-                                (snd tpl)
-                                (toStringMap (modelInfo umodel))
-      where
-        tpl = (fst tp1, toString (snd tp1))
-            where tp1 = toIdTuple (modelData umodel)
-
-    toTextMap umodel = insert (pack (fst tpl))
-                              (snd tpl)
-                              (toTextMap (modelInfo umodel))
-      where
-        tpl = (fst tp1, toText (snd tp1))
-            where tp1 = toIdTuple (modelData umodel)
 
 -- end transform
 

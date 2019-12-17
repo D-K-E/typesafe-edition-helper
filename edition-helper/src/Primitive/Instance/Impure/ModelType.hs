@@ -26,7 +26,7 @@ import           FunctionDef.Impure.Transformer ( Model2StringTextM
                                                     , toTextM
                                                     )
                                                 )
-import           FunctionDef.Impure.Setter      ( StringLikeSetterM(fromStringM)
+import           FunctionDef.Impure.Setter      ( StringLike2PrimitiveM(fromStringM)
                                                 )
 import           Data.List                      ( notElem )
 import           Data.Text                      ( Text
@@ -42,7 +42,7 @@ import           Utils.StrUtils                 ( toLowerStr
                                                 )
 -- end functionality
 
-instance StringLikeSetterM ModelType where
+instance StringLike2PrimitiveM ModelType where
     fromStringM typeName
         | toLowerStr typeName
             `notElem` [ "edition"

@@ -19,11 +19,6 @@ import           Primitive.Definition.UnitData  ( UnitData
                                                 )
 import           Primitive.Instance.Pure.UnitData
                                                 ( UnitData )
-import           Primitive.Definition.UnitData  ( UnitData
-                                                    ( StringUnitDataCons
-                                                    , TextUnitDataCons
-                                                    )
-                                                )
 -- end def
 -- start functionality
 import           Data.Text                      ( Text
@@ -31,13 +26,18 @@ import           Data.Text                      ( Text
                                                 , empty
                                                 , pack
                                                 ) -- importing type
-import           FunctionDef.Pure.Setter        ( StringLikeSetter(fromString) )
+import           FunctionDef.Pure.Setter        ( StringLike2Primitive
+                                                    ( fromString
+                                                    )
+                                                )
 import           FunctionDef.Pure.Transformer   ( Model2StringText
                                                     ( toString
                                                     , toText
                                                     )
                                                 )
-import           FunctionDef.Impure.Setter      ( StringLikeSetterM(fromStringM)
+import           FunctionDef.Impure.Setter      ( StringLike2PrimitiveM
+                                                    ( fromStringM
+                                                    )
                                                 )
 import           FunctionDef.Impure.Transformer ( Model2StringTextM
                                                     ( toStringM
@@ -52,7 +52,7 @@ import           Control.Monad                  ( Monad )
 
 -- end functionality
 
-instance StringLikeSetterM UnitData where
+instance StringLike2PrimitiveM UnitData where
     fromStringM aStr | null aStr =
         Fail.fail "empty string is not allowed as data"
 

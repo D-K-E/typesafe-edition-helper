@@ -13,7 +13,9 @@ where
 
 import           Primitive.Instance.Impure.ModelType
                                                 ( ModelType )
-import           FunctionDef.Impure.Setter      ( StringLikeSetterM(fromStringM)
+import           FunctionDef.Impure.Setter      ( StringLike2PrimitiveM
+                                                    ( fromStringM
+                                                    )
                                                 )
 import           Control.Monad.Fail             ( MonadFail )
 

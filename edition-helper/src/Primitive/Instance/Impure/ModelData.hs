@@ -17,9 +17,14 @@ import           Primitive.Instance.Pure.ModelData
 import           Primitive.Instance.Impure.UnitData
                                                 ( UnitData )
 --import           Control.Impure.UnitData        ( makeUDataM )
-import           FunctionDef.Pure.Setter        ( StringLikeSetter(fromString) )
-import           FunctionDef.Impure.Setter      ( StringLikeSetterM(fromStringM)
+import           FunctionDef.Pure.Setter        ( StringLike2Primitive
+                                                    ( fromString
+                                                    )
+                                                )
+import           FunctionDef.Impure.Setter      ( StringLike2PrimitiveM
+                                                    ( fromStringM
+                                                    )
                                                 )
 
-instance StringLikeSetterM ModelData where
+instance StringLike2PrimitiveM ModelData where
     fromStringM astr = return (fromString astr)

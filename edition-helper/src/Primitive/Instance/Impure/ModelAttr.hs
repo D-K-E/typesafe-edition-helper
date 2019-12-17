@@ -27,7 +27,7 @@ import           Utils.MapUtils                 ( convertStringMap2Txt
                                                 , convertTxtMap2String
                                                 )
 
-import           FunctionDef.Impure.Setter      ( ModelAttrSetterM(..) )
+import           FunctionDef.Impure.Setter      ( Map2PrimitiveM(..) )
 import           FunctionDef.Impure.Transformer ( Model2MapM
                                                     ( toTextMapM
                                                     , toStringMapM
@@ -37,7 +37,7 @@ import qualified Control.Monad.Fail            as Fail
                                                 ( fail )
 
 
-instance ModelAttrSetterM ModelAttr where
+instance Map2PrimitiveM ModelAttr where
     fromStringMapM aMap
         | all null (elems aMap)
         = Fail.fail "Attributes must have non empty values"

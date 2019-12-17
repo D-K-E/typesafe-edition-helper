@@ -42,7 +42,6 @@ import           FunctionDef.Impure.Modifier    ( ReplaceInfoFieldM(..)
                                                 , Add2FieldM(..)
                                                 )
 import           FunctionDef.Impure.Matcher     ( MatchModelM(..) )
-import           FunctionDef.Impure.Setter      ( TupleLikeSetterM(..) )
 import           FunctionDef.Impure.Transformer ( Model2TupleM
                                                 , toTupleM
                                                 , toStringMapM
@@ -53,10 +52,6 @@ import           Data.Map.Strict                ( isSubmapOfBy
 import           Data.List                      ( isInfixOf )
 import qualified Control.Monad.Fail            as Fail
                                                 ( fail )
-
-instance TupleLikeSetterM UnitModel where
-    fromTupleM (minfo, CData mdata) =
-        Fail.fail "Cannot set unit model from container data"
 
 instance Model2TupleM UnitModel where
     toTupleM model = return (modelInfo model, UData (modelData model))

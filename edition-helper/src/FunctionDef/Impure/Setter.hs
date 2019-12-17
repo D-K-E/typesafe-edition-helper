@@ -9,7 +9,6 @@ Stability : Experimental
 module FunctionDef.Impure.Setter
     ( StringLike2PrimitiveM(..)
     , Map2PrimitiveM(..)
-    , Tuple2PrimitiveM(..)
     )
 where
 
@@ -23,7 +22,7 @@ import           Primitive.Definition.ModelData ( ModelData )
 import qualified FunctionDef.Pure.Setter       as PS
                                                 ( StringLike2Primitive(..)
                                                 , Map2Primitive(..)
-                                                , Tuple2Primitive(..)
+                                                , ModelTuple2Primitive(..)
                                                 )
 import           Data.Text                      ( Text
                                                 , pack
@@ -36,10 +35,6 @@ import           Utils.MapUtils                 ( convertStringKey
                                                 )
 import           Control.Monad.Fail             ( MonadFail )
 
-
-class (PS.Tuple2Primitive model) => Tuple2PrimitiveM model where
-    fromTupleM :: (MonadFail m) => (ModelInfo, ModelData) -> m model
-    fromTupleM tpl = return (PS.fromTuple tpl)
 
 class (PS.StringLike2Primitive model) => StringLike2PrimitiveM model where
     fromStringM :: (MonadFail m) => String -> m model

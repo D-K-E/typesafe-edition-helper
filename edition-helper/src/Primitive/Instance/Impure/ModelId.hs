@@ -31,7 +31,9 @@ import           Utils.StrUtils                 ( isAlphaNumStr
                                                 , isAsciiStr
                                                 )
 
-import           FunctionDef.Impure.Setter      ( StringLikeSetterM(fromStringM)
+import           FunctionDef.Impure.Setter      ( StringLike2PrimitiveM
+                                                    ( fromStringM
+                                                    )
                                                 )
 import           FunctionDef.Impure.Transformer ( Model2StringTextM
                                                     ( toStringM
@@ -42,7 +44,7 @@ import qualified Control.Monad.Fail            as Fail
                                                 ( fail )
 -- end functionality
 
-instance StringLikeSetterM ModelId where
+instance StringLike2PrimitiveM ModelId where
     fromStringM aStr
         | null aStr = Fail.fail "empty string is not allowed as id"
         | not (isAlphaNumStr aStr) = Fail.fail

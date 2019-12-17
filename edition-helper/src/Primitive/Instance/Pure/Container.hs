@@ -45,6 +45,7 @@ import           FunctionDef.Pure.Setter        ( StringLike2Primitive
                                                     ( fromString
                                                     )
                                                 , Map2Primitive(fromStringMap)
+                                                , ModelTuple2Primitive(..)
                                                 )
 import           FunctionDef.Pure.Modifier      ( ReplaceInfoField(..)
                                                 , ReplaceField(..)
@@ -64,13 +65,24 @@ import           Data.Map.Strict                ( union
                                                 )
 import           Data.List                      ( isInfixOf )
 
+-- start setter
 
+instance ModelTuple2Primitive ContainerModel where
+    fromModelTuple (minfo, CData mdata) =
+        ContainerCons { modelInfo = minfo, modelData = mdata }
+
+
+-- end setter
+
+-- start transformer
 instance Model2Tuple ContainerModel where
     toTuple model = (modelInfo model, CData (modelData model))
 
 instance Model2IdTuple ContainerModel where
     toIdTuple model = ("container", model)
 
+-- end transformer
+-- start modify
 instance ReplaceInfoField ContainerModel where
     replaceId cmodel mid = ContainerCons
         { modelInfo = replaceId (modelInfo cmodel) mid
@@ -157,3 +169,5 @@ instance Add2Field ContainerModel where
             (toStringMap (modelAttr (modelInfo model)) `union` toStringMap mattr
             )
         )
+
+-- end modify
