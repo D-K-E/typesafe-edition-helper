@@ -26,6 +26,7 @@ import           Primitive.Definition.ModelType ( ModelType
 import           FunctionDef.Pure.Setter        ( StringLike2Primitive
                                                     ( fromString
                                                     )
+                                                , TupleString2Primitive(..)
                                                 )
 import           FunctionDef.Pure.Transformer   ( Model2StringText
                                                     ( toString
@@ -49,8 +50,7 @@ import           Utils.StrUtils                 ( toLowerStr
 
 -- end utility
 
-instance Model2IdTuple ModelType where
-    toIdTuple mtype = ("model-type", mtype)
+-- start setter
 
 instance StringLike2Primitive ModelType where
     fromString typeName
@@ -68,9 +68,20 @@ instance StringLike2Primitive ModelType where
         | toLowerStr typeName == "lemma" = StringTypeCons "lemma"
         | toLowerStr typeName == "analysis" = StringTypeCons "analysis"
 
+instance TupleString2Primitive ModelType where
+    fromTupleString tpl = fromString (snd tpl)
+
+-- end setter
+
+-- start transformer
+
+instance Model2IdTuple ModelType where
+    toIdTuple mtype = ("type", mtype)
 
 instance Model2StringText ModelType where
     toString (StringTypeCons aModel) = aModel
     toString (TextTypeCons   aModel) = unpack aModel
     toText (StringTypeCons aModel) = pack aModel
     toText (TextTypeCons   aModel) = aModel
+
+-- end transformer
