@@ -34,34 +34,34 @@ import           Data.Text                      ( Text
 
 import           Test.Hspec
 
+mid = StringIdCons "small-id-12"
+
+
 main :: IO ()
 main = hspec $ do
     describe "ModelId setter test" $ do
-        it "Set model id from string"
-            $          fromString "small-id-12"
-            `shouldBe` StringIdCons "small-id-12"
-
+        it "Set model id from string" $ fromString "small-id-12" `shouldBe` mid
         it "Set Model id from Text"
             $          fromText (pack "small-id-12")
-            `shouldBe` StringIdCons "small-id-12"
+            `shouldBe` mid
 
         it "Set Model Id from TupleString2Primitive fromTupleString"
             $          fromTupleString ("id", "small-id-12")
-            `shouldBe` StringIdCons "small-id-12"
+            `shouldBe` mid
 
         it "Set Model Id from TupleString2Primitive fromTupleText"
             $          fromTupleText ("id", pack "small-id-12")
-            `shouldBe` StringIdCons "small-id-12"
+            `shouldBe` mid
 
     describe "ModelId transformer test" $ do
         it "Model2StringText transform model id to string"
-            $          toString (StringIdCons "small-id-12")
+            $          toString mid
             `shouldBe` "small-id-12"
 
         it "Model2StringText transform model id to Text"
-            $          toText (StringIdCons "small-id-12")
+            $          toText mid
             `shouldBe` pack "small-id-12"
 
         it "Model2IdTuple transform model id to string ModelId tuple"
-            $          toIdTuple (StringIdCons "small-id-12")
-            `shouldBe` ("id", StringIdCons "small-id-12")
+            $          toIdTuple mid
+            `shouldBe` ("id", mid)

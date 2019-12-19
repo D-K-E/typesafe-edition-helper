@@ -73,7 +73,7 @@ import           Utils.MapUtils                 ( add2Map
 import           Utils.XmlUtils                 ( makeName
                                                 , makeTagName
                                                 )
-
+{-
 -- | transform model to xml node
 class Model2XmlNode model where
     toNode :: model -> Node
@@ -112,3 +112,4 @@ instance Model2XmlElement Cm.ContainerModel where
 instance Model2XmlElement Cm.ContainerData where
     toElement (CModel cm) = toElement cm
     toElement (UModel um) = toElement um
+-}

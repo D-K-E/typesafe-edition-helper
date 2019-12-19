@@ -32,34 +32,34 @@ import           Data.Text                      ( Text
 
 import           Test.Hspec
 
+mtype = StringTypeCons "edition"
+
+
 main :: IO ()
 main = hspec $ do
     describe "ModelType setter test" $ do
-        it "Set model type from string"
-            $          fromString "edition"
-            `shouldBe` StringTypeCons "edition"
-
+        it "Set model type from string" $ fromString "edition" `shouldBe` mtype
         it "Set Model type from Text"
             $          fromText (pack "edition")
-            `shouldBe` StringTypeCons "edition"
+            `shouldBe` mtype
 
         it "Set Model Type from TupleString2Primitive fromTupleString"
             $          fromTupleString ("type", "edition")
-            `shouldBe` StringTypeCons "edition"
+            `shouldBe` mtype
 
         it "Set Model Type from TupleString2Primitive fromTupleText"
-            $          fromTupleText ("type", pack "glossary")
-            `shouldBe` StringTypeCons "glossary"
+            $          fromTupleText ("type", pack "edition")
+            `shouldBe` mtype
 
     describe "ModelType transformer test" $ do
         it "Model2StringText transform model type to string"
-            $          toString (StringTypeCons "analysis")
-            `shouldBe` "analysis"
+            $          toString mtype
+            `shouldBe` "edition"
 
         it "Model2StringText transform model type to Text"
-            $          toText (StringTypeCons "analysis")
-            `shouldBe` pack "analysis"
+            $          toText mtype
+            `shouldBe` pack "edition"
 
         it "Model2IdTuple transform model type to string ModelId tuple"
-            $          toIdTuple (StringTypeCons "edition")
-            `shouldBe` ("type", StringTypeCons "edition")
+            $          toIdTuple mtype
+            `shouldBe` ("type", mtype)

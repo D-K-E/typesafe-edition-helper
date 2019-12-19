@@ -24,16 +24,10 @@ import           Primitive.Instance.Pure.ModelType
                                                 ( ModelType(..) )
 import           Primitive.Instance.Pure.ModelAttr
                                                 ( ModelAttr(..) )
-import           FunctionDef.Pure.Setter        ( StringLike2Primitive(..)
-                                                , Map2Primitive(..)
-                                                )
+import           FunctionDef.Pure.Setter        ( InfoTuple2Primitive(..) )
 import           FunctionDef.Pure.Modifier      ( ReplaceInfoField(..) )
-import           FunctionDef.Pure.Transformer   ( Model2StringText(..)
-                                                , Model2Map
-                                                    ( toTextMap
-                                                    , toStringMap
-                                                    )
-                                                , Model2IdTuple(toIdTuple)
+import           FunctionDef.Pure.Transformer   ( Model2IdTuple(toIdTuple)
+                                                , ModelInfo2Tuple(..)
                                                 )
 import           Utils.MapUtils                 ( convertTxtMap2String )
 import           Data.Map.Strict                ( fromList
@@ -49,42 +43,22 @@ import           Data.Text                      ( Text
                                                 , pack
                                                 )
 
-
--- |'getModelIdTypeMap' transform model id type field
--- to map with key value both as Text
-getModelIdTypeMap :: ModelInfo -> Map Text Text
-getModelIdTypeMap aModel = fromList
-    [ (pack "id"  , toText (modelId aModel))
-    , (pack "type", toText (modelType aModel))
-    ]
-
--- |'getInfoMap' transform model info to map with key value both as Text
-getInfoMap :: ModelInfo -> Map Text Text
-getInfoMap aModel =
-    getModelIdTypeMap aModel `union` toTextMap (modelAttr aModel)
-
 -- start setter
-
-instance Map2Primitive ModelInfo where
-    fromStringMap minfo = InfoCons { modelId   = mid
-                                   , modelType = mtype
-                                   , modelAttr = mattr
-                                   }
-      where
-        mid   = fromString (minfo Mp.! "id")
-        mtype = fromString (minfo Mp.! "type")
-        mattr = fromStringMap (Mp.delete "type" (Mp.delete "id" minfo))
+instance InfoTuple2Primitive ModelInfo where
+    fromInfoTuple (mid, mtype, mattr) =
+        InfoCons { modelId = mid, modelType = mtype, modelAttr = mattr }
 
 -- end setter
+
+-- start transform
 
 instance Model2IdTuple ModelInfo where
     toIdTuple minfo = ("info", minfo)
 
--- | convert model info to map
-instance Model2Map ModelInfo where
-    toTextMap = getInfoMap
-    toStringMap aModel = convertTxtMap2String (getInfoMap aModel)
+instance ModelInfo2Tuple ModelInfo where
+    toInfoTuple model = (modelId model, modelType model, modelAttr model)
 
+-- end transform
 instance ReplaceInfoField ModelInfo where
     replaceId minfo mid = InfoCons { modelId   = mid
                                    , modelType = modelType minfo
