@@ -22,6 +22,7 @@ import           Primitive.Definition.UnitData  ( UnitData
 import           FunctionDef.Pure.Setter        ( StringLike2Primitive
                                                     ( fromString
                                                     )
+                                                , TupleString2Primitive(..)
                                                 )
 import           FunctionDef.Pure.Transformer   ( Model2StringText
                                                     ( toString
@@ -38,11 +39,18 @@ import           Data.Text                      ( Text
                                                 ) -- importing type
 -- end utility
 
-instance Model2IdTuple UnitData where
-    toIdTuple udata = ("data-unit", udata)
+-- start setter
 
 instance StringLike2Primitive UnitData where
     fromString = StringUnitDataCons
+
+instance TupleString2Primitive UnitData where
+    fromTupleString tpl = fromString (snd tpl)
+
+-- end setter
+
+instance Model2IdTuple UnitData where
+    toIdTuple udata = ("data-unit", udata)
 
 instance Model2StringText UnitData where
     toString (StringUnitDataCons ud) = ud
