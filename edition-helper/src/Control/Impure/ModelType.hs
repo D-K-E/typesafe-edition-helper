@@ -7,7 +7,7 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 module Control.Impure.ModelType
-    ( makeModelTypeM
+    (-- makeModelTypeM
     )
 where
 
@@ -17,7 +17,7 @@ import           FunctionDef.Impure.Setter      ( StringLike2PrimitiveM
                                                     ( fromStringM
                                                     )
                                                 )
-import           Control.Monad.Fail             ( MonadFail )
+import           Control.Monad                  ( Monad )
 
-makeModelTypeM :: (MonadFail m) => String -> m ModelType
-makeModelTypeM = fromStringM
+--makeModelTypeM :: (Monad m) => String -> m ModelType
+--makeModelTypeM = fromStringM

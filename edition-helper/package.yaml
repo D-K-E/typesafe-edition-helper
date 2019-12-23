@@ -28,6 +28,7 @@ dependencies:
 - filepath
 - directory
 - hspec
+- hspec-contrib
 
 library:
   source-dirs: src

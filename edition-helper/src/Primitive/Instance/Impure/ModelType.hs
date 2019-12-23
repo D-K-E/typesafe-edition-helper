@@ -34,7 +34,7 @@ import           Data.Text                      ( Text
                                                 , empty
                                                 , unpack
                                                 ) -- importing type
-import qualified Control.Monad.Fail            as Fail
+import qualified Control.Monad            as Fail
                                                 ( fail )
 import           Utils.StrUtils                 ( toLowerStr
                                                 , isAlphaNumStr

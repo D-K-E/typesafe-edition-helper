@@ -1,5 +1,5 @@
 {-|
-Module : Model
+Module : ModelIdSpec
 License : see LICENSE
 Description : Test suit for primitive model id pure instance spec
 Copyright : Kaan Eraslan

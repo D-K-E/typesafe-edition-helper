@@ -19,18 +19,9 @@ import           Primitive.Definition.ModelId   ( ModelId
                                                 )
 import           Primitive.Instance.Pure.ModelId
                                                 ( ModelId )
+import           Primitive.Definition.Error     ( StringValueError(..) )
 -- end def
--- start functionality
-import           Data.Map.Strict                ( Map ) -- importing type
-import           Data.Text                      ( Text
-                                                , pack
-                                                , unpack
-                                                , empty
-                                                ) -- importing type
-import           Utils.StrUtils                 ( isAlphaNumStr
-                                                , isAsciiStr
-                                                )
-
+-- start fn
 import           FunctionDef.Impure.Setter      ( StringLike2PrimitiveM
                                                     ( fromStringM
                                                     )
@@ -40,16 +31,24 @@ import           FunctionDef.Impure.Transformer ( Model2StringTextM
                                                     , toTextM
                                                     )
                                                 )
-import qualified Control.Monad.Fail            as Fail
-                                                ( fail )
--- end functionality
+-- end fn
+-- start utility
+import           Utils.StrUtils                 ( isAlphaNumStr
+                                                , isAsciiStr
+                                                )
+import           Control.Exception              ( throw )
+import           Data.Map.Strict                ( Map ) -- importing type
+import           Data.Text                      ( Text
+                                                , pack
+                                                , unpack
+                                                , empty
+                                                ) -- importing type
+-- end end utility
 
 instance StringLike2PrimitiveM ModelId where
     fromStringM aStr
-        | null aStr = Fail.fail "empty string is not allowed as id"
-        | not (isAlphaNumStr aStr) = Fail.fail
-            "Only ascii alphanumeric strings are allowed"
-        | not (isAsciiStr aStr) = Fail.fail
-            "Only ascii alphanumeric strings are allowed"
+        | null aStr = throw (EmptyStr "ModelId")
+        | not ((isAlphaNumStr aStr) && (isAsciiStr aStr)) = throw
+            (NotAsciiAlphanumeric "ModelId")
 
 instance Model2StringTextM ModelId where

@@ -44,10 +44,10 @@ import           FunctionDef.Impure.Transformer ( Model2StringTextM
                                                     , toTextM
                                                     )
                                                 )
-import qualified Control.Monad.Fail            as Fail
+import qualified Control.Monad            as Fail
                                                 ( fail )
 
-import           Control.Monad.Fail             ( MonadFail )
+import           Control.Monad             ( Monad )
 import           Control.Monad                  ( Monad )
 
 -- end functionality
