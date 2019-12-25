@@ -24,6 +24,10 @@ import           Primitive.Definition.ModelData ( ModelData )
 import           Primitive.Definition.ModelId   ( ModelId )
 import           Primitive.Definition.ModelType ( ModelType )
 import           Primitive.Definition.ModelAttr ( ModelAttr )
+import           Primitive.Definition.Error     ( StringValueError
+                                                , IdTupleValueError
+                                                )
+import           Primitive.Definition.ModelAttr ( ModelAttr )
 -- start fn
 
 -- end fn
@@ -42,15 +46,15 @@ import           Utils.MapUtils                 ( convertStringKey
 -- end utility
 
 class StringLike2Primitive model where
-    fromString :: String -> model
-    fromText :: Text -> model
+    fromString :: String -> Either StringValueError model
+    fromText :: Text -> Either StringValueError model
     fromText aText = fromString (unpack aText)
 
 class Map2Primitive model where
-    fromStringMap :: Map String String -> model
-    fromTextMap :: Map Text Text -> model
-    fromMixedStrMap :: Map String Text -> model
-    fromMixedTextMap :: Map Text String -> model
+    fromStringMap :: Map String String -> Either MapValueError model
+    fromTextMap :: Map Text Text -> Either MapValueError model
+    fromMixedStrMap :: Map String Text -> Either MapValueError model
+    fromMixedTextMap :: Map Text String -> Either MapValueError model
 
     fromMixedStrMap aMap = fromTextMap (convertStringKey aMap)
     fromMixedTextMap aMap = fromTextMap (convertStringVal aMap)
@@ -63,15 +67,15 @@ class InfoTuple2Primitive model where
     fromInfoTuple :: (ModelId, ModelType, ModelAttr) -> model
 
 class (StringLike2Primitive model) => TupleString2Primitive model where
-    fromTupleString :: (String, String) -> model
-    fromTupleText :: (String, Text) -> model
+    fromTupleString :: (String, String) -> Either IdTupleValueError model
+    fromTupleText :: (String, Text) -> Either IdTupleValueError model
     fromTupleText tpl = fromTupleString (fst tpl, unpack (snd tpl))
 
 class (Map2Primitive model) => TupleMap2Primitive model where
-    fromTupleStringMap :: (String, Map String String) -> model
-    fromTupleTextMap :: (String, Map Text Text) -> model
-    fromTupleMixedStrMap :: (String, Map String Text) -> model
-    fromTupleMixedTextMap :: (String, Map Text String) -> model
+    fromTupleStringMap :: (String, Map String String) -> Either IdTupleValueError model
+    fromTupleTextMap :: (String, Map Text Text) -> Either IdTupleValueError model
+    fromTupleMixedStrMap :: (String, Map String Text) -> Either IdTupleValueError model
+    fromTupleMixedTextMap :: (String, Map Text String) -> Either IdTupleValueError model
 
     fromTupleTextMap tpl = fromTupleStringMap (fst tpl, convertTxtMap2String (snd tpl))
     fromTupleMixedStrMap tpl = fromTupleTextMap (fst tpl, convertStringKey (snd tpl))

@@ -39,18 +39,36 @@ instance Show StringValueError where
 
 instance Ex.Exception StringValueError
 
+-- |'MapValueError' regroups map error
+data MapValueError = MapKeyError String ((Show a) => a)
+    | MapValError String ((Show a) => a)
+    | OtherMapError String
+    deriving (Typeable)
+
+instance Show MapValueError where
+    show (MapKeyError mess a) =
+        "Map key error: " ++ mess ++ " for key: " ++ show a
+    show (MapValError mess a) =
+        "Map value error: " ++ mess ++ " for value: " ++ show a
+    show (OtherMapError mess) = "Map error: " ++ mess
+
+
 data IdTupleValueError = FirstValueEmpty String
     | FirstValueError StringValueError
-    | SecondValueError StringValueError
+    | SecondStringValueError StringValueError
+    | SecondMapValueError MapValueError
     | OtherIdTupleError String
     deriving (Typeable)
+
 
 instance Show IdTupleValueError where
     show (FirstValueEmpty infostr) =
         "First value of id tuple is empty: " ++ infostr
     show (FirstValueError strerr) =
         "Error in first value of id tuple: " ++ (show strerr)
-    show (SecondValueError strerr) =
-        "Error in second value of id tuple: " ++ (show strerr)
+    show (SecondStringValueError strerr) =
+        "Error in second string value of id tuple: " ++ (show strerr)
+    show (SecondMapValueError strerr) =
+        "Error in second map value of id tuple: " ++ (show strerr)
     show (OtherIdTupleError infostr) | null infostr = "Unknown id tuple error"
                                      | otherwise    = infostr
