@@ -17,6 +17,11 @@ import           Primitive.Instance.Pure.ModelId
 import           Primitive.Definition.Error     ( StringValueError(..)
                                                 , IdTupleValueError(..)
                                                 )
+import           FunctionDef.Pure.Setter        ( StringLike2Primitive
+                                                    ( fromString
+                                                    , fromText
+                                                    )
+                                                )
 -- end def
 import           Utils.StrUtils                 ( isAlphaNumStr
                                                 , isAsciiStr
@@ -33,7 +38,7 @@ makeModelIdFromString astr
     | null astr = Left (EmptyStr "ModelId")
     | not (isAlphaNumStr astr && isAsciiStr astr) = Left
         (NotAsciiAlphanumeric "ModelId")
-    | otherwise = Right (StringIdCons astr)
+    | otherwise = fromString astr
 
 makeModelIdFromText :: Text -> Either StringValueError ModelId
 

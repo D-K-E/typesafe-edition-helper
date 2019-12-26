@@ -27,7 +27,6 @@ import           Primitive.Definition.ModelAttr ( ModelAttr )
 import           Primitive.Definition.Error     ( StringValueError
                                                 , IdTupleValueError
                                                 )
-import           Primitive.Definition.ModelAttr ( ModelAttr )
 -- start fn
 
 -- end fn

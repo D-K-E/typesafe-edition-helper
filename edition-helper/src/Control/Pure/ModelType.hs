@@ -6,18 +6,58 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Control.Impure.ModelType
-    (-- makeModelTypeM
+module Control.Pure.ModelType
+    ( makeModelTypeFromString
+    , makeModelTypeFromText
     )
 where
 
-import           Primitive.Instance.Impure.ModelType
+-- start def
+
+import           Primitive.Instance.Pure.ModelType
                                                 ( ModelType )
-import           FunctionDef.Impure.Setter      ( StringLike2PrimitiveM
-                                                    ( fromStringM
+import           Primitive.Definition.Error     ( StringValueError(..)
+                                                , IdTupleValueError(..)
+                                                )
+
+-- end def
+-- start fn
+import           FunctionDef.Pure.Setter        ( StringLike2Primitive
+                                                    ( fromString
+                                                    , fromText
                                                     )
                                                 )
-import           Control.Monad                  ( Monad )
+-- end fn
+-- start utility
+import           Data.Text                      ( Text
+                                                , pack
+                                                , unpack
+                                                ) -- importing type
+import           Data.List                      ( elem )
+-- end utility
 
---makeModelTypeM :: (Monad m) => String -> m ModelType
---makeModelTypeM = fromStringM
+
+makeModelTypeFromString :: String -> Either StringValueError ModelType
+makeModelTypeFromText :: Text -> Either StringValueError ModelType
+
+makeModelTypeFromString typeName
+    | toLowerStr typeName
+        `elem` [ "edition"
+               , "transliteration"
+               , "translation"
+               , "note"
+               , "info"
+               , "text"
+               , "term"
+               , "glossary"
+               , "inflected"
+               , "attestation"
+               , "lemma"
+               , "analysis"
+               ]
+    = fromString typeName
+    | otherwise
+    = Left (OtherStringError "Unsupported type: " ++ typeName)
+
+
+makeModelTypeFromText txt = makeModelTypeFromString (unpack str)

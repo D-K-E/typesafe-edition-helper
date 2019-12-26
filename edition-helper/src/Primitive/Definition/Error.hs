@@ -65,10 +65,10 @@ instance Show IdTupleValueError where
     show (FirstValueEmpty infostr) =
         "First value of id tuple is empty: " ++ infostr
     show (FirstValueError strerr) =
-        "Error in first value of id tuple: " ++ (show strerr)
+        "Error in first value of id tuple: " ++ show strerr
     show (SecondStringValueError strerr) =
-        "Error in second string value of id tuple: " ++ (show strerr)
+        "Error in second string value of id tuple: " ++ show strerr
     show (SecondMapValueError strerr) =
-        "Error in second map value of id tuple: " ++ (show strerr)
+        "Error in second map value of id tuple: " ++ show strerr
     show (OtherIdTupleError infostr) | null infostr = "Unknown id tuple error"
                                      | otherwise    = infostr

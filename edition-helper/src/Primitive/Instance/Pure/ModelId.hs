@@ -46,10 +46,10 @@ import           Utils.StrUtils                 ( isAlphaNumStr
 -- start setter
 
 instance StringLike2Primitive ModelId where
-    fromString = StringIdCons
+    fromString astr = Right (StringIdCons astr)
 
 instance TupleString2Primitive ModelId where
-    fromTupleString tpl = fromString (snd tpl)
+    fromTupleString tpl = Right (StringIdCons (snd tpl))
 
 -- end setter
 

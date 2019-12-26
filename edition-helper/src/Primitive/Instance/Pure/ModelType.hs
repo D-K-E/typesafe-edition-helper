@@ -53,23 +53,10 @@ import           Utils.StrUtils                 ( toLowerStr
 -- start setter
 
 instance StringLike2Primitive ModelType where
-    fromString typeName
-        | toLowerStr typeName == "edition" = StringTypeCons "edition"
-        | toLowerStr typeName == "transliteration" = StringTypeCons
-            "transliteration"
-        | toLowerStr typeName == "translation" = StringTypeCons "translation"
-        | toLowerStr typeName == "note" = StringTypeCons "note"
-        | toLowerStr typeName == "info" = StringTypeCons "info"
-        | toLowerStr typeName == "text" = StringTypeCons "text"
-        | toLowerStr typeName == "term" = StringTypeCons "term"
-        | toLowerStr typeName == "glossary" = StringTypeCons "glossary"
-        | toLowerStr typeName == "inflected" = StringTypeCons "inflected"
-        | toLowerStr typeName == "attestation" = StringTypeCons "attestation"
-        | toLowerStr typeName == "lemma" = StringTypeCons "lemma"
-        | toLowerStr typeName == "analysis" = StringTypeCons "analysis"
+    fromString typeName = Right (StringTypeCons (toLowerStr typeName))
 
 instance TupleString2Primitive ModelType where
-    fromTupleString tpl = fromString (snd tpl)
+    fromTupleString tpl = Right (StringTypeCons (snd tpl))
 
 -- end setter
 

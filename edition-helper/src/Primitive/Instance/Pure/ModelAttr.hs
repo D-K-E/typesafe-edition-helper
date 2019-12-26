@@ -46,10 +46,10 @@ import           Utils.MapUtils                 ( convertStringMap2Txt
 -- start setter
 
 instance Map2Primitive ModelAttr where
-    fromStringMap = StringAttrCons
+    fromStringMap amap = Right (StringAttrCons amap)
 
 instance TupleMap2Primitive ModelAttr where
-    fromTupleStringMap tpl = fromStringMap (snd tpl)
+    fromTupleStringMap tpl = Right (StringAttrCons (snd tpl))
 
 -- end setter
 
