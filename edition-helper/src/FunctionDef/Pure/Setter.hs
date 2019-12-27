@@ -26,6 +26,7 @@ import           Primitive.Definition.ModelType ( ModelType )
 import           Primitive.Definition.ModelAttr ( ModelAttr )
 import           Primitive.Definition.Error     ( StringValueError
                                                 , IdTupleValueError
+                                                , MapValueError
                                                 )
 -- start fn
 

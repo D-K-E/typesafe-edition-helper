@@ -9,6 +9,7 @@ Stability : Experimental
 module Primitive.Definition.Error
     ( StringValueError(..)
     , IdTupleValueError(..)
+    , MapValueError(..)
     )
 where
 
@@ -40,16 +41,16 @@ instance Show StringValueError where
 instance Ex.Exception StringValueError
 
 -- |'MapValueError' regroups map error
-data MapValueError = MapKeyError String ((Show a) => a)
-    | MapValError String ((Show a) => a)
+data MapValueError = MapKeyError String String
+    | MapValError String String
     | OtherMapError String
     deriving (Typeable)
 
 instance Show MapValueError where
-    show (MapKeyError mess a) =
-        "Map key error: " ++ mess ++ " for key: " ++ show a
-    show (MapValError mess a) =
-        "Map value error: " ++ mess ++ " for value: " ++ show a
+    show (MapKeyError mess str) =
+        "Map key error: " ++ mess ++ " for key: " ++ str
+    show (MapValError mess str) =
+        "Map value error: " ++ mess ++ " for value: " ++ str
     show (OtherMapError mess) = "Map error: " ++ mess
 
 
