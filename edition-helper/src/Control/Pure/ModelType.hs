@@ -22,7 +22,7 @@ import           Primitive.Definition.Error     ( StringValueError(..)
 
 -- end def
 -- start fn
-import           FunctionDef.Pure.Setter        ( StringLike2Primitive
+import           FunctionDef.Setter        ( StringLike2Primitive
                                                     ( fromString
                                                     , fromText
                                                     )

@@ -15,13 +15,13 @@ import           Primitive.Instance.Pure.UnitData
 -- end def
 
 -- start fn
-import           FunctionDef.Pure.Setter        ( StringLike2Primitive
+import           FunctionDef.Setter        ( StringLike2Primitive
                                                     ( fromString
                                                     , fromText
                                                     )
                                                 , TupleString2Primitive(..)
                                                 )
-import           FunctionDef.Pure.Transformer   ( Model2StringText
+import           FunctionDef.Transformer   ( Model2StringText
                                                     ( toString
                                                     , toText
                                                     )

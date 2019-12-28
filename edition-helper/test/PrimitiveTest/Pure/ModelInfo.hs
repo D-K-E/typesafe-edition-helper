@@ -23,11 +23,11 @@ import           Primitive.Instance.Pure.ModelType
                                                 ( ModelType(..) )
 -- end def
 -- start fn
-import           FunctionDef.Pure.Setter        ( Map2Primitive(..)
+import           FunctionDef.Setter        ( Map2Primitive(..)
                                                 , TupleMap2Primitive(..)
                                                 , InfoTuple2Primitive(..)
                                                 )
-import           FunctionDef.Pure.Transformer   ( Model2Map(..)
+import           FunctionDef.Transformer   ( Model2Map(..)
                                                 , Model2IdTuple(..)
                                                 , ModelInfo2Tuple(..)
                                                 )

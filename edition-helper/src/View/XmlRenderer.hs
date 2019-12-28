@@ -45,7 +45,7 @@ import           Primitive.Instance.Pure.Container
 
 
 -- start fn
-import qualified FunctionDef.Pure.Transformer  as VUtils
+import qualified FunctionDef.Transformer  as VUtils
                                                 ( Model2StringText(..)
                                                 , Model2Map(..)
                                                 )

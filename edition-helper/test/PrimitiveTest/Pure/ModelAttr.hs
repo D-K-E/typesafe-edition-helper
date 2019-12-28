@@ -15,10 +15,10 @@ import           Primitive.Instance.Pure.ModelAttr
                                                 ( ModelAttr(..) )
 -- end def
 -- start fn
-import           FunctionDef.Pure.Setter        ( Map2Primitive(..)
+import           FunctionDef.Setter        ( Map2Primitive(..)
                                                 , TupleMap2Primitive(..)
                                                 )
-import           FunctionDef.Pure.Transformer   ( Model2Map(..)
+import           FunctionDef.Transformer   ( Model2Map(..)
                                                 , Model2IdTuple(..)
                                                 )
 -- end fn

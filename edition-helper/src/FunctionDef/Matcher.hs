@@ -6,7 +6,7 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module FunctionDef.Pure.Matcher
+module FunctionDef.Matcher
     ( MatchModel(..)
     )
 where

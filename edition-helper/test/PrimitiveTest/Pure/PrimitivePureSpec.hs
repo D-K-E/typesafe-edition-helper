@@ -37,10 +37,10 @@ import           Primitive.Instance.Pure.UnitData
 
 -- start fn
 
-import           FunctionDef.Pure.Setter
-import           FunctionDef.Pure.Transformer
-import           FunctionDef.Pure.Matcher
-import           FunctionDef.Pure.Modifier
+import           FunctionDef.Setter
+import           FunctionDef.Transformer
+import           FunctionDef.Matcher
+import           FunctionDef.Modifier
 
 -- end fn
 

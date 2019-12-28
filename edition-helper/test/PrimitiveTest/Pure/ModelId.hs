@@ -16,14 +16,14 @@ import           Primitive.Instance.Pure.ModelId
 -- end def
 -- start fn
 
-import           FunctionDef.Pure.Setter        ( StringLike2Primitive(..)
+import           FunctionDef.Setter        ( StringLike2Primitive(..)
                                                 , TupleString2Primitive(..)
                                                 )
-import           FunctionDef.Pure.Transformer   ( Model2StringText(..)
+import           FunctionDef.Transformer   ( Model2StringText(..)
                                                 , Model2IdTuple(..)
                                                 )
-import           FunctionDef.Pure.Matcher
-import           FunctionDef.Pure.Modifier
+import           FunctionDef.Matcher
+import           FunctionDef.Modifier
 
 -- end fn
 

@@ -6,11 +6,9 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module FunctionDef.Pure.Setter
+module FunctionDef.Setter
     ( StringLike2Primitive(..)
     , Map2Primitive(..)
-    , ModelTuple2Primitive(..)
-    , InfoTuple2Primitive(..)
     , TupleString2Primitive(..)
     , TupleMap2Primitive(..)
     )
@@ -19,11 +17,6 @@ where
 -- start def
 
 -- end def
-import           Primitive.Definition.ModelInfo ( ModelInfo )
-import           Primitive.Definition.ModelData ( ModelData )
-import           Primitive.Definition.ModelId   ( ModelId )
-import           Primitive.Definition.ModelType ( ModelType )
-import           Primitive.Definition.ModelAttr ( ModelAttr )
 import           Primitive.Definition.Error     ( StringValueError
                                                 , IdTupleValueError
                                                 , MapValueError
@@ -59,12 +52,6 @@ class Map2Primitive model where
     fromMixedStrMap aMap = fromTextMap (convertStringKey aMap)
     fromMixedTextMap aMap = fromTextMap (convertStringVal aMap)
     fromTextMap aMap = fromStringMap (convertTxtMap2String aMap)
-
-class ModelTuple2Primitive model where
-    fromModelTuple :: (ModelInfo, ModelData) -> model
-
-class InfoTuple2Primitive model where
-    fromInfoTuple :: (ModelId, ModelType, ModelAttr) -> model
 
 class (StringLike2Primitive model) => TupleString2Primitive model where
     fromTupleString :: (String, String) -> Either IdTupleValueError model

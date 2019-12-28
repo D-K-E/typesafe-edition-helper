@@ -17,7 +17,7 @@ import           Primitive.Instance.Pure.ModelId
 import           Primitive.Definition.Error     ( StringValueError(..)
                                                 , IdTupleValueError(..)
                                                 )
-import           FunctionDef.Pure.Setter        ( StringLike2Primitive
+import           FunctionDef.Setter             ( StringLike2Primitive
                                                     ( fromString
                                                     , fromText
                                                     )
@@ -31,8 +31,9 @@ import           Data.Text                      ( Text
                                                 , unpack
                                                 ) -- importing type
 
+-- start maker
 
-
+-- |'makeModelIdFromString' makes model id from string using conditions
 makeModelIdFromString :: String -> Either StringValueError ModelId
 makeModelIdFromString astr
     | null astr = Left (EmptyStr "ModelId")
@@ -40,22 +41,24 @@ makeModelIdFromString astr
         (NotAsciiAlphanumeric "ModelId")
     | otherwise = fromString astr
 
+-- |'makeModelIdFromText' makes model id from text using conditions
 makeModelIdFromText :: Text -> Either StringValueError ModelId
-
 makeModelIdFromText txt = makeModelIdFromString (unpack txt)
 
+-- |'makeModelIdFromIdTuple' make model id from id tuple
 makeModelIdFromIdTuple :: (String, String) -> Either IdTupleValueError ModelId
 makeModelIdFromIdTuple (str1, str2)
-    | null str1 = Left (FirstValueError (EmptyStr "IdTuple first argument"))
-    | str1 != "id" = Left
+    | null str1
+    = Left (FirstValueError (EmptyStr "IdTuple first argument"))
+    | str1 != "id"
+    = Left
         (FirstValueError
-            (  OtherStringError "IdTuple first argument inappropriate value: "
+            (OtherStringError "IdTuple first argument has inappropriate value: "
             ++ str1
             )
         )
-
-makeModelIdFromIdTuple (str1, str2) =
-    Left (SecondValueError (Left makeModelIdFromString str2))
-
-makeModelIdFromIdTuple (str1, str2) =
-    Right (Right (makeModelIdFromString str2))
+    | str1 == "id"
+    = let midErr = makeModelIdFromString str2
+      in  case midErr of
+              Left  err -> Left (SecondValueError (Left err))
+              Right mid -> fromTupleString (str1, str2)

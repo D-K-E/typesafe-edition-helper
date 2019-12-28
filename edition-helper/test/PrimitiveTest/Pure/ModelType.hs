@@ -16,10 +16,10 @@ import           Primitive.Instance.Pure.ModelType
 -- end def
 -- start fn
 
-import           FunctionDef.Pure.Setter        ( StringLike2Primitive(..)
+import           FunctionDef.Setter        ( StringLike2Primitive(..)
                                                 , TupleString2Primitive(..)
                                                 )
-import           FunctionDef.Pure.Transformer   ( Model2StringText(..)
+import           FunctionDef.Transformer   ( Model2StringText(..)
                                                 , Model2IdTuple(..)
                                                 )
 

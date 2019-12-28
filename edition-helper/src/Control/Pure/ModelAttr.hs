@@ -20,7 +20,7 @@ import           Primitive.Definition.Error     ( MapValueError
                                                 )
 -- end def
 -- start fn
-import           FunctionDef.Pure.Setter        ( Map2Primitive(..)
+import           FunctionDef.Setter        ( Map2Primitive(..)
                                                 , TupleMap2Primitive(..)
                                                 )
 -- end fn
