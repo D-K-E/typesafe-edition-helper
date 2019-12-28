@@ -22,9 +22,12 @@ import           Primitive.Definition.Error     ( StringValueError(..)
 
 -- end def
 -- start fn
-import           FunctionDef.Setter        ( StringLike2Primitive
+import           FunctionDef.Setter             ( StringLike2Primitive
                                                     ( fromString
                                                     , fromText
+                                                    )
+                                                , TupleString2Primitive
+                                                    ( fromTupleString
                                                     )
                                                 )
 -- end fn
@@ -36,7 +39,7 @@ import           Data.Text                      ( Text
 import           Data.List                      ( elem )
 -- end utility
 
-
+-- start maker
 makeModelTypeFromString :: String -> Either StringValueError ModelType
 makeModelTypeFromText :: Text -> Either StringValueError ModelType
 
@@ -61,3 +64,24 @@ makeModelTypeFromString typeName
 
 
 makeModelTypeFromText txt = makeModelTypeFromString (unpack str)
+
+
+-- |'makeModelIdFromIdTuple' make model id from id tuple
+makeModelTypeFromIdTuple
+    :: (String, String) -> Either IdTupleValueError ModelType
+makeModelTypeFromIdTuple (str1, str2)
+    | null str1
+    = Left (FirstValueError (EmptyStr "IdTuple first argument"))
+    | str1 != "type"
+    = Left
+        (FirstValueError
+            (OtherStringError "IdTuple first argument has inappropriate value: "
+            ++ str1
+            )
+        )
+    | str1 == "type"
+    = let midErr = makeModelTypeFromString str2
+      in  case midErr of
+              Left  err -> Left (SecondValueError (Left err))
+              Right mid -> fromTupleString (str1, str2)
+-- end maker

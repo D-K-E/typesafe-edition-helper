@@ -7,7 +7,9 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 module Control.Pure.ModelId
-    ( makeModelIdM
+    ( makeModelIdFromString
+    , makeModelIdFromText
+    , makeModelIdFromIdTuple
     )
 where
 
@@ -20,6 +22,9 @@ import           Primitive.Definition.Error     ( StringValueError(..)
 import           FunctionDef.Setter             ( StringLike2Primitive
                                                     ( fromString
                                                     , fromText
+                                                    )
+                                                , TupleString2Primitive
+                                                    ( fromTupleString
                                                     )
                                                 )
 -- end def
