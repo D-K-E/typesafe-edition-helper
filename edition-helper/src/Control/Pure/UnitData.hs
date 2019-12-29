@@ -6,10 +6,10 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Control.Pure.ModelId
-    ( makeModelIdFromString
-    , makeModelIdFromText
-    , makeModelIdFromIdTuple
+module Control.Pure.UnitData
+    ( makeUnitDataFromString
+    , makeUnitDataFromText
+    , makeUnitDataFromIdTuple
     )
 where
 
