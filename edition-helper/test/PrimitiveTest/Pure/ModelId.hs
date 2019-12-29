@@ -11,7 +11,7 @@ module PrimitiveTest.Pure.ModelId where
 
 -- start def
 import           Primitive.Definition.ModelId   ( ModelId(..) )
-import           Primitive.Instance.Pure.ModelId
+import           Primitive.Instance.ModelId
                                                 ( ModelId(..) )
 -- end def
 -- start fn

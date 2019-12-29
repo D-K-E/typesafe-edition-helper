@@ -10,7 +10,7 @@ module PrimitiveTest.Pure.UnitData where
 
 -- start def
 import           Primitive.Definition.UnitData  ( UnitData(..) )
-import           Primitive.Instance.Pure.UnitData
+import           Primitive.Instance.UnitData
                                                 ( UnitData(..) )
 -- end def
 

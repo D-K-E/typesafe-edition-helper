@@ -22,16 +22,16 @@ import           Primitive.Definition.UnitData  ( UnitData(..) )
 import           Primitive.Definition.Container ( ContainerModel(..)
                                                 , ContainerData(..)
                                                 )
-import           Primitive.Instance.Pure.ModelAttr
+import           Primitive.Instance.ModelAttr
                                                 ( ModelAttr(..) )
-import           Primitive.Instance.Pure.ModelType
+import           Primitive.Instance.ModelType
                                                 ( ModelType(..) )
-import           Primitive.Instance.Pure.ModelData
+import           Primitive.Instance.ModelData
                                                 ( ModelData(..) )
-import           Primitive.Instance.Pure.ModelInfo
+import           Primitive.Instance.ModelInfo
                                                 ( ModelInfo(..) )
-import           Primitive.Instance.Pure.Unit   ( UnitModel(..) )
-import           Primitive.Instance.Pure.UnitData
+import           Primitive.Instance.Unit   ( UnitModel(..) )
+import           Primitive.Instance.UnitData
                                                 ( UnitData(..) )
 -- end def
 

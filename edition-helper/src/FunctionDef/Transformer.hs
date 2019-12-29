@@ -8,10 +8,8 @@ Stability : Experimental
 -}
 module FunctionDef.Transformer
     ( Model2StringText(..)
-    , Model2Tuple(..)
     , Model2Map(..)
     , Model2IdTuple(..)
-    , ModelInfo2Tuple(..)
     )
 where
 
@@ -19,8 +17,6 @@ where
 
 import           FunctionDef.Setter             ( Map2Primitive
                                                 , StringLike2Primitive
-                                                , ModelTuple2Primitive
-                                                , InfoTuple2Primitive
                                                 )
 
 -- end def

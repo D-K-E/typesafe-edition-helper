@@ -7,10 +7,17 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 
-module Primitive.Instance.ModelId where
+module Primitive.Instance.ModelId
+    ( ModelId
+    )
+where
 
 -- start def
-import           Primitive.Definition.ModelId   ( ModelId(StringIdCons) )
+import           Primitive.Definition.ModelId   ( ModelId
+                                                    ( StringIdCons
+                                                    , TextIdCons
+                                                    )
+                                                )
 -- end def
 
 -- start fn

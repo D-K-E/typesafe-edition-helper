@@ -10,16 +10,16 @@ module PrimitiveTest.Pure.ModelInfo where
 
 -- start def
 import           Primitive.Definition.ModelInfo ( ModelInfo(..) )
-import           Primitive.Instance.Pure.ModelInfo
+import           Primitive.Instance.ModelInfo
                                                 ( ModelInfo(..) )
 import           Primitive.Definition.ModelId   ( ModelId(..) )
 import           Primitive.Definition.ModelAttr ( ModelAttr(..) )
 import           Primitive.Definition.ModelType ( ModelType(..) )
-import           Primitive.Instance.Pure.ModelId
+import           Primitive.Instance.ModelId
                                                 ( ModelId(..) )
-import           Primitive.Instance.Pure.ModelAttr
+import           Primitive.Instance.ModelAttr
                                                 ( ModelAttr(..) )
-import           Primitive.Instance.Pure.ModelType
+import           Primitive.Instance.ModelType
                                                 ( ModelType(..) )
 -- end def
 -- start fn

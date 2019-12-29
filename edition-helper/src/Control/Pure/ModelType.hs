@@ -14,8 +14,7 @@ where
 
 -- start def
 
-import           Primitive.Instance.Pure.ModelType
-                                                ( ModelType )
+import           Primitive.Instance.ModelType   ( ModelType )
 import           Primitive.Definition.Error     ( StringValueError(..)
                                                 , IdTupleValueError(..)
                                                 )
@@ -37,6 +36,7 @@ import           Data.Text                      ( Text
                                                 , unpack
                                                 ) -- importing type
 import           Data.List                      ( elem )
+import           Utils.StrUtils                 ( toLowerStr )
 -- end utility
 
 -- start maker
@@ -60,10 +60,10 @@ makeModelTypeFromString typeName
                ]
     = fromString typeName
     | otherwise
-    = Left (OtherStringError "Unsupported type: " ++ typeName)
+    = Left (OtherStringError ("Unsupported type: " ++ typeName))
 
 
-makeModelTypeFromText txt = makeModelTypeFromString (unpack str)
+makeModelTypeFromText txt = makeModelTypeFromString (unpack txt)
 
 
 -- |'makeModelIdFromIdTuple' make model id from id tuple
@@ -72,16 +72,16 @@ makeModelTypeFromIdTuple
 makeModelTypeFromIdTuple (str1, str2)
     | null str1
     = Left (FirstValueError (EmptyStr "IdTuple first argument"))
-    | str1 != "type"
+    | not (str1 == "type")
     = Left
         (FirstValueError
-            (OtherStringError "IdTuple first argument has inappropriate value: "
-            ++ str1
+            (OtherStringError
+                ("IdTuple first argument has inappropriate value: " ++ str1)
             )
         )
     | str1 == "type"
     = let midErr = makeModelTypeFromString str2
       in  case midErr of
-              Left  err -> Left (SecondValueError (Left err))
+              Left  err -> Left (SecondStringValueError err)
               Right mid -> fromTupleString (str1, str2)
 -- end maker

@@ -14,8 +14,7 @@ module Control.Pure.ModelId
 where
 
 -- start def
-import           Primitive.Instance.Pure.ModelId
-                                                ( ModelId(..) )
+import           Primitive.Instance.ModelId     ( ModelId(..) )
 import           Primitive.Definition.Error     ( StringValueError(..)
                                                 , IdTupleValueError(..)
                                                 )
@@ -55,15 +54,15 @@ makeModelIdFromIdTuple :: (String, String) -> Either IdTupleValueError ModelId
 makeModelIdFromIdTuple (str1, str2)
     | null str1
     = Left (FirstValueError (EmptyStr "IdTuple first argument"))
-    | str1 != "id"
+    | not (str1 == "id")
     = Left
         (FirstValueError
-            (OtherStringError "IdTuple first argument has inappropriate value: "
-            ++ str1
+            (OtherStringError
+                ("IdTuple first argument has inappropriate value: " ++ str1)
             )
         )
     | str1 == "id"
     = let midErr = makeModelIdFromString str2
       in  case midErr of
-              Left  err -> Left (SecondValueError (Left err))
+              Left  err -> Left (SecondStringValueError err)
               Right mid -> fromTupleString (str1, str2)

@@ -6,10 +6,17 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.ModelType where
+module Primitive.Instance.ModelType
+    ( ModelType
+    )
+where
 
 -- start def
-import           Primitive.Definition.ModelType ( ModelType(StringTypeCons) )
+import           Primitive.Definition.ModelType ( ModelType
+                                                    ( StringTypeCons
+                                                    , TextTypeCons
+                                                    )
+                                                )
 -- end def
 
 -- start fn

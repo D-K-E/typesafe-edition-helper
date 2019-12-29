@@ -10,7 +10,7 @@ module PrimitiveTest.Impure.ModelIdSpec where
 
 -- start def
 import           Primitive.Definition.ModelId   ( ModelId(..) )
-import           Primitive.Instance.Pure.ModelId
+import           Primitive.Instance.ModelId
                                                 ( ModelId(..) )
 import           Primitive.Instance.Impure.ModelId
                                                 ( ModelId(..) )

@@ -11,7 +11,7 @@ module PrimitiveTest.Pure.ModelAttr where
 
 -- start def
 import           Primitive.Definition.ModelAttr ( ModelAttr(..) )
-import           Primitive.Instance.Pure.ModelAttr
+import           Primitive.Instance.ModelAttr
                                                 ( ModelAttr(..) )
 -- end def
 -- start fn

@@ -7,7 +7,10 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 
-module Primitive.Instance.UnitData where
+module Primitive.Instance.UnitData
+    ( UnitData
+    )
+where
 
 -- start def
 import           Primitive.Definition.UnitData  ( UnitData

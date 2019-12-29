@@ -20,22 +20,22 @@ import           Primitive.Definition.Container
                                                 , ContainerData(..)
                                                 )
 
-import           Primitive.Instance.Pure.ModelId
+import           Primitive.Instance.ModelId
                                                 ( ModelId(..) )
-import           Primitive.Instance.Pure.ModelAttr
+import           Primitive.Instance.ModelAttr
                                                 ( ModelAttr(..) )
-import           Primitive.Instance.Pure.ModelInfo
+import           Primitive.Instance.ModelInfo
                                                 ( ModelInfo(..) )
-import           Primitive.Instance.Pure.ModelType
+import           Primitive.Instance.ModelType
                                                 ( ModelType(..) )
-import qualified Primitive.Instance.Pure.Unit  as Um
+import qualified Primitive.Instance.Unit  as Um
                                                 ( UnitModel(..)
                                                 , modelInfo
                                                 , modelData
                                                 )
-import           Primitive.Instance.Pure.UnitData
+import           Primitive.Instance.UnitData
                                                 ( UnitData(..) )
-import           Primitive.Instance.Pure.Container
+import           Primitive.Instance.Container
                                                as Cm
                                                 ( ContainerModel(..)
                                                 , ContainerData(..)

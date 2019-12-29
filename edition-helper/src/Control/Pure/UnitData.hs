@@ -14,8 +14,8 @@ module Control.Pure.UnitData
 where
 
 -- start def
-import           Primitive.Instance.Pure.UnitData
-                                                ( UnitData(..) )
+import           Primitive.Definition.UnitData  ( UnitData(..) )
+import           Primitive.Instance.UnitData    ( UnitData )
 import           Primitive.Definition.Error     ( StringValueError(..)
                                                 , IdTupleValueError(..)
                                                 )
@@ -52,15 +52,15 @@ makeUnitDataFromIdTuple :: (String, String) -> Either IdTupleValueError UnitData
 makeUnitDataFromIdTuple (str1, str2)
     | null str1
     = Left (FirstValueError (EmptyStr "IdTuple first argument"))
-    | str1 != "udata"
+    | not (str1 == "udata")
     = Left
         (FirstValueError
-            (OtherStringError "IdTuple first argument has inappropriate value: "
-            ++ str1
+            (OtherStringError
+                ("IdTuple first argument has inappropriate value: " ++ str1)
             )
         )
     | str1 == "udata"
     = let midErr = makeUnitDataFromString str2
       in  case midErr of
-              Left  err -> Left (SecondValueError (Left err))
+              Left  err -> Left (SecondStringValueError err)
               Right mid -> fromTupleString (str1, str2)

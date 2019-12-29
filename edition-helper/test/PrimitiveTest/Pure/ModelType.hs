@@ -11,7 +11,7 @@ module PrimitiveTest.Pure.ModelType where
 
 -- start def
 import           Primitive.Definition.ModelType ( ModelType(..) )
-import           Primitive.Instance.Pure.ModelType
+import           Primitive.Instance.ModelType
                                                 ( ModelType(..) )
 -- end def
 -- start fn

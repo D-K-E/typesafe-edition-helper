@@ -10,17 +10,16 @@ module Control.Pure.ModelAttr where
 
 -- start def
 import           Primitive.Definition.ModelAttr ( ModelAttr )
-import           Primitive.Instance.Pure.ModelAttr
-                                                ( ModelAttr )
+import           Primitive.Instance.ModelAttr   ( ModelAttr )
 import           Primitive.Definition.Error     ( MapValueError
                                                     ( MapKeyError
-                                                    , MapValueError
+                                                    , MapValError
                                                     , OtherMapError
                                                     )
                                                 )
 -- end def
 -- start fn
-import           FunctionDef.Setter        ( Map2Primitive(..)
+import           FunctionDef.Setter             ( Map2Primitive(..)
                                                 , TupleMap2Primitive(..)
                                                 )
 -- end fn
@@ -38,7 +37,7 @@ import           Utils.MapUtils                 ( convertStringMap2Txt
                                                 )
 
 -- end utility
-makeModelMapFromStringMap :: Map String String -> Either MapEr
+makeModelMapFromStringMap :: Map String String -> Either MapValueError ModelAttr
 makeModelMapFromStringMap aMap
     | any null (elems aMap) = MapValError
         "Attributes must have non empty values"

@@ -6,7 +6,10 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.ModelAttr where
+module Primitive.Instance.ModelAttr
+    ( ModelAttr
+    )
+where
 
 -- start def
 import           Primitive.Definition.ModelAttr ( ModelAttr
@@ -16,14 +19,14 @@ import           Primitive.Definition.ModelAttr ( ModelAttr
                                                 )
 import           Primitive.Definition.Error     ( StringValueError
                                                 , IdTupleValueError
-                                                , MapValueError
+                                                , MapValueError(..)
                                                 )
 -- end def
 
 -- start fn
 import           FunctionDef.Setter             ( Map2Primitive(fromStringMap)
                                                 , TupleMap2Primitive
-                                                    ( fromTupleString
+                                                    ( fromTupleStringMap
                                                     )
                                                 )
 import           FunctionDef.Transformer        ( Model2IdTuple(toIdTuple)
