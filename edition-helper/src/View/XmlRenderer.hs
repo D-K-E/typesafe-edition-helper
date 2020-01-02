@@ -9,70 +9,11 @@ Stability : Experimental
 module View.XmlRenderer where
 
 -- start def
-import           Primitive.Definition.ModelId   ( ModelId(..) )
-import           Primitive.Definition.ModelAttr ( ModelAttr(..) )
-import           Primitive.Definition.ModelInfo ( ModelInfo(..) )
-import           Primitive.Definition.ModelType ( ModelType(..) )
-import           Primitive.Definition.UnitData  ( UnitData(..) )
-import           Primitive.Definition.Container
-                                               as Cm
-                                                ( ContainerModel(..)
-                                                , ContainerData(..)
-                                                )
-
-import           Primitive.Instance.ModelId
-                                                ( ModelId(..) )
-import           Primitive.Instance.ModelAttr
-                                                ( ModelAttr(..) )
-import           Primitive.Instance.ModelInfo
-                                                ( ModelInfo(..) )
-import           Primitive.Instance.ModelType
-                                                ( ModelType(..) )
-import qualified Primitive.Instance.Unit  as Um
-                                                ( UnitModel(..)
-                                                , modelInfo
-                                                , modelData
-                                                )
-import           Primitive.Instance.UnitData
-                                                ( UnitData(..) )
-import           Primitive.Instance.Container
-                                               as Cm
-                                                ( ContainerModel(..)
-                                                , ContainerData(..)
-                                                )
 
 -- end def
 
 
 -- start fn
-import qualified FunctionDef.Transformer  as VUtils
-                                                ( Model2StringText(..)
-                                                , Model2Map(..)
-                                                )
-
-
--- end fn
-
--- start utilites
--- end utilites
-import           Data.Map.Strict                ( Map )
-import           Data.Text                      ( Text
-                                                , unpack
-                                                , pack
-                                                )
-import           Text.XML                       ( Node(..)
-                                                , Element(..)
-                                                , Name(..)
-                                                , elementName
-                                                , elementAttributes
-                                                , elementNodes
-                                                )
-import           Utils.MapUtils                 ( add2Map
-                                                , convertTxt2NameMap
-                                                )
-import           Utils.XmlUtils                 ( makeName
-                                                , makeTagName
-                                                )
 {-
 -- | transform model to xml node
 class Model2XmlNode model where

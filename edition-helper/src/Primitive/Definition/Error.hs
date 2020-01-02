@@ -46,6 +46,7 @@ data MapValueError = MapKeyError String String
     | OtherMapError String
     deriving (Typeable)
 
+
 instance Show MapValueError where
     show (MapKeyError mess str) =
         "Map key error: " ++ mess ++ " for key: " ++ str

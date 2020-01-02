@@ -6,7 +6,13 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Control.Pure.ModelAttr where
+module Control.Pure.ModelAttr
+    ( makeModelAttrFromStringMap
+    , makeModelAttrFromTextMap
+    , makeModelAttrFromIdTupleStringMap
+    , makeModelAttrFromIdTupleTextMap
+    )
+where
 
 -- start def
 import           Primitive.Definition.ModelAttr ( ModelAttr )
@@ -16,6 +22,14 @@ import           Primitive.Definition.Error     ( MapValueError
                                                     , MapValError
                                                     , OtherMapError
                                                     )
+                                                , IdTupleValueError
+                                                    ( SecondMapValueError
+                                                    , FirstValueError
+                                                    )
+                                                , StringValueError
+                                                    ( EmptyStr
+                                                    , OtherStringError
+                                                    )
                                                 )
 -- end def
 -- start fn
@@ -24,6 +38,7 @@ import           FunctionDef.Setter             ( Map2Primitive(..)
                                                 )
 -- end fn
 -- start utility
+import           Data.Text                      ( Text )
 import           Data.Map.Strict                ( elems
                                                 , keys
                                                 , toList
@@ -53,8 +68,9 @@ showFirstKV amap =
     "Key: " ++ (showMapKey amap) ++ "\n" ++ "Val: " ++ (showMapVal amap)
 
 -- end utility
-makeModelMapFromStringMap :: Map String String -> Either MapValueError ModelAttr
-makeModelMapFromStringMap aMap
+makeModelAttrFromStringMap
+    :: Map String String -> Either MapValueError ModelAttr
+makeModelAttrFromStringMap aMap
     | any null (elems aMap)
     = let errstr = showFirstKV (Mp.filter null aMap)
       in  Left (MapValError "Attributes must have non empty values" errstr)
@@ -81,3 +97,33 @@ makeModelMapFromStringMap aMap
     = let errstr = showMapKey (filterWithKey fn aMap)
                   where fn key val = isAsciiStr key
       in  Left (MapKeyError "Attributes must have ascii keys" errstr)
+
+makeModelAttrFromTextMap :: Map Text Text -> Either MapValueError ModelAttr
+makeModelAttrFromTextMap amap =
+    makeModelAttrFromStringMap (convertTxtMap2String amap)
+
+makeModelAttrFromIdTupleStringMap
+    :: (String, Map String String) -> Either IdTupleValueError ModelAttr
+
+makeModelAttrFromIdTupleStringMap (str, amap)
+    | null str
+    = Left (FirstValueError (EmptyStr "IdTuple first argument"))
+    | not (str == "attribute")
+    = Left
+        (FirstValueError
+            (OtherStringError
+                "IdTuple first value is not attribute for ModelAttr id tuple"
+            )
+        )
+    | otherwise
+    = let res = makeModelAttrFromStringMap amap
+      in  case res of
+              Left  err -> Left (SecondMapValueError err)
+              Right m   -> Right m
+
+makeModelAttrFromIdTupleTextMap
+    :: (String, Map Text Text) -> Either IdTupleValueError ModelAttr
+
+
+makeModelAttrFromIdTupleTextMap (str, amap) =
+    makeModelAttrFromIdTupleStringMap (str, (convertTxtMap2String amap))
