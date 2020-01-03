@@ -40,7 +40,7 @@ instance Show StringValueError where
 
 instance Ex.Exception StringValueError
 
--- |'MapValueError' regroups map error
+-- |'MapValueError' regroups map errors
 data MapValueError = MapKeyError String String
     | MapValError String String
     | OtherMapError String
@@ -53,6 +53,32 @@ instance Show MapValueError where
     show (MapValError mess str) =
         "Map value error: " ++ mess ++ " for value: " ++ str
     show (OtherMapError mess) = "Map error: " ++ mess
+
+
+data NodeError = NodeIntError String
+    | NodeIntegerError String
+    | NodeFloatError String
+    | NodeDoubleError String
+    | NodeStringError String
+    | NodeBoolError String
+    | NodeTextError String
+    | NodeEmptyError String
+    | NodeContainerError String
+    deriving (Typeable)
+
+makeNodeErrStrinig :: String -> String -> String
+makeErrStrinig tname mess = "Node"++tname++"Error: in constructing node from"++tname++": "++mess
+
+instance Show NodeError where
+    show (NodeIntError mess) = makeNodeErrStrinig "Int" mess
+    show (NodeIntegerError mess) = makeNodeErrStrinig "Integer" mess
+    show (NodeFloatError mess) = makeNodeErrStrinig "Float" mess
+    show (NodeDoubleError mess) = makeNodeErrStrinig "Double" mess
+    show (NodeStringError mess)
+    show (NodeBoolError mess)
+    show (NodeTextError mess)
+    show (NodeEmptyError mess)
+    show (NodeContainerError mess)
 
 
 data IdTupleValueError = FirstValueEmpty String
