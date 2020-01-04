@@ -1,18 +1,18 @@
 {-|
-Module : ModelId
+Module : NodeId
 License : see LICENSE
-Description : ModelAttr primitive implements function definitions
+Description : NodeAttr primitive implements function definitions
 Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Primitive.Instance.ModelAttr
-    ( ModelAttr
+module Primitive.Instance.NodeAttr
+    ( NodeAttr
     )
 where
 
 -- start def
-import           Primitive.Definition.ModelAttr ( ModelAttr
+import           Primitive.Definition.NodeAttr ( NodeAttr
                                                     ( StringAttrCons
                                                     , TextAttrCons
                                                     )
@@ -46,19 +46,19 @@ import           Utils.MapUtils                 ( convertTxtMap2String
 -- end utility
 
 -- setter
-instance Map2Primitive ModelAttr where
+instance Map2Primitive NodeAttr where
     fromStringMap amap = Right (StringAttrCons amap)
 
 
-instance TupleMap2Primitive ModelAttr where
+instance TupleMap2Primitive NodeAttr where
     fromTupleStringMap (astr, amap) = Right (StringAttrCons amap)
 
 -- end setter
 -- transformer
-instance Model2IdTuple ModelAttr where
+instance Model2IdTuple NodeAttr where
     toIdTuple mdl = ("attribute", mdl)
 
-instance Model2Map ModelAttr where
+instance Model2Map NodeAttr where
     toTextMap (TextAttrCons   amap) = amap
     toTextMap (StringAttrCons amap) = convertStringMap2Txt amap
     toStringMap (StringAttrCons amap) = amap

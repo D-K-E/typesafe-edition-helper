@@ -1,20 +1,20 @@
 {-|
 Module : Model
 License : see LICENSE
-Description : ModelId.hs monadic maker
+Description : NodeId.hs monadic maker
 Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Control.Pure.ModelId
-    ( makeModelIdFromString
-    , makeModelIdFromText
-    , makeModelIdFromIdTuple
+module Control.Pure.NodeId
+    ( makeNodeIdFromString
+    , makeNodeIdFromText
+    , makeNodeIdFromIdTuple
     )
 where
 
 -- start def
-import           Primitive.Instance.ModelId     ( ModelId(..) )
+import           Primitive.Instance.NodeId     ( NodeId(..) )
 import           Primitive.Definition.Error     ( StringValueError(..)
                                                 , IdTupleValueError(..)
                                                 )
@@ -37,21 +37,21 @@ import           Data.Text                      ( Text
 
 -- start maker
 
--- |'makeModelIdFromString' makes model id from string using conditions
-makeModelIdFromString :: String -> Either StringValueError ModelId
-makeModelIdFromString astr
-    | null astr = Left (EmptyStr "ModelId")
+-- |'makeNodeIdFromString' makes model id from string using conditions
+makeNodeIdFromString :: String -> Either StringValueError NodeId
+makeNodeIdFromString astr
+    | null astr = Left (EmptyStr "NodeId")
     | not (isAlphaNumStr astr && isAsciiStr astr) = Left
-        (NotAsciiAlphanumeric "ModelId")
+        (NotAsciiAlphanumeric "NodeId")
     | otherwise = fromString astr
 
--- |'makeModelIdFromText' makes model id from text using conditions
-makeModelIdFromText :: Text -> Either StringValueError ModelId
-makeModelIdFromText txt = makeModelIdFromString (unpack txt)
+-- |'makeNodeIdFromText' makes model id from text using conditions
+makeNodeIdFromText :: Text -> Either StringValueError NodeId
+makeNodeIdFromText txt = makeNodeIdFromString (unpack txt)
 
--- |'makeModelIdFromIdTuple' make model id from id tuple
-makeModelIdFromIdTuple :: (String, String) -> Either IdTupleValueError ModelId
-makeModelIdFromIdTuple (str1, str2)
+-- |'makeNodeIdFromIdTuple' make model id from id tuple
+makeNodeIdFromIdTuple :: (String, String) -> Either IdTupleValueError NodeId
+makeNodeIdFromIdTuple (str1, str2)
     | null str1
     = Left (FirstValueError (EmptyStr "IdTuple first argument"))
     | not (str1 == "id")
@@ -62,7 +62,7 @@ makeModelIdFromIdTuple (str1, str2)
             )
         )
     | str1 == "id"
-    = let midErr = makeModelIdFromString str2
+    = let midErr = makeNodeIdFromString str2
       in  case midErr of
               Left  err -> Left (SecondStringValueError err)
               Right mid -> fromTupleString (str1, str2)

@@ -11,34 +11,34 @@ module FunctionDef.Matcher
     )
 where
 
-import           Primitive.Definition.ModelId   ( ModelId )
-import           Primitive.Definition.ModelType ( ModelType )
-import           Primitive.Definition.ModelAttr ( ModelAttr )
+import           Primitive.Definition.NodeId   ( NodeId )
+import           Primitive.Definition.NodeType ( NodeType )
+import           Primitive.Definition.NodeAttr ( NodeAttr )
 import           Primitive.Definition.ModelData ( ModelData )
 
 
 -- | 'MatchModel' class outlines methods to match model to given field
 class MatchModel model where
     -- |'hasSameId' whether id of given model is same with given model id
-    hasSameId :: model -> ModelId -> Bool
+    hasSameId :: model -> NodeId -> Bool
 
     -- |'hasSameType' whether type of given model is same with given model type
-    hasSameType :: model -> ModelType -> Bool
+    hasSameType :: model -> NodeType -> Bool
 
     -- |'hasSameAttr' whether Attr of given model is same with given model Attr
-    hasSameAttr :: model -> ModelAttr -> Bool
+    hasSameAttr :: model -> NodeAttr -> Bool
 
     -- |'hasSameData' whether Data of given model is same with given model Data
     hasSameData :: model -> ModelData -> Bool
 
-    -- |'containsId' whether model id of model contains given ModelId
-    containsId :: model -> ModelId -> Bool
+    -- |'containsId' whether model id of model contains given NodeId
+    containsId :: model -> NodeId -> Bool
 
-    -- |'containsType' whether model id of model contains given ModelType
-    containsType :: model -> ModelType -> Bool
+    -- |'containsType' whether model id of model contains given NodeType
+    containsType :: model -> NodeType -> Bool
 
-    -- |'containsAttr' whether model id of model contains given ModelAttr
-    containsAttr :: model -> ModelAttr -> Bool
+    -- |'containsAttr' whether model id of model contains given NodeAttr
+    containsAttr :: model -> NodeAttr -> Bool
 
     -- |'containsData' whether Data of given model contains with given model Data
     containsData :: model -> ModelData -> Bool

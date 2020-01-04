@@ -10,6 +10,7 @@ module Primitive.Definition.Error
     ( StringValueError(..)
     , IdTupleValueError(..)
     , MapValueError(..)
+    , NodeError(..)
     )
 where
 
@@ -67,18 +68,24 @@ data NodeError = NodeIntError String
     deriving (Typeable)
 
 makeNodeErrStrinig :: String -> String -> String
-makeErrStrinig tname mess = "Node"++tname++"Error: in constructing node from"++tname++": "++mess
+makeErrStrinig tname mess =
+    "Node"
+        ++ tname
+        ++ "Error: in constructing node from"
+        ++ tname
+        ++ ": "
+        ++ mess
 
 instance Show NodeError where
-    show (NodeIntError mess) = makeNodeErrStrinig "Int" mess
-    show (NodeIntegerError mess) = makeNodeErrStrinig "Integer" mess
-    show (NodeFloatError mess) = makeNodeErrStrinig "Float" mess
-    show (NodeDoubleError mess) = makeNodeErrStrinig "Double" mess
-    show (NodeStringError mess)
-    show (NodeBoolError mess)
-    show (NodeTextError mess)
-    show (NodeEmptyError mess)
-    show (NodeContainerError mess)
+    show (NodeIntError       mess) = makeNodeErrStrinig "Int" mess
+    show (NodeIntegerError   mess) = makeNodeErrStrinig "Integer" mess
+    show (NodeFloatError     mess) = makeNodeErrStrinig "Float" mess
+    show (NodeDoubleError    mess) = makeNodeErrStrinig "Double" mess
+    show (NodeStringError    mess) = makeNodeErrStrinig "String" mess
+    show (NodeBoolError      mess) = makeNodeErrStrinig "Bool" mess
+    show (NodeTextError      mess) = makeNodeErrStrinig "Text" mess
+    show (NodeEmptyError     mess) = makeNodeErrStrinig "Error" mess
+    show (NodeContainerError mess) = makeNodeErrStrinig "Container" mess
 
 
 data IdTupleValueError = FirstValueEmpty String

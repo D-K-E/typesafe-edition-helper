@@ -6,21 +6,21 @@ Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module PrimitiveTest.Pure.ModelInfo where
+module PrimitiveTest.Pure.NodeInfo where
 
 -- start def
-import           Primitive.Definition.ModelInfo ( ModelInfo(..) )
-import           Primitive.Instance.ModelInfo
-                                                ( ModelInfo(..) )
-import           Primitive.Definition.ModelId   ( ModelId(..) )
-import           Primitive.Definition.ModelAttr ( ModelAttr(..) )
-import           Primitive.Definition.ModelType ( ModelType(..) )
-import           Primitive.Instance.ModelId
-                                                ( ModelId(..) )
-import           Primitive.Instance.ModelAttr
-                                                ( ModelAttr(..) )
-import           Primitive.Instance.ModelType
-                                                ( ModelType(..) )
+import           Primitive.Definition.NodeInfo ( NodeInfo(..) )
+import           Primitive.Instance.NodeInfo
+                                                ( NodeInfo(..) )
+import           Primitive.Definition.NodeId   ( NodeId(..) )
+import           Primitive.Definition.NodeAttr ( NodeAttr(..) )
+import           Primitive.Definition.NodeType ( NodeType(..) )
+import           Primitive.Instance.NodeId
+                                                ( NodeId(..) )
+import           Primitive.Instance.NodeAttr
+                                                ( NodeAttr(..) )
+import           Primitive.Instance.NodeType
+                                                ( NodeType(..) )
 -- end def
 -- start fn
 import           FunctionDef.Setter        ( Map2Primitive(..)
@@ -29,7 +29,7 @@ import           FunctionDef.Setter        ( Map2Primitive(..)
                                                 )
 import           FunctionDef.Transformer   ( Model2Map(..)
                                                 , Model2IdTuple(..)
-                                                , ModelInfo2Tuple(..)
+                                                , NodeInfo2Tuple(..)
                                                 )
 -- end fn
 import           Data.Text                      ( Text
@@ -58,5 +58,5 @@ main = hspec $ do
     describe "InfoTuple2Primitive tests" $ do
         it "fromInfoTuple test" $ fromInfoTuple tpl `shouldBe` minfo
 
-    describe "ModelInfo2Tuple tests" $ do
+    describe "NodeInfo2Tuple tests" $ do
         it "toInfoTuple test" $ toInfoTuple minfo `shouldBe` tpl

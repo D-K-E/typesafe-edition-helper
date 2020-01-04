@@ -1,20 +1,20 @@
 {-|
 Module : Model
 License : see LICENSE
-Description : ModelType.hs monadic maker
+Description : NodeType.hs monadic maker
 Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Control.Pure.ModelType
-    ( makeModelTypeFromString
-    , makeModelTypeFromText
+module Control.Pure.NodeType
+    ( makeNodeTypeFromString
+    , makeNodeTypeFromText
     )
 where
 
 -- start def
 
-import           Primitive.Instance.ModelType   ( ModelType )
+import           Primitive.Instance.NodeType   ( NodeType )
 import           Primitive.Definition.Error     ( StringValueError(..)
                                                 , IdTupleValueError(..)
                                                 )
@@ -40,10 +40,10 @@ import           Utils.StrUtils                 ( toLowerStr )
 -- end utility
 
 -- start maker
-makeModelTypeFromString :: String -> Either StringValueError ModelType
-makeModelTypeFromText :: Text -> Either StringValueError ModelType
+makeNodeTypeFromString :: String -> Either StringValueError NodeType
+makeNodeTypeFromText :: Text -> Either StringValueError NodeType
 
-makeModelTypeFromString typeName
+makeNodeTypeFromString typeName
     | toLowerStr typeName
         `elem` [ "edition"
                , "transliteration"
@@ -63,13 +63,13 @@ makeModelTypeFromString typeName
     = Left (OtherStringError ("Unsupported type: " ++ typeName))
 
 
-makeModelTypeFromText txt = makeModelTypeFromString (unpack txt)
+makeNodeTypeFromText txt = makeNodeTypeFromString (unpack txt)
 
 
--- |'makeModelIdFromIdTuple' make model id from id tuple
-makeModelTypeFromIdTuple
-    :: (String, String) -> Either IdTupleValueError ModelType
-makeModelTypeFromIdTuple (str1, str2)
+-- |'makeNodeIdFromIdTuple' make model id from id tuple
+makeNodeTypeFromIdTuple
+    :: (String, String) -> Either IdTupleValueError NodeType
+makeNodeTypeFromIdTuple (str1, str2)
     | null str1
     = Left (FirstValueError (EmptyStr "IdTuple first argument"))
     | not (str1 == "type")
@@ -80,7 +80,7 @@ makeModelTypeFromIdTuple (str1, str2)
             )
         )
     | str1 == "type"
-    = let midErr = makeModelTypeFromString str2
+    = let midErr = makeNodeTypeFromString str2
       in  case midErr of
               Left  err -> Left (SecondStringValueError err)
               Right mid -> fromTupleString (str1, str2)

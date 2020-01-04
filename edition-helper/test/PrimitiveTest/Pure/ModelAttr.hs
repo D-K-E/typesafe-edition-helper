@@ -7,12 +7,12 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 
-module PrimitiveTest.Pure.ModelAttr where
+module PrimitiveTest.Pure.NodeAttr where
 
 -- start def
-import           Primitive.Definition.ModelAttr ( ModelAttr(..) )
-import           Primitive.Instance.ModelAttr
-                                                ( ModelAttr(..) )
+import           Primitive.Definition.NodeAttr ( NodeAttr(..) )
+import           Primitive.Instance.NodeAttr
+                                                ( NodeAttr(..) )
 -- end def
 -- start fn
 import           FunctionDef.Setter        ( Map2Primitive(..)

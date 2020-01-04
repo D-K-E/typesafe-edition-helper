@@ -10,10 +10,10 @@ Stability : Experimental
 module Control.Xml where
 
 -- start def
-import           Primitive.Definition.ModelId   ( ModelId(..) )
-import           Primitive.Definition.ModelAttr ( ModelAttr(..) )
-import           Primitive.Definition.ModelInfo ( ModelInfo(..) )
-import           Primitive.Definition.ModelType ( ModelType(..) )
+import           Primitive.Definition.NodeId   ( NodeId(..) )
+import           Primitive.Definition.NodeAttr ( NodeAttr(..) )
+import           Primitive.Definition.NodeInfo ( NodeInfo(..) )
+import           Primitive.Definition.NodeType ( NodeType(..) )
 import           Primitive.Definition.UnitData  ( UnitData(..) )
 import           Primitive.Definition.Container
                                                as Cm
@@ -22,8 +22,8 @@ import           Primitive.Definition.Container
                                                 )
 import           Primitive.Definition.Error
 
-import           Primitive.Instance.ModelAttr   ( ModelAttr )
-import           Primitive.Instance.ModelType   ( ModelType )
+import           Primitive.Instance.NodeAttr   ( NodeAttr )
+import           Primitive.Instance.NodeType   ( NodeType )
 import           Primitive.Instance.UnitData    ( UnitData )
 -- end def
 
@@ -32,11 +32,11 @@ import           Primitive.Instance.UnitData    ( UnitData )
 import           FunctionDef.Transformer        ( Model2StringText(toText)
                                                 , Model2Map(toTextMap)
                                                 )
-import           Control.Pure.ModelId           ( makeModelIdFromText
-                                                , makeModelIdFromIdTuple
+import           Control.Pure.NodeId           ( makeNodeIdFromText
+                                                , makeNodeIdFromIdTuple
                                                 )
-import           Control.Pure.ModelAttr         ( makeModelAttrFromTextMap )
-import           Control.Pure.ModelType         ( makeModelTypeFromText )
+import           Control.Pure.NodeAttr         ( makeNodeAttrFromTextMap )
+import           Control.Pure.NodeType         ( makeNodeTypeFromText )
 import           Control.Pure.UnitData          ( makeUnitDataFromText
                                                 , makeUnitDataFromIdTuple
                                                 )

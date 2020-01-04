@@ -13,7 +13,7 @@ module Primitive.Definition.Node
 where
 
 -- start def
-import           Primitive.Definition.ModelInfo ( ModelInfo )
+import           Primitive.Definition.NodeInfo ( NodeInfo )
 -- end def
 
 -- start utilities
@@ -35,7 +35,7 @@ data Node = NodeInt Int
 newtype NodeGroup = NodeGroupCons [Node] deriving (Eq, Ord)
 
 data Container = ContainerCons {
-      cinfo :: ModelInfo
+      cinfo :: NodeInfo
     , cdata :: NodeGroup
     } deriving (Eq, Ord)
 

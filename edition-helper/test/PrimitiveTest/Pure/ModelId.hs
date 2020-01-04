@@ -1,5 +1,5 @@
 {-|
-Module : ModelIdSpec
+Module : NodeIdSpec
 License : see LICENSE
 Description : Test suit for primitive model id pure instance spec
 Copyright : Kaan Eraslan
@@ -7,12 +7,12 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 
-module PrimitiveTest.Pure.ModelId where
+module PrimitiveTest.Pure.NodeId where
 
 -- start def
-import           Primitive.Definition.ModelId   ( ModelId(..) )
-import           Primitive.Instance.ModelId
-                                                ( ModelId(..) )
+import           Primitive.Definition.NodeId   ( NodeId(..) )
+import           Primitive.Instance.NodeId
+                                                ( NodeId(..) )
 -- end def
 -- start fn
 
@@ -39,7 +39,7 @@ mid = StringIdCons "small-id-12"
 
 main :: IO ()
 main = hspec $ do
-    describe "ModelId setter test" $ do
+    describe "NodeId setter test" $ do
         it "Set model id from string" $ fromString "small-id-12" `shouldBe` mid
         it "Set Model id from Text"
             $          fromText (pack "small-id-12")
@@ -53,7 +53,7 @@ main = hspec $ do
             $          fromTupleText ("id", pack "small-id-12")
             `shouldBe` mid
 
-    describe "ModelId transformer test" $ do
+    describe "NodeId transformer test" $ do
         it "Model2StringText transform model id to string"
             $          toString mid
             `shouldBe` "small-id-12"
@@ -62,6 +62,6 @@ main = hspec $ do
             $          toText mid
             `shouldBe` pack "small-id-12"
 
-        it "Model2IdTuple transform model id to string ModelId tuple"
+        it "Model2IdTuple transform model id to string NodeId tuple"
             $          toIdTuple mid
             `shouldBe` ("id", mid)

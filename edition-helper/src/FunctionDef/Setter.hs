@@ -20,6 +20,7 @@ where
 import           Primitive.Definition.Error     ( StringValueError
                                                 , IdTupleValueError
                                                 , MapValueError
+                                                , NodeError
                                                 )
 -- start fn
 
@@ -42,6 +43,18 @@ class StringLike2Primitive model where
     fromString :: String -> Either StringValueError model
     fromText :: Text -> Either StringValueError model
     fromText aText = fromString (unpack aText)
+
+class Data2Node model where
+    fromString :: String -> Either NodeError model
+    fromText :: Text -> Either NodeError model
+    fromInt :: Int -> Either NodeError model
+    fromInteger :: Integer -> Either NodeError model
+    fromFloat :: Float -> Either NodeError model
+    fromDouble :: Double -> Either NodeError model
+    fromBool :: Bool -> Either NodeError model
+    fromEmpty :: Empty -> Either NodeError model
+    fromContainer :: Container -> Either NodeError model
+
 
 class Map2Primitive model where
     fromStringMap :: Map String String -> Either MapValueError model

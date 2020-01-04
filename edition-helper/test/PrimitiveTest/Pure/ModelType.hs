@@ -7,12 +7,12 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 
-module PrimitiveTest.Pure.ModelType where
+module PrimitiveTest.Pure.NodeType where
 
 -- start def
-import           Primitive.Definition.ModelType ( ModelType(..) )
-import           Primitive.Instance.ModelType
-                                                ( ModelType(..) )
+import           Primitive.Definition.NodeType ( NodeType(..) )
+import           Primitive.Instance.NodeType
+                                                ( NodeType(..) )
 -- end def
 -- start fn
 
@@ -37,7 +37,7 @@ mtype = StringTypeCons "edition"
 
 main :: IO ()
 main = hspec $ do
-    describe "ModelType setter test" $ do
+    describe "NodeType setter test" $ do
         it "Set model type from string" $ fromString "edition" `shouldBe` mtype
         it "Set Model type from Text"
             $          fromText (pack "edition")
@@ -51,7 +51,7 @@ main = hspec $ do
             $          fromTupleText ("type", pack "edition")
             `shouldBe` mtype
 
-    describe "ModelType transformer test" $ do
+    describe "NodeType transformer test" $ do
         it "Model2StringText transform model type to string"
             $          toString mtype
             `shouldBe` "edition"
@@ -60,6 +60,6 @@ main = hspec $ do
             $          toText mtype
             `shouldBe` pack "edition"
 
-        it "Model2IdTuple transform model type to string ModelId tuple"
+        it "Model2IdTuple transform model type to string NodeId tuple"
             $          toIdTuple mtype
             `shouldBe` ("type", mtype)

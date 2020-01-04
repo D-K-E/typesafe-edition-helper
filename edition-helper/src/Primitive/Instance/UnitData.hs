@@ -1,5 +1,5 @@
 {-|
-Module : ModelId
+Module : NodeId
 License : see LICENSE
 Description : UnitData primitive implements function definitions
 Copyright : Kaan Eraslan

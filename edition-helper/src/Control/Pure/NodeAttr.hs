@@ -1,22 +1,22 @@
 {-|
-Module : Control.Pure.ModelAttr.hs
+Module : Control.Pure.NodeAttr.hs
 License : see LICENSE
-Description : Control functions for ModelAttr type
+Description : Control functions for NodeAttr type
 Copyright : Kaan Eraslan
 Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
-module Control.Pure.ModelAttr
-    ( makeModelAttrFromStringMap
-    , makeModelAttrFromTextMap
-    , makeModelAttrFromIdTupleStringMap
-    , makeModelAttrFromIdTupleTextMap
+module Control.Pure.NodeAttr
+    ( makeNodeAttrFromStringMap
+    , makeNodeAttrFromTextMap
+    , makeNodeAttrFromIdTupleStringMap
+    , makeNodeAttrFromIdTupleTextMap
     )
 where
 
 -- start def
-import           Primitive.Definition.ModelAttr ( ModelAttr )
-import           Primitive.Instance.ModelAttr   ( ModelAttr )
+import           Primitive.Definition.NodeAttr ( NodeAttr )
+import           Primitive.Instance.NodeAttr   ( NodeAttr )
 import           Primitive.Definition.Error     ( MapValueError
                                                     ( MapKeyError
                                                     , MapValError
@@ -68,9 +68,9 @@ showFirstKV amap =
     "Key: " ++ (showMapKey amap) ++ "\n" ++ "Val: " ++ (showMapVal amap)
 
 -- end utility
-makeModelAttrFromStringMap
-    :: Map String String -> Either MapValueError ModelAttr
-makeModelAttrFromStringMap aMap
+makeNodeAttrFromStringMap
+    :: Map String String -> Either MapValueError NodeAttr
+makeNodeAttrFromStringMap aMap
     | any null (elems aMap)
     = let errstr = showFirstKV (Mp.filter null aMap)
       in  Left (MapValError "Attributes must have non empty values" errstr)
@@ -98,32 +98,32 @@ makeModelAttrFromStringMap aMap
                   where fn key val = isAsciiStr key
       in  Left (MapKeyError "Attributes must have ascii keys" errstr)
 
-makeModelAttrFromTextMap :: Map Text Text -> Either MapValueError ModelAttr
-makeModelAttrFromTextMap amap =
-    makeModelAttrFromStringMap (convertTxtMap2String amap)
+makeNodeAttrFromTextMap :: Map Text Text -> Either MapValueError NodeAttr
+makeNodeAttrFromTextMap amap =
+    makeNodeAttrFromStringMap (convertTxtMap2String amap)
 
-makeModelAttrFromIdTupleStringMap
-    :: (String, Map String String) -> Either IdTupleValueError ModelAttr
+makeNodeAttrFromIdTupleStringMap
+    :: (String, Map String String) -> Either IdTupleValueError NodeAttr
 
-makeModelAttrFromIdTupleStringMap (str, amap)
+makeNodeAttrFromIdTupleStringMap (str, amap)
     | null str
     = Left (FirstValueError (EmptyStr "IdTuple first argument"))
     | not (str == "attribute")
     = Left
         (FirstValueError
             (OtherStringError
-                "IdTuple first value is not attribute for ModelAttr id tuple"
+                "IdTuple first value is not attribute for NodeAttr id tuple"
             )
         )
     | otherwise
-    = let res = makeModelAttrFromStringMap amap
+    = let res = makeNodeAttrFromStringMap amap
       in  case res of
               Left  err -> Left (SecondMapValueError err)
               Right m   -> Right m
 
-makeModelAttrFromIdTupleTextMap
-    :: (String, Map Text Text) -> Either IdTupleValueError ModelAttr
+makeNodeAttrFromIdTupleTextMap
+    :: (String, Map Text Text) -> Either IdTupleValueError NodeAttr
 
 
-makeModelAttrFromIdTupleTextMap (str, amap) =
-    makeModelAttrFromIdTupleStringMap (str, (convertTxtMap2String amap))
+makeNodeAttrFromIdTupleTextMap (str, amap) =
+    makeNodeAttrFromIdTupleStringMap (str, (convertTxtMap2String amap))
