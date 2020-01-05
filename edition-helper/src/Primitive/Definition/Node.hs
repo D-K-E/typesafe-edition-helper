@@ -36,8 +36,16 @@ newtype NodeType = TextTypeCons Text
                 deriving (Eq, Show)
 
 -- | node attribute: unique key value non nested pairs
-data NodeAttr = TextAttrCons (Map Text Text)
+newtype NodeAttr = TextAttrCons (Map Text Text)
                 deriving (Eq, Show)
+
+-- | node info: contains meta data with regard to unit/container model
+data NodeInfo = InfoCons {
+      nodeId :: NodeId
+    , nodeType :: NodeType
+    , nodeAttr :: NodeAttr
+    } deriving (Eq, Show)
+
 
 data PreNode = PreNodeInt Int
     | PreNodeInteger Integer
