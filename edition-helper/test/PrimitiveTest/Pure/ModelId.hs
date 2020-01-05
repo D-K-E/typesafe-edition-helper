@@ -17,7 +17,7 @@ import           Primitive.Instance.NodeId
 -- start fn
 
 import           FunctionDef.Setter        ( StringLike2Primitive(..)
-                                                , TupleString2Primitive(..)
+                                                , IdTuple2Node(..)
                                                 )
 import           FunctionDef.Transformer   ( Model2StringText(..)
                                                 , Model2IdTuple(..)
@@ -45,11 +45,11 @@ main = hspec $ do
             $          fromText (pack "small-id-12")
             `shouldBe` mid
 
-        it "Set Model Id from TupleString2Primitive fromTupleString"
+        it "Set Model Id from IdTuple2Node fromTupleString"
             $          fromTupleString ("id", "small-id-12")
             `shouldBe` mid
 
-        it "Set Model Id from TupleString2Primitive fromTupleText"
+        it "Set Model Id from IdTuple2Node fromTupleText"
             $          fromTupleText ("id", pack "small-id-12")
             `shouldBe` mid
 

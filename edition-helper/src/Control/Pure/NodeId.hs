@@ -15,14 +15,14 @@ where
 
 -- start def
 import           Primitive.Instance.NodeId     ( NodeId(..) )
-import           Primitive.Definition.Error     ( StringValueError(..)
+import           Primitive.Definition.Error     ( TextValueError(..)
                                                 , IdTupleValueError(..)
                                                 )
 import           FunctionDef.Setter             ( StringLike2Primitive
                                                     ( fromString
                                                     , fromText
                                                     )
-                                                , TupleString2Primitive
+                                                , IdTuple2Node
                                                     ( fromTupleString
                                                     )
                                                 )
@@ -38,7 +38,7 @@ import           Data.Text                      ( Text
 -- start maker
 
 -- |'makeNodeIdFromString' makes model id from string using conditions
-makeNodeIdFromString :: String -> Either StringValueError NodeId
+makeNodeIdFromString :: String -> Either TextValueError NodeId
 makeNodeIdFromString astr
     | null astr = Left (EmptyStr "NodeId")
     | not (isAlphaNumStr astr && isAsciiStr astr) = Left
@@ -46,7 +46,7 @@ makeNodeIdFromString astr
     | otherwise = fromString astr
 
 -- |'makeNodeIdFromText' makes model id from text using conditions
-makeNodeIdFromText :: Text -> Either StringValueError NodeId
+makeNodeIdFromText :: Text -> Either TextValueError NodeId
 makeNodeIdFromText txt = makeNodeIdFromString (unpack txt)
 
 -- |'makeNodeIdFromIdTuple' make model id from id tuple
@@ -64,5 +64,5 @@ makeNodeIdFromIdTuple (str1, str2)
     | str1 == "id"
     = let midErr = makeNodeIdFromString str2
       in  case midErr of
-              Left  err -> Left (SecondStringValueError err)
+              Left  err -> Left (SecondTextValueError err)
               Right mid -> fromTupleString (str1, str2)

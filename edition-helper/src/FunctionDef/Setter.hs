@@ -9,7 +9,8 @@ Stability : Experimental
 module FunctionDef.Setter
     ( StringLike2Primitive(..)
     , Map2Primitive(..)
-    , TupleString2Primitive(..)
+    , Data2Node(..)
+    , IdTuple2Node(..)
     , TupleMap2Primitive(..)
     )
 where
@@ -17,7 +18,7 @@ where
 -- start def
 
 -- end def
-import           Primitive.Definition.Error     ( StringValueError
+import           Primitive.Definition.Error     ( TextValueError
                                                 , IdTupleValueError
                                                 , MapValueError
                                                 , NodeError
@@ -35,24 +36,25 @@ import           Data.Map.Strict                ( Map )
 import           Utils.MapUtils                 ( convertStringKey
                                                 , convertStringVal
                                                 , convertTxtMap2String
+                                                , convertStringMap2Txt
                                                 )
 
 -- end utility
 
 class StringLike2Primitive model where
-    fromString :: String -> Either StringValueError model
-    fromText :: Text -> Either StringValueError model
-    fromText aText = fromString (unpack aText)
+    fromString :: String -> Either TextValueError model
+    fromText :: Text -> Either TextValueError model
+    fromString str = fromText (pack str)
+
 
 class Data2Node model where
-    fromString :: String -> Either NodeError model
     fromText :: Text -> Either NodeError model
     fromInt :: Int -> Either NodeError model
     fromInteger :: Integer -> Either NodeError model
     fromFloat :: Float -> Either NodeError model
     fromDouble :: Double -> Either NodeError model
     fromBool :: Bool -> Either NodeError model
-    fromEmpty :: Empty -> Either NodeError model
+    fromEmpty :: Nothing -> Either NodeError model
     fromContainer :: Container -> Either NodeError model
 
 
@@ -64,19 +66,15 @@ class Map2Primitive model where
 
     fromMixedStrMap aMap = fromTextMap (convertStringKey aMap)
     fromMixedTextMap aMap = fromTextMap (convertStringVal aMap)
-    fromTextMap aMap = fromStringMap (convertTxtMap2String aMap)
+    fromStringMap aMap = fromTextMap (convertStringMap2Txt aMap)
 
-class (StringLike2Primitive model) => TupleString2Primitive model where
+class (Data2Node model) => IdTuple2Node model where
     fromTupleString :: (String, String) -> Either IdTupleValueError model
     fromTupleText :: (String, Text) -> Either IdTupleValueError model
-    fromTupleText tpl = fromTupleString (fst tpl, unpack (snd tpl))
-
-class (Map2Primitive model) => TupleMap2Primitive model where
-    fromTupleStringMap :: (String, Map String String) -> Either IdTupleValueError model
-    fromTupleTextMap :: (String, Map Text Text) -> Either IdTupleValueError model
-    fromTupleMixedStrMap :: (String, Map String Text) -> Either IdTupleValueError model
-    fromTupleMixedTextMap :: (String, Map Text String) -> Either IdTupleValueError model
-
-    fromTupleTextMap tpl = fromTupleStringMap (fst tpl, convertTxtMap2String (snd tpl))
-    fromTupleMixedStrMap tpl = fromTupleTextMap (fst tpl, convertStringKey (snd tpl))
-    fromTupleMixedTextMap tpl = fromTupleTextMap (fst tpl, convertStringVal (snd tpl))
+    fromTupleInt :: (String, Int) -> Either IdTupleValueError model
+    fromTupleInteger :: (String, Integer) -> Either IdTupleValueError model
+    fromTupleFloat :: (String, Float) -> Either IdTupleValueError model
+    fromTupleDouble :: (String, Double) -> Either IdTupleValueError model
+    fromTupleBool :: (String, Bool) -> Either IdTupleValueError model
+    fromTupleEmpty :: (String, Empty) -> Either IdTupleValueError model
+    fromTupleContainer :: (String, Container) -> Either IdTupleValueError model

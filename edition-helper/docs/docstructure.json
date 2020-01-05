@@ -1,0 +1,25 @@
+{
+    "Graph": [{
+            "NodeGroup": [
+                ["int", 12],
+                ["float", 2.53]
+                ["container", {
+                    "NodeInfo": {
+                        "id": "idstr",
+                        "type": "type str",
+                        "attr": {
+                            "key": "val",
+                            "key2": "val2"
+                        }
+                    },
+                    "Data": {
+                        "NodeGroup": []
+                    }
+                }]
+            ]
+        },
+        {
+            "NodeGroup": []
+        }
+    ]
+}

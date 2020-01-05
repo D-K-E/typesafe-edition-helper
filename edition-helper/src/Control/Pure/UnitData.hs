@@ -16,14 +16,14 @@ where
 -- start def
 import           Primitive.Definition.UnitData  ( UnitData(..) )
 import           Primitive.Instance.UnitData    ( UnitData )
-import           Primitive.Definition.Error     ( StringValueError(..)
+import           Primitive.Definition.Error     ( TextValueError(..)
                                                 , IdTupleValueError(..)
                                                 )
 import           FunctionDef.Setter             ( StringLike2Primitive
                                                     ( fromString
                                                     , fromText
                                                     )
-                                                , TupleString2Primitive
+                                                , IdTuple2Node
                                                     ( fromTupleString
                                                     )
                                                 )
@@ -39,12 +39,12 @@ import           Data.Text                      ( Text
 -- start maker
 
 -- |'makeUnitDataFromString' makes model id from string using conditions
-makeUnitDataFromString :: String -> Either StringValueError UnitData
+makeUnitDataFromString :: String -> Either TextValueError UnitData
 makeUnitDataFromString astr | null astr = Left (EmptyStr "UnitData")
                             | otherwise = fromString astr
 
 -- |'makeUnitDataFromText' makes model id from text using conditions
-makeUnitDataFromText :: Text -> Either StringValueError UnitData
+makeUnitDataFromText :: Text -> Either TextValueError UnitData
 makeUnitDataFromText txt = makeUnitDataFromString (unpack txt)
 
 -- |'makeUnitDataFromIdTuple' make model id from id tuple
@@ -62,5 +62,5 @@ makeUnitDataFromIdTuple (str1, str2)
     | str1 == "udata"
     = let midErr = makeUnitDataFromString str2
       in  case midErr of
-              Left  err -> Left (SecondStringValueError err)
+              Left  err -> Left (SecondTextValueError err)
               Right mid -> fromTupleString (str1, str2)

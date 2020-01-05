@@ -33,4 +33,3 @@ class Model2IdTuple model where
 
 class (Map2Primitive model) => Model2Map model where
     toTextMap :: model -> Map Text Text
-    toStringMap :: model -> Map String String

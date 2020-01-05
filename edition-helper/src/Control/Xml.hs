@@ -63,7 +63,7 @@ import           Utils.MapUtils                 ( add2Map
                                                 )
 -- end utilities
 
-makeUnitDataFromNode :: Node -> Either StringValueError UnitData
+makeUnitDataFromNode :: Node -> Either TextValueError UnitData
 makeUnitDataFromNode (NodeContent txt) = makeUnitDataFromText txt
 makeNodeFromUnitData :: UnitData -> Node
 makeNodeFromUnitData udata = NodeContent (toText udata)

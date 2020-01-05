@@ -12,12 +12,8 @@ module Primitive.Instance.NodeAttr
 where
 
 -- start def
-import           Primitive.Definition.NodeAttr ( NodeAttr
-                                                    ( StringAttrCons
-                                                    , TextAttrCons
-                                                    )
-                                                )
-import           Primitive.Definition.Error     ( StringValueError
+import           Primitive.Definition.Node      ( NodeAttr(TextAttrCons) )
+import           Primitive.Definition.Error     ( TextValueError
                                                 , IdTupleValueError
                                                 , MapValueError(..)
                                                 )
@@ -46,21 +42,14 @@ import           Utils.MapUtils                 ( convertTxtMap2String
 -- end utility
 
 -- setter
+
 instance Map2Primitive NodeAttr where
-    fromStringMap amap = Right (StringAttrCons amap)
-
-
-instance TupleMap2Primitive NodeAttr where
-    fromTupleStringMap (astr, amap) = Right (StringAttrCons amap)
+    fromTextMap amap = Right (TextAttrCons amap)
 
 -- end setter
 -- transformer
-instance Model2IdTuple NodeAttr where
-    toIdTuple mdl = ("attribute", mdl)
 
 instance Model2Map NodeAttr where
     toTextMap (TextAttrCons   amap) = amap
-    toTextMap (StringAttrCons amap) = convertStringMap2Txt amap
-    toStringMap (StringAttrCons amap) = amap
-    toStringMap (TextAttrCons   amap) = convertTxtMap2String amap
+
 -- end transformer

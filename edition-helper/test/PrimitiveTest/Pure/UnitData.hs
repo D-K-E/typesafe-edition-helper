@@ -19,7 +19,7 @@ import           FunctionDef.Setter        ( StringLike2Primitive
                                                     ( fromString
                                                     , fromText
                                                     )
-                                                , TupleString2Primitive(..)
+                                                , IdTuple2Node(..)
                                                 )
 import           FunctionDef.Transformer   ( Model2StringText
                                                     ( toString
@@ -48,7 +48,7 @@ main = hspec $ do
     describe "StringLike2Primitive tests" $ do
         it "fromString test" $ fromString "mydata" `shouldBe` udata
         it "fromText test" $ fromText (pack "mydata") `shouldBe` udata
-    describe "TupleString2Primitive tests" $ do
+    describe "IdTuple2Node tests" $ do
         it "fromTupleString test" $ fromTupleString utpls `shouldBe` udata
         it "fromTupleText test" $ fromTupleText utplt `shouldBe` udata
     describe "Model2StringText tests" $ do

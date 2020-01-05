@@ -17,7 +17,7 @@ import           Primitive.Instance.NodeType
 -- start fn
 
 import           FunctionDef.Setter        ( StringLike2Primitive(..)
-                                                , TupleString2Primitive(..)
+                                                , IdTuple2Node(..)
                                                 )
 import           FunctionDef.Transformer   ( Model2StringText(..)
                                                 , Model2IdTuple(..)
@@ -43,11 +43,11 @@ main = hspec $ do
             $          fromText (pack "edition")
             `shouldBe` mtype
 
-        it "Set Model Type from TupleString2Primitive fromTupleString"
+        it "Set Model Type from IdTuple2Node fromTupleString"
             $          fromTupleString ("type", "edition")
             `shouldBe` mtype
 
-        it "Set Model Type from TupleString2Primitive fromTupleText"
+        it "Set Model Type from IdTuple2Node fromTupleText"
             $          fromTupleText ("type", pack "edition")
             `shouldBe` mtype
 

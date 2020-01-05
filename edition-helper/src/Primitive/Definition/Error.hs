@@ -7,7 +7,7 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 module Primitive.Definition.Error
-    ( StringValueError(..)
+    ( TextValueError(..)
     , IdTupleValueError(..)
     , MapValueError(..)
     , NodeError(..)
@@ -16,44 +16,47 @@ where
 
 import qualified Control.Exception             as Ex
 import           Type.Reflection                ( Typeable )
+import           Data.Text                      ( Text
+                                                , unpack
+                                                )
 
--- |'StringValueError' defines errors for string
-data StringValueError = EmptyStr String -- string is empty
-    | NotAscii String
-    | NotAlphanumeric String
-    | NotAsciiAlphanumeric String
-    | OtherStringError String
+-- |'TextValueError' defines errors for string
+data TextValueError = EmptyText Text -- string is empty
+    | NotAscii Text
+    | NotAlphanumeric Text
+    | NotAsciiAlphanumeric Text
+    | OtherStringError Text
     deriving (Typeable)
 
-instance Show StringValueError where
-    show (EmptyStr infostr) = "String value is empty for " ++ infostr
+instance Show TextValueError where
+    show (EmptyText infostr) = "String value is empty for " ++ unpack infostr
     show (NotAscii infostr) =
         "String value is not entirely composed of ASCII characters for "
-            ++ infostr
+            ++ unpack infostr
     show (NotAlphanumeric infostr) =
         "String value is not entirely composed of alphanumeric characters for "
-            ++ infostr
+            ++ unpack infostr
     show (NotAsciiAlphanumeric infostr) =
         "String not entirely composed of alphanumeric ASCII characters for "
-            ++ infostr
-    show (OtherStringError str) | null str  = "Unknown string error"
-                                | otherwise = str
+            ++ unpack infostr
+    show (OtherStringError str) | null (unpack str) = "Unknown string error"
+                                | otherwise         = unpack str
 
-instance Ex.Exception StringValueError
+instance Ex.Exception TextValueError
 
 -- |'MapValueError' regroups map errors
-data MapValueError = MapKeyError String String
-    | MapValError String String
-    | OtherMapError String
+data MapValueError = MapKeyError Text Text
+    | MapValError Text Text
+    | OtherMapError Text
     deriving (Typeable)
 
 
 instance Show MapValueError where
     show (MapKeyError mess str) =
-        "Map key error: " ++ mess ++ " for key: " ++ str
+        "Map key error: " ++ unpack mess ++ " for key: " ++ unpack str
     show (MapValError mess str) =
-        "Map value error: " ++ mess ++ " for value: " ++ str
-    show (OtherMapError mess) = "Map error: " ++ mess
+        "Map value error: " ++ unpack mess ++ " for value: " ++ unpack str
+    show (OtherMapError mess) = "Map error: " ++ unpack mess
 
 
 data NodeError = NodeIntError String
@@ -67,8 +70,8 @@ data NodeError = NodeIntError String
     | NodeContainerError String
     deriving (Typeable)
 
-makeNodeErrStrinig :: String -> String -> String
-makeErrStrinig tname mess =
+makeNodeErrString :: String -> String -> String
+makeNodeErrString tname mess =
     "Node"
         ++ tname
         ++ "Error: in constructing node from"
@@ -77,20 +80,48 @@ makeErrStrinig tname mess =
         ++ mess
 
 instance Show NodeError where
-    show (NodeIntError       mess) = makeNodeErrStrinig "Int" mess
-    show (NodeIntegerError   mess) = makeNodeErrStrinig "Integer" mess
-    show (NodeFloatError     mess) = makeNodeErrStrinig "Float" mess
-    show (NodeDoubleError    mess) = makeNodeErrStrinig "Double" mess
-    show (NodeStringError    mess) = makeNodeErrStrinig "String" mess
-    show (NodeBoolError      mess) = makeNodeErrStrinig "Bool" mess
-    show (NodeTextError      mess) = makeNodeErrStrinig "Text" mess
-    show (NodeEmptyError     mess) = makeNodeErrStrinig "Error" mess
-    show (NodeContainerError mess) = makeNodeErrStrinig "Container" mess
+    show (NodeIntError       mess) = makeNodeErrString "Int" mess
+    show (NodeIntegerError   mess) = makeNodeErrString "Integer" mess
+    show (NodeFloatError     mess) = makeNodeErrString "Float" mess
+    show (NodeDoubleError    mess) = makeNodeErrString "Double" mess
+    show (NodeStringError    mess) = makeNodeErrString "String" mess
+    show (NodeBoolError      mess) = makeNodeErrString "Bool" mess
+    show (NodeTextError      mess) = makeNodeErrString "Text" mess
+    show (NodeEmptyError     mess) = makeNodeErrString "Error" mess
+    show (NodeContainerError mess) = makeNodeErrString "Container" mess
+
+
+newtype NodeIdError = NodeIdError TextValueError
+newtype NodeTypeError = NodeTypeError TextValueError
+newtype NodeAttrError = NodeAttrError MapValueError
+
+instance Show NodeIdError where
+    show (NodeIdError serr) = "Node id error: " ++ show serr
+
+instance Show NodeTypeError where
+    show (NodeTypeError serr) = "Node type error: " ++ show serr
+
+instance Show NodeAttrError where
+    show (NodeAttrError serr) = "Node attribute error: " ++ show serr
+
+
+data NodeInfoError = NodeInfoIdError NodeIdError
+    | NodeInfoTypeError NodeTypeError
+    | NodeInfoAttrError NodeAttrError
+    | OtherNodeInfoError String
+    deriving (Typeable)
+
+
+instance Show NodeInfoError where
+    show (NodeInfoIdError        serr) = "NodeInfo: " ++ show serr
+    show (NodeInfoTypeError      serr) = "NodeInfo: " ++ show serr
+    show (NodeInfoAttrError      serr) = "NodeInfo: " ++ show serr
+    show (OtherNodeInfoError serr) = "Other NodeInfo error: " ++ serr
 
 
 data IdTupleValueError = FirstValueEmpty String
-    | FirstValueError StringValueError
-    | SecondStringValueError StringValueError
+    | FirstValueError TextValueError
+    | SecondTextValueError TextValueError
     | SecondMapValueError MapValueError
     | OtherIdTupleError String
     deriving (Typeable)
@@ -101,7 +132,7 @@ instance Show IdTupleValueError where
         "First value of id tuple is empty: " ++ infostr
     show (FirstValueError strerr) =
         "Error in first value of id tuple: " ++ show strerr
-    show (SecondStringValueError strerr) =
+    show (SecondTextValueError strerr) =
         "Error in second string value of id tuple: " ++ show strerr
     show (SecondMapValueError strerr) =
         "Error in second map value of id tuple: " ++ show strerr

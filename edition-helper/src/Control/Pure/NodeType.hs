@@ -15,7 +15,7 @@ where
 -- start def
 
 import           Primitive.Instance.NodeType   ( NodeType )
-import           Primitive.Definition.Error     ( StringValueError(..)
+import           Primitive.Definition.Error     ( TextValueError(..)
                                                 , IdTupleValueError(..)
                                                 )
 
@@ -25,7 +25,7 @@ import           FunctionDef.Setter             ( StringLike2Primitive
                                                     ( fromString
                                                     , fromText
                                                     )
-                                                , TupleString2Primitive
+                                                , IdTuple2Node
                                                     ( fromTupleString
                                                     )
                                                 )
@@ -40,8 +40,8 @@ import           Utils.StrUtils                 ( toLowerStr )
 -- end utility
 
 -- start maker
-makeNodeTypeFromString :: String -> Either StringValueError NodeType
-makeNodeTypeFromText :: Text -> Either StringValueError NodeType
+makeNodeTypeFromString :: String -> Either TextValueError NodeType
+makeNodeTypeFromText :: Text -> Either TextValueError NodeType
 
 makeNodeTypeFromString typeName
     | toLowerStr typeName
@@ -82,6 +82,6 @@ makeNodeTypeFromIdTuple (str1, str2)
     | str1 == "type"
     = let midErr = makeNodeTypeFromString str2
       in  case midErr of
-              Left  err -> Left (SecondStringValueError err)
+              Left  err -> Left (SecondTextValueError err)
               Right mid -> fromTupleString (str1, str2)
 -- end maker

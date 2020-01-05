@@ -26,7 +26,7 @@ import           Primitive.Definition.Error     ( MapValueError
                                                     ( SecondMapValueError
                                                     , FirstValueError
                                                     )
-                                                , StringValueError
+                                                , TextValueError
                                                     ( EmptyStr
                                                     , OtherStringError
                                                     )

@@ -24,7 +24,7 @@ import           FunctionDef.Setter             ( StringLike2Primitive
                                                     ( fromString
                                                     , fromText
                                                     )
-                                                , TupleString2Primitive
+                                                , IdTuple2Node
                                                     ( fromTupleString
                                                     )
                                                 )
@@ -48,7 +48,7 @@ import           Data.Text                      ( Text
 instance StringLike2Primitive NodeType where
     fromString astr = Right (StringTypeCons astr)
 
-instance TupleString2Primitive NodeType where
+instance IdTuple2Node NodeType where
     fromTupleString tpl = Right (StringTypeCons (snd tpl))
 
 -- end setter
