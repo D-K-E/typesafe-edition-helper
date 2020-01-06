@@ -15,13 +15,13 @@ import           Primitive.Instance.UnitData
 -- end def
 
 -- start fn
-import           FunctionDef.Setter        ( StringLike2Primitive
+import           FunctionDef.Setter        ( Text2NodeIdType
                                                     ( fromString
                                                     , fromText
                                                     )
                                                 , IdTuple2Node(..)
                                                 )
-import           FunctionDef.Transformer   ( Model2StringText
+import           FunctionDef.Transformer   ( NodeIdType2Text
                                                     ( toString
                                                     , toText
                                                     )
@@ -45,13 +45,13 @@ utplt = ("data-unit", pack "mydata")
 
 main :: IO ()
 main = hspec $ do
-    describe "StringLike2Primitive tests" $ do
+    describe "Text2NodeIdType tests" $ do
         it "fromString test" $ fromString "mydata" `shouldBe` udata
         it "fromText test" $ fromText (pack "mydata") `shouldBe` udata
     describe "IdTuple2Node tests" $ do
         it "fromTupleString test" $ fromTupleString utpls `shouldBe` udata
         it "fromTupleText test" $ fromTupleText utplt `shouldBe` udata
-    describe "Model2StringText tests" $ do
+    describe "NodeIdType2Text tests" $ do
         it "toString test" $ toString udata `shouldBe` "mydata"
         it "toText test" $ toText udata `shouldBe` pack "mydata"
     describe "Model2IdTuple tests" $ do

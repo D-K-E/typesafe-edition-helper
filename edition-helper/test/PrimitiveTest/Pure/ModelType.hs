@@ -16,10 +16,10 @@ import           Primitive.Instance.NodeType
 -- end def
 -- start fn
 
-import           FunctionDef.Setter        ( StringLike2Primitive(..)
+import           FunctionDef.Setter        ( Text2NodeIdType(..)
                                                 , IdTuple2Node(..)
                                                 )
-import           FunctionDef.Transformer   ( Model2StringText(..)
+import           FunctionDef.Transformer   ( NodeIdType2Text(..)
                                                 , Model2IdTuple(..)
                                                 )
 
@@ -52,11 +52,11 @@ main = hspec $ do
             `shouldBe` mtype
 
     describe "NodeType transformer test" $ do
-        it "Model2StringText transform model type to string"
+        it "NodeIdType2Text transform model type to string"
             $          toString mtype
             `shouldBe` "edition"
 
-        it "Model2StringText transform model type to Text"
+        it "NodeIdType2Text transform model type to Text"
             $          toText mtype
             `shouldBe` pack "edition"
 

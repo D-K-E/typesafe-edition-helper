@@ -16,10 +16,10 @@ import           Primitive.Instance.NodeId
 -- end def
 -- start fn
 
-import           FunctionDef.Setter        ( StringLike2Primitive(..)
+import           FunctionDef.Setter        ( Text2NodeIdType(..)
                                                 , IdTuple2Node(..)
                                                 )
-import           FunctionDef.Transformer   ( Model2StringText(..)
+import           FunctionDef.Transformer   ( NodeIdType2Text(..)
                                                 , Model2IdTuple(..)
                                                 )
 import           FunctionDef.Matcher
@@ -54,11 +54,11 @@ main = hspec $ do
             `shouldBe` mid
 
     describe "NodeId transformer test" $ do
-        it "Model2StringText transform model id to string"
+        it "NodeIdType2Text transform model id to string"
             $          toString mid
             `shouldBe` "small-id-12"
 
-        it "Model2StringText transform model id to Text"
+        it "NodeIdType2Text transform model id to Text"
             $          toText mid
             `shouldBe` pack "small-id-12"
 

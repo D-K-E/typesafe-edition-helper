@@ -12,26 +12,13 @@ module Primitive.Instance.NodeType
 where
 
 -- start def
-import           Primitive.Definition.NodeType ( NodeType
-                                                    ( StringTypeCons
-                                                    , TextTypeCons
-                                                    )
-                                                )
+import           Primitive.Definition.NodeType  ( NodeType(TextTypeCons) )
 -- end def
 
 -- start fn
-import           FunctionDef.Setter             ( StringLike2Primitive
-                                                    ( fromString
-                                                    , fromText
-                                                    )
-                                                , IdTuple2Node
-                                                    ( fromTupleString
-                                                    )
+import           FunctionDef.Setter             ( IdTuple2Node(fromTupleString)
                                                 )
-import           FunctionDef.Transformer        ( Model2StringText
-                                                    ( toString
-                                                    , toText
-                                                    )
+import           FunctionDef.Transformer        ( NodeIdType2Text(toText)
                                                 , Model2IdTuple(toIdTuple)
                                                 )
 -- end fn
@@ -45,20 +32,14 @@ import           Data.Text                      ( Text
 
 -- start setter
 
-instance StringLike2Primitive NodeType where
-    fromString astr = Right (StringTypeCons astr)
-
 instance IdTuple2Node NodeType where
     fromTupleString tpl = Right (StringTypeCons (snd tpl))
 
 -- end setter
 
 -- start transformer
-instance Model2StringText NodeType where
-    toString (StringTypeCons astr) = astr
-    toString (TextTypeCons   txt ) = unpack txt
-    toText (StringTypeCons astr) = pack astr
-    toText (TextTypeCons   txt ) = txt
+instance NodeIdType2Text NodeType where
+    toText (TextTypeCons txt) = txt
 
 instance Model2IdTuple NodeType where
     toIdTuple mid = ("type", mid)

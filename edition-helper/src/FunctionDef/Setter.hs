@@ -7,7 +7,7 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 module FunctionDef.Setter
-    ( StringLike2Primitive(..)
+    ( Text2NodeIdType(..)
     , Map2Primitive(..)
     , Data2Node(..)
     , IdTuple2Node(..)
@@ -38,14 +38,9 @@ import           Utils.MapUtils                 ( convertStringKey
                                                 , convertTxtMap2String
                                                 , convertStringMap2Txt
                                                 )
-
 -- end utility
-
-class StringLike2Primitive model where
-    fromString :: String -> Either TextValueError model
+class Text2NodeIdType model where
     fromText :: Text -> Either TextValueError model
-    fromString str = fromText (pack str)
-
 
 class Data2Node model where
     fromText :: Text -> Either NodeError model
@@ -56,7 +51,6 @@ class Data2Node model where
     fromBool :: Bool -> Either NodeError model
     fromEmpty :: Nothing -> Either NodeError model
     fromContainer :: Container -> Either NodeError model
-
 
 class Map2Primitive model where
     fromStringMap :: Map String String -> Either MapValueError model

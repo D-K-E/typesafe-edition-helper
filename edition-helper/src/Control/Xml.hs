@@ -29,7 +29,7 @@ import           Primitive.Instance.UnitData    ( UnitData )
 
 -- start fn
 
-import           FunctionDef.Transformer        ( Model2StringText(toText)
+import           FunctionDef.Transformer        ( NodeIdType2Text(toText)
                                                 , Model2Map(toTextMap)
                                                 )
 import           Control.Pure.NodeId           ( makeNodeIdFromText

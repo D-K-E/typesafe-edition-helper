@@ -18,7 +18,7 @@ import           Primitive.Instance.NodeId     ( NodeId(..) )
 import           Primitive.Definition.Error     ( TextValueError(..)
                                                 , IdTupleValueError(..)
                                                 )
-import           FunctionDef.Setter             ( StringLike2Primitive
+import           FunctionDef.Setter             ( Text2NodeIdType
                                                     ( fromString
                                                     , fromText
                                                     )

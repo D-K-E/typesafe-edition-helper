@@ -7,7 +7,7 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 module FunctionDef.Transformer
-    ( Model2StringText(..)
+    ( NodeIdType2Text(..)
     , Model2Map(..)
     , Model2IdTuple(..)
     )
@@ -16,7 +16,7 @@ where
 -- start def
 
 import           FunctionDef.Setter             ( Map2Primitive
-                                                , StringLike2Primitive
+                                                , Text2NodeIdType
                                                 )
 
 -- end def
@@ -24,8 +24,7 @@ import           FunctionDef.Setter             ( Map2Primitive
 import           Data.Map.Strict                ( Map )
 import           Data.Text                      ( Text )
 
-class (StringLike2Primitive model) => Model2StringText model where
-    toString :: model -> String
+class (Text2NodeIdType model) => NodeIdType2Text model where
     toText :: model -> Text
 
 class Model2IdTuple model where

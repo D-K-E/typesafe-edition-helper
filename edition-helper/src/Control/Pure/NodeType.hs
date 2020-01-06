@@ -21,7 +21,7 @@ import           Primitive.Definition.Error     ( TextValueError(..)
 
 -- end def
 -- start fn
-import           FunctionDef.Setter             ( StringLike2Primitive
+import           FunctionDef.Setter             ( Text2NodeIdType
                                                     ( fromString
                                                     , fromText
                                                     )
