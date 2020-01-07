@@ -14,17 +14,12 @@ module Control.Pure.NodeId
 where
 
 -- start def
-import           Primitive.Instance.NodeId     ( NodeId(..) )
+import           Primitive.Instance.NodeId      ( NodeId(..) )
 import           Primitive.Definition.Error     ( TextValueError(..)
                                                 , IdTupleValueError(..)
                                                 )
-import           FunctionDef.Setter             ( Text2NodeIdType
-                                                    ( fromString
-                                                    , fromText
-                                                    )
-                                                , IdTuple2Node
-                                                    ( fromTupleString
-                                                    )
+import           FunctionDef.Setter             ( Text2NodeIdType(fromText)
+                                                , IdTuple2Node(fromTupleString)
                                                 )
 -- end def
 import           Utils.StrUtils                 ( isAlphaNumStr
@@ -40,10 +35,10 @@ import           Data.Text                      ( Text
 -- |'makeNodeIdFromString' makes model id from string using conditions
 makeNodeIdFromString :: String -> Either TextValueError NodeId
 makeNodeIdFromString astr
-    | null astr = Left (EmptyStr "NodeId")
+    | null astr = Left (EmptyTxt . pack "NodeId")
     | not (isAlphaNumStr astr && isAsciiStr astr) = Left
-        (NotAsciiAlphanumeric "NodeId")
-    | otherwise = fromString astr
+        (NotAsciiAlphanumeric . pack "NodeId")
+    | otherwise = fromText (pack astr)
 
 -- |'makeNodeIdFromText' makes model id from text using conditions
 makeNodeIdFromText :: Text -> Either TextValueError NodeId
@@ -53,7 +48,7 @@ makeNodeIdFromText txt = makeNodeIdFromString (unpack txt)
 makeNodeIdFromIdTuple :: (String, String) -> Either IdTupleValueError NodeId
 makeNodeIdFromIdTuple (str1, str2)
     | null str1
-    = Left (FirstValueError (EmptyStr "IdTuple first argument"))
+    = Left (FirstValueError (EmptyTxt . pack "IdTuple first argument"))
     | not (str1 == "id")
     = Left
         (FirstValueError
