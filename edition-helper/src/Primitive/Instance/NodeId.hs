@@ -17,41 +17,43 @@ import           Primitive.Definition.NodeId    ( NodeId(TextIdCons) )
 -- end def
 
 -- start fn
-import           FunctionDef.Setter             ( Text2NodeIdType
-                                                    ( fromString
-                                                    , fromText
-                                                    )
+import           FunctionDef.Setter             ( Text2NodeIdType(fromText)
                                                 , IdTuple2Node(fromTupleString)
                                                 )
-import           FunctionDef.Transformer        ( NodeIdType2Text
-                                                    ( toString
-                                                    , toText
-                                                    )
+import           FunctionDef.Transformer        ( NodeIdType2Text(toText)
                                                 , Model2IdTuple(toIdTuple)
                                                 )
+import           FunctionDef.Matcher            ( MatchModel(isSame, contains) )
 -- end fn
 
 -- start utility
 import           Data.Text                      ( Text
                                                 , pack
                                                 , unpack
+                                                , isInfixOf
                                                 )
 -- end utility
 
 -- start setter
 
-instance IdTuple2Node NodeId where
-    fromTupleString tpl = Right (StringIdCons (snd tpl))
+instance Text2NodeIdType NodeId where
+    fromText txt = Right (TextIdCons txt)
 
 -- end setter
 
 -- start transformer
+
 instance NodeIdType2Text NodeId where
-    toString (StringIdCons astr) = astr
-    toString (TextIdCons   txt ) = unpack txt
-    toText (StringIdCons astr) = pack astr
-    toText (TextIdCons   txt ) = txt
+    toText (TextIdCons txt) = txt
 
 instance Model2IdTuple NodeId where
     toIdTuple mid = ("id", mid)
+
 -- end transformer
+
+-- start match
+instance MatchModel NodeId where
+    isSame (TextIdCons txt1) (TextIdCons txt2) = txt1 == txt2
+    contains (TextIdCons txt1) (TextIdCons txt2) = txt2 `isInfixOf` txt1
+
+-- end match
