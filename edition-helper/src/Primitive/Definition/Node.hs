@@ -69,6 +69,14 @@ data Node = NodeInt Int
 
 newtype NodeGroup = NodeGroupCons [Node] deriving (Eq, Ord, Show)
 
+data NField = IdField NodeId
+    | TypeField NodeType
+    | AttrField NodeAttr
+    | NodeField Node
+    | NodeInfoField NodeInfo
+    | NodeGroupField NodeGroup
+    deriving (Eq, Show)
+
 data Container = ContainerCons {
       cinfo :: NodeInfo
     , cdata :: NodeGroup

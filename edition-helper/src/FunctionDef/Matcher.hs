@@ -11,12 +11,6 @@ module FunctionDef.Matcher
     )
 where
 
-import           Primitive.Definition.NodeId    ( NodeId )
-import           Primitive.Definition.NodeType  ( NodeType )
-import           Primitive.Definition.NodeAttr  ( NodeAttr )
-import           Primitive.Definition.ModelData ( ModelData )
-
-
 -- | 'MatchModel' class outlines methods to match model to given field
 class MatchModel model where
     -- | 'isSame' checks if the other value is same
