@@ -14,37 +14,34 @@ module Primitive.Definition.Node
     , NodeAttr(..)
     , PreNode(..)
     , Container(..)
+    , NField(..)
     )
 where
 
--- start def
-import           Primitive.Definition.NodeInfo  ( NodeInfo )
--- end def
-
 -- start utilities
-import           Data.Text                      ( Text )
-import           Data.Map.Strict                ( Map ) -- importing type
+import           Data.Map.Strict ( Map )
+import           Data.Text       ( Text, empty, pack )
 
 -- end utilities
 
 -- | node id: alphanumeric non empty string has to be unique for each model
 newtype NodeId = TextIdCons Text
-                deriving (Eq, Show)
+                deriving (Eq, Show, Ord)
 
 -- | node type: edition, inflected, glossary it can be constructed from string
 newtype NodeType = TextTypeCons Text
-                deriving (Eq, Show)
+                deriving (Eq, Show, Ord)
 
 -- | node attribute: unique key value non nested pairs
 newtype NodeAttr = TextAttrCons (Map Text Text)
-                deriving (Eq, Show)
+                deriving (Eq, Show, Ord)
 
 -- | node info: contains meta data with regard to unit/container model
 data NodeInfo = InfoCons {
-      nodeId :: NodeId
+      nodeId   :: NodeId
     , nodeType :: NodeType
     , nodeAttr :: NodeAttr
-    } deriving (Eq, Show)
+    } deriving (Eq, Show, Ord)
 
 
 data PreNode = PreNodeInt Int
@@ -53,7 +50,7 @@ data PreNode = PreNodeInt Int
     | PreNodeDouble Double
     | PreNodeBool Bool
     | PreNodeText Text
-    | PreNodeEmpty Nothing
+    | PreNodeEmpty Text
     deriving (Eq, Ord, Show)
 
 -- | Node data: node that can contain couple of types
@@ -63,7 +60,7 @@ data Node = NodeInt Int
     | NodeDouble Double
     | NodeBool Bool
     | NodeText Text
-    | NodeEmpty Nothing
+    | NodeEmpty Text
     | NodeContainer Container
     deriving(Eq, Ord, Show)
 
@@ -75,11 +72,11 @@ data NField = IdField NodeId
     | NodeField Node
     | NodeInfoField NodeInfo
     | NodeGroupField NodeGroup
-    deriving (Eq, Show)
+    deriving (Eq, Show, Ord)
 
 data Container = ContainerCons {
       cinfo :: NodeInfo
     , cdata :: NodeGroup
-    } deriving (Eq, Ord, Show)
+    } deriving (Eq, Show, Ord)
 
 newtype Graph = GraphCons [NodeGroup] deriving (Eq, Ord, Show)

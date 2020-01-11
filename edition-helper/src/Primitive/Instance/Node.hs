@@ -8,51 +8,29 @@ Stability : Experimental
 -}
 
 module Primitive.Instance.Node
-    ( Node
-    )
 where
 
 -- start def
-import           Primitive.Definition.Node      ( Node
-                                                    ( NodeInt
-                                                    , NodeInteger
-                                                    , NodeFloat
-                                                    , NodeDouble
-                                                    , NodeBool
-                                                    , NodeText
-                                                    , NodeEmpty
-                                                    , NodeContainer
-                                                    )
-                                                )
-import           Primitive.Definition.Error     ( NodeError )
+import           Primitive.Definition.Error ( NodeError )
+import           Primitive.Definition.Node  ( Container )
+import qualified Primitive.Definition.Node  as PN ( PreNode (..) )
+import qualified Primitive.Definition.Node  as N ( Node (..) )
 -- end def
 
 -- start fn
-import           FunctionDef.Setter             ( Data2Node
-                                                    ( fromString
-                                                    , fromText
-                                                    , fromInt
-                                                    , fromInteger
-                                                    , fromFloat
-                                                    , fromDouble
-                                                    , fromBool
-                                                    , fromEmpty
-                                                    , fromContainer
-                                                    )
-                                                )
+import qualified FunctionDef.Setter as D2N ( Data2Node (..) )
 -- end fn
 
 -- start utility
-import           Data.Text                      ( Text )
+import Data.Text ( Text )
 -- end utility
 
-instance Data2Node Node where
-    fromString    = Right NodeString
-    fromText      = Right NodeText
-    fromInt       = Right NodeInt
-    fromInteger   = Right NodeInteger
-    fromFloat     = Right NodeFloat
-    fromDouble    = Right NodeDouble
-    fromBool      = Right NodeBool
-    fromEmpty     = Right NodeEmpty
-    fromContainer = Right NodeContainer
+instance D2N.Data2Node N.Node where
+    fromPreNode (PN.PreNodeInt nodeData)     = Right ( N.NodeInt nodeData)
+    fromPreNode (PN.PreNodeInteger nodeData) = Right ( N.NodeInteger nodeData)
+    fromPreNode (PN.PreNodeFloat nodeData)   = Right ( N.NodeFloat nodeData)
+    fromPreNode (PN.PreNodeDouble nodeData)  = Right ( N.NodeDouble nodeData)
+    fromPreNode (PN.PreNodeBool nodeData)    = Right ( N.NodeBool nodeData)
+    fromPreNode (PN.PreNodeText nodeData)    = Right ( N.NodeText nodeData)
+    fromPreNode (PN.PreNodeEmpty nodeData)   = Right ( N.NodeEmpty nodeData)
+    fromContainer ncont = Right (N.NodeContainer ncont)

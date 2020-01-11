@@ -10,12 +10,8 @@ module Utils.StrUtils
 where
 
 
-import qualified Data.Char                     as Chr
-import qualified Data.Text                      ( Text
-                                                , pack
-                                                , unpack
-                                                , toLower
-                                                )
+import qualified Data.Char as Chr
+import           Data.Text ( Text, pack, toLower, unpack )
 
 -- |'toLowerStr' transform all characters to lower characters
 toLowerStr = map Chr.toLower
@@ -30,14 +26,14 @@ isAlphaNumStr = all Chr.isAlphaNum
 
 -- |'isAlphaNumText' checks if all characters are alphanumeric for Text
 isAlphaNumText :: Text -> Bool
-isAlphaNumText atxt = isAlphaNumStr . unpack atxt
+isAlphaNumText atxt = (isAlphaNumStr . unpack) atxt
 
 -- |'isAsciiStr' checks if all characters are ascii
 isAsciiStr :: String -> Bool
 isAsciiStr = all Chr.isAscii
 
 isAsciiTxt :: Text -> Bool
-isAsciiTxt txt = isAsciiStr . unpack txt
+isAsciiTxt txt = (isAsciiStr . unpack) txt
 
 -- |'appendOrPrepend' adds str2 either at the start or at the end of str1
 appendOrPrepend :: String -> String -> Bool -> String

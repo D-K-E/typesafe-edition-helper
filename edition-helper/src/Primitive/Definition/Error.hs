@@ -14,11 +14,9 @@ module Primitive.Definition.Error
     )
 where
 
-import qualified Control.Exception             as Ex
-import           Type.Reflection                ( Typeable )
-import           Data.Text                      ( Text
-                                                , unpack
-                                                )
+import qualified Control.Exception as Ex
+import           Data.Text         ( Text, unpack )
+import           Type.Reflection   ( Typeable )
 
 -- |'TextValueError' defines errors for string
 data TextValueError = EmptyText Text -- string is empty
@@ -116,7 +114,7 @@ instance Show NodeInfoError where
     show (NodeInfoIdError        serr) = "NodeInfo: " ++ show serr
     show (NodeInfoTypeError      serr) = "NodeInfo: " ++ show serr
     show (NodeInfoAttrError      serr) = "NodeInfo: " ++ show serr
-    show (OtherNodeInfoError serr) = "Other NodeInfo error: " ++ serr
+    show (OtherNodeInfoError serr)     = "Other NodeInfo error: " ++ serr
 
 
 data IdTupleValueError = FirstValueEmpty String

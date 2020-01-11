@@ -7,8 +7,8 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 module FunctionDef.Modifier
-    ( ReplaceInfoField(..)
-    , ReplaceField(..)
+    ( 
+     ReplaceField(..)
     , Add2Field(..)
     )
 where

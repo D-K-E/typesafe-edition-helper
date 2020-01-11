@@ -15,16 +15,14 @@ where
 
 -- start def
 
-import           FunctionDef.Setter             ( Map2Primitive
-                                                , Text2NodeIdType
-                                                )
+import FunctionDef.Setter ( Map2Primitive )
 
 -- end def
 
-import           Data.Map.Strict                ( Map )
-import           Data.Text                      ( Text )
+import Data.Map.Strict ( Map )
+import Data.Text       ( Text )
 
-class (Text2NodeIdType model) => NodeIdType2Text model where
+class NodeIdType2Text model where
     toText :: model -> Text
 
 class Model2IdTuple model where

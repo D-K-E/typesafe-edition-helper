@@ -7,49 +7,34 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 module FunctionDef.Setter
-    ( Text2NodeIdType(..)
-    , Map2Primitive(..)
+    (Map2Primitive(..)
     , Data2Node(..)
     , IdTuple2Node(..)
-    , TupleMap2Primitive(..)
     )
 where
 
 -- start def
 
 -- end def
-import           Primitive.Definition.Error     ( TextValueError
-                                                , IdTupleValueError
-                                                , MapValueError
-                                                , NodeError
-                                                )
+import           Primitive.Definition.Error ( IdTupleValueError, MapValueError,
+                                              NodeError, TextValueError )
+import           Primitive.Definition.Node  ( Container, PreNode )
+
 -- start fn
 
 -- end fn
 
 -- start utility
-import           Data.Text                      ( Text
-                                                , pack
-                                                , unpack
-                                                )
-import           Data.Map.Strict                ( Map )
-import           Utils.MapUtils                 ( convertStringKey
-                                                , convertStringVal
-                                                , convertTxtMap2String
-                                                , convertStringMap2Txt
-                                                )
+import           Data.Map.Strict            ( Map )
+import           Data.Text                  ( Text, pack, unpack )
+import           Utils.MapUtils             ( convertStringKey,
+                                              convertStringMap2Txt,
+                                              convertStringVal,
+                                              convertTxtMap2String )
 -- end utility
-class Text2NodeIdType model where
-    fromText :: Text -> Either TextValueError model
 
 class Data2Node model where
-    fromText :: Text -> Either NodeError model
-    fromInt :: Int -> Either NodeError model
-    fromInteger :: Integer -> Either NodeError model
-    fromFloat :: Float -> Either NodeError model
-    fromDouble :: Double -> Either NodeError model
-    fromBool :: Bool -> Either NodeError model
-    fromEmpty :: Nothing -> Either NodeError model
+    fromPreNode :: PreNode -> Either NodeError model
     fromContainer :: Container -> Either NodeError model
 
 class Map2Primitive model where
@@ -70,5 +55,5 @@ class (Data2Node model) => IdTuple2Node model where
     fromTupleFloat :: (String, Float) -> Either IdTupleValueError model
     fromTupleDouble :: (String, Double) -> Either IdTupleValueError model
     fromTupleBool :: (String, Bool) -> Either IdTupleValueError model
-    fromTupleEmpty :: (String, Empty) -> Either IdTupleValueError model
+    fromTupleEmpty :: (String, Text) -> Either IdTupleValueError model
     fromTupleContainer :: (String, Container) -> Either IdTupleValueError model
