@@ -14,27 +14,17 @@ module Control.Pure.UnitData
 where
 
 -- start def
-import           Primitive.Definition.UnitData  ( UnitData(..) )
-import           Primitive.Instance.UnitData    ( UnitData )
-import           Primitive.Definition.Error     ( TextValueError(..)
-                                                , IdTupleValueError(..)
-                                                )
-import           FunctionDef.Setter             ( Text2NodeIdType
-                                                    ( fromString
-                                                    , fromText
-                                                    )
-                                                , IdTuple2Node
-                                                    ( fromTupleString
-                                                    )
-                                                )
+import FunctionDef.Setter
+       ( IdTuple2Node (fromTupleString)
+       , Text2NodeIdType (fromString, fromText)
+       )
+import Primitive.Definition.Error
+       ( IdTupleValueError (..), TextValueError (..) )
+import Primitive.Definition.UnitData ( UnitData (..) )
+import Primitive.Instance.UnitData   ( UnitData )
 -- end def
-import           Utils.StrUtils                 ( isAlphaNumStr
-                                                , isAsciiStr
-                                                )
-import           Data.Text                      ( Text
-                                                , pack
-                                                , unpack
-                                                ) -- importing type
+import Data.Text      ( Text, pack, unpack )
+import Utils.StrUtils ( isAlphaNumStr, isAsciiStr )
 
 -- start maker
 

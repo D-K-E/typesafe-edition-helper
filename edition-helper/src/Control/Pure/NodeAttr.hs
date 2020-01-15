@@ -15,44 +15,23 @@ module Control.Pure.NodeAttr
 where
 
 -- start def
-import           Primitive.Definition.NodeAttr ( NodeAttr )
-import           Primitive.Instance.NodeAttr   ( NodeAttr )
-import           Primitive.Definition.Error     ( MapValueError
-                                                    ( MapKeyError
-                                                    , MapValError
-                                                    , OtherMapError
-                                                    )
-                                                , IdTupleValueError
-                                                    ( SecondMapValueError
-                                                    , FirstValueError
-                                                    )
-                                                , TextValueError
-                                                    ( EmptyStr
-                                                    , OtherStringError
-                                                    )
-                                                )
+import Primitive.Definition.Error
+       ( IdTupleValueError (FirstValueError, SecondMapValueError)
+       , MapValueError (MapKeyError, MapValError, OtherMapError)
+       , TextValueError (EmptyStr, OtherStringError)
+       )
+import Primitive.Definition.NodeAttr ( NodeAttr )
+import Primitive.Instance.NodeAttr   ( NodeAttr )
 -- end def
 -- start fn
-import           FunctionDef.Setter             ( Map2Primitive(..)
-                                                , TupleMap2Primitive(..)
-                                                )
+import FunctionDef.Setter ( Map2Primitive (..), TupleMap2Primitive (..) )
 -- end fn
 -- start utility
-import           Data.Text                      ( Text )
-import           Data.Map.Strict                ( elems
-                                                , keys
-                                                , toList
-                                                , filterWithKey
-                                                , Map
-                                                ) -- importing type
-import qualified Data.Map.Strict               as Mp
-                                                ( filter )
-import           Utils.StrUtils                 ( isAlphaNumStr
-                                                , isAsciiStr
-                                                )
-import           Utils.MapUtils                 ( convertStringMap2Txt
-                                                , convertTxtMap2String
-                                                )
+import           Data.Map.Strict ( Map, elems, filterWithKey, keys, toList )
+import qualified Data.Map.Strict as Mp ( filter )
+import           Data.Text       ( Text )
+import           Utils.MapUtils  ( convertStringMap2Txt, convertTxtMap2String )
+import           Utils.StrUtils  ( isAlphaNumStr, isAsciiStr )
 
 showMapKeyVal :: Int -> Map String String -> String
 

@@ -19,8 +19,8 @@ module Primitive.Definition.Node
 where
 
 -- start utilities
-import           Data.Map.Strict ( Map )
-import           Data.Text       ( Text, empty, pack )
+import Data.Map.Strict ( Map )
+import Data.Text       ( Text, empty, pack )
 
 -- end utilities
 

@@ -3,17 +3,9 @@ module Utils.XmlUtils
     , makeTagName
     )
 where
-import           Data.Text                      ( Text
-                                                , empty
-                                                , pack
-                                                )
-import           Text.XML                       ( Node
-                                                , Element
-                                                , Name(..)
-                                                , nameLocalName
-                                                , nameNamespace
-                                                , namePrefix
-                                                )
+import Data.Text ( Text, empty, pack )
+import Text.XML
+       ( Element, Name (..), Node, nameLocalName, nameNamespace, namePrefix )
 -- | 'makeName' make an xml name from a text
 makeName :: Text -> Name
 

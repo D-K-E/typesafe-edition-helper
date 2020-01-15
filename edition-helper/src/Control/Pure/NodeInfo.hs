@@ -11,12 +11,11 @@ module Control.Pure.NodeInfo
 where
 
 
-import           Control.Pure.NodeId           ( makeNodeIdFromString
-                                                , makeNodeIdFromText
-                                                , makeNodeIdFromIdTuple
-                                                )
-import           Control.Pure.NodeAttr         ( makeNodeAttrFromStringMap
-                                                , makeNodeAttrFromTextMap
-                                                , makeNodeAttrFromIdTupleStringMap
-                                                , makeNodeAttrFromIdTupleTextMap
-                                                )
+import Control.Pure.NodeAttr
+       ( makeNodeAttrFromIdTupleStringMap
+       , makeNodeAttrFromIdTupleTextMap
+       , makeNodeAttrFromStringMap
+       , makeNodeAttrFromTextMap
+       )
+import Control.Pure.NodeId
+       ( makeNodeIdFromIdTuple, makeNodeIdFromString, makeNodeIdFromText )

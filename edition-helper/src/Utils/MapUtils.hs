@@ -9,12 +9,12 @@ module Utils.MapUtils
     , convertTxtMap2String
     )
 where
-import           Data.Map.Strict                ( Map )  -- importing type
-import qualified Data.Map.Strict               as Dict  -- importing module
-import           Data.Text                      ( Text ) -- importing type
-import qualified Data.Text                     as Txt  -- importing module
-import           Text.XML                       ( Name )
-import           Utils.XmlUtils                 ( makeName )
+import           Data.Map.Strict ( Map )
+import qualified Data.Map.Strict as Dict
+import           Data.Text       ( Text )
+import qualified Data.Text       as Txt
+import           Text.XML        ( Name )
+import           Utils.XmlUtils  ( makeName )
 
 -- |'add2Map' adds [(key, val)] to map by transforming the list to map
 -- then making a union with the resulting map

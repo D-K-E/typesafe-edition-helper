@@ -8,12 +8,9 @@ Stability : Experimental
 -}
 module Io.ProjectLayout where
 
-import           System.Directory               ( createDirectory )
-import           System.FilePath                ( combine
-                                                , FilePath(..)
-                                                , addExtension
-                                                )
-import           System.IO
-import           Control.Monad                  ( mapM )
+import Control.Monad    ( mapM )
+import System.Directory ( createDirectory )
+import System.FilePath  ( FilePath (..), addExtension, combine )
+import System.IO
 
 --makeDirs :: [String] -> [IO ()]

@@ -12,33 +12,24 @@ module Primitive.Instance.NodeAttr
 where
 
 -- start def
-import           Primitive.Definition.Node      ( NodeAttr(TextAttrCons) )
-import           Primitive.Definition.Error     ( TextValueError
-                                                , IdTupleValueError
-                                                , MapValueError(..)
-                                                )
+import Primitive.Definition.Error
+       ( IdTupleValueError, MapValueError (..), TextValueError )
+import Primitive.Definition.Node  ( NodeAttr (TextAttrCons) )
 -- end def
 
 -- start fn
-import           FunctionDef.Setter             ( Map2Primitive(fromStringMap)
-                                                , TupleMap2Primitive
-                                                    ( fromTupleStringMap
-                                                    )
-                                                )
-import           FunctionDef.Transformer        ( Model2IdTuple(toIdTuple)
-                                                , Model2Map
-                                                    ( toStringMap
-                                                    , toTextMap
-                                                    )
-                                                )
+import FunctionDef.Setter
+       ( Map2Primitive (fromStringMap)
+       , TupleMap2Primitive (fromTupleStringMap)
+       )
+import FunctionDef.Transformer
+       ( Model2IdTuple (toIdTuple), Model2Map (toStringMap, toTextMap) )
 -- end fn
 
 -- start utility
-import           Data.Map.Strict                ( Map ) -- importing type
-import           Data.Text                      ( Text )
-import           Utils.MapUtils                 ( convertTxtMap2String
-                                                , convertStringMap2Txt
-                                                )
+import Data.Map.Strict ( Map )
+import Data.Text       ( Text )
+import Utils.MapUtils  ( convertStringMap2Txt, convertTxtMap2String )
 -- end utility
 
 -- setter

@@ -6,6 +6,9 @@ module Utils.StrUtils
     , isAlphaNumText
     , isAsciiTxt
     , appendOrPrepend
+    , concatHStr
+    , concatTStr
+    , toTxtList
     )
 where
 
@@ -13,12 +16,24 @@ where
 import qualified Data.Char as Chr
 import           Data.Text ( Text, pack, toLower, unpack )
 
+
+-- |'concatHStr' concatenates the string to the head of the text
+concatHStr :: String -> Text -> Text
+concatHStr str txt = pack (str ++ (unpack txt))
+
+-- |'concatTStr' concatenates the string to the tail of the text
+concatTStr :: Text -> String -> Text
+concatHStr str txt = pack ((unpack txt) ++ str)
+
 -- |'toLowerStr' transform all characters to lower characters
 toLowerStr = map Chr.toLower
 
 -- |'toLowerTxt' transform all characters to lower characters for Text
 toLowerTxt :: Text -> Text
 toLowerTxt = toLower
+
+toTxtList :: [String] -> [Text]
+toTxtList strlst = map pack strlst
 
 -- |'isAlphaNumStr' checks if all characters are alphanumeric
 isAlphaNumStr :: String -> Bool

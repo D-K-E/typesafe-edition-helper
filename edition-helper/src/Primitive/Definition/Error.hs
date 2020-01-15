@@ -17,13 +17,14 @@ where
 import qualified Control.Exception as Ex
 import           Data.Text         ( Text, unpack )
 import           Type.Reflection   ( Typeable )
+import           Utils.StrUtils    ( concatHStr, concatTStr )
 
 -- |'TextValueError' defines errors for string
 data TextValueError = EmptyText Text -- string is empty
     | NotAscii Text
     | NotAlphanumeric Text
     | NotAsciiAlphanumeric Text
-    | OtherStringError Text
+    | OtherTextError Text
     deriving (Typeable)
 
 instance Show TextValueError where
@@ -37,7 +38,7 @@ instance Show TextValueError where
     show (NotAsciiAlphanumeric infostr) =
         "String not entirely composed of alphanumeric ASCII characters for "
             ++ unpack infostr
-    show (OtherStringError str) | null (unpack str) = "Unknown string error"
+    show (OtherTextError str) | null (unpack str) = "Unknown string error"
                                 | otherwise         = unpack str
 
 instance Ex.Exception TextValueError

@@ -7,13 +7,13 @@ Maintainer : Kaan Eraslan
 Stability : Experimental
 -}
 module FunctionDef.Modifier
-    ( 
+    (
      ReplaceField(..)
     , Add2Field(..)
     )
 where
 
-import Primitive.Definition.Node (NField)
+import Primitive.Definition.Node ( NField )
 
 -- | 'ReplaceField' class outlines methods to replace model info fields
 class ReplaceField model where

@@ -14,21 +14,14 @@ module Control.Pure.NodeId
 where
 
 -- start def
-import           Primitive.Instance.NodeId      ( NodeId(..) )
-import           Primitive.Definition.Error     ( TextValueError(..)
-                                                , IdTupleValueError(..)
-                                                )
-import           FunctionDef.Setter             ( Text2NodeIdType(fromText)
-                                                , IdTuple2Node(fromTupleString)
-                                                )
+import FunctionDef.Setter
+       ( IdTuple2Node (fromTupleString), Text2NodeIdType (fromText) )
+import Primitive.Definition.Error
+       ( IdTupleValueError (..), TextValueError (..) )
+import Primitive.Instance.NodeId  ( NodeId (..) )
 -- end def
-import           Utils.StrUtils                 ( isAlphaNumStr
-                                                , isAsciiStr
-                                                )
-import           Data.Text                      ( Text
-                                                , pack
-                                                , unpack
-                                                ) -- importing type
+import Data.Text      ( Text, pack, unpack )
+import Utils.StrUtils ( isAlphaNumStr, isAsciiStr )
 
 -- start maker
 

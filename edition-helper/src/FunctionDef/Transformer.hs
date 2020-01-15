@@ -26,7 +26,7 @@ class NodeIdType2Text model where
     toText :: model -> Text
 
 class Model2IdTuple model where
-    toIdTuple :: model -> (String, model)
+    toIdTuple :: model -> (Text, model)
 
 class (Map2Primitive model) => Model2Map model where
     toTextMap :: model -> Map Text Text

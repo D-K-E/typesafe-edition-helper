@@ -16,21 +16,23 @@ where
 -- start def
 
 -- end def
-import           Primitive.Definition.Error ( IdTupleValueError, MapValueError,
-                                              NodeError, TextValueError )
-import           Primitive.Definition.Node  ( Container, PreNode )
+import Primitive.Definition.Error
+       ( IdTupleValueError, MapValueError, NodeError, TextValueError )
+import Primitive.Definition.Node  ( Container, PreNode )
 
 -- start fn
 
 -- end fn
 
 -- start utility
-import           Data.Map.Strict            ( Map )
-import           Data.Text                  ( Text, pack, unpack )
-import           Utils.MapUtils             ( convertStringKey,
-                                              convertStringMap2Txt,
-                                              convertStringVal,
-                                              convertTxtMap2String )
+import Data.Map.Strict ( Map )
+import Data.Text       ( Text, pack, unpack )
+import Utils.MapUtils
+       ( convertStringKey
+       , convertStringMap2Txt
+       , convertStringVal
+       , convertTxtMap2String
+       )
 -- end utility
 
 class Data2Node model where
