@@ -9,37 +9,55 @@ Stability : Experimental
 module Control.Node where
 
 -- start def
-import Primitive.Definition.Error ( NodeError (..) )
-import Primitive.Definition.Node
-       ( Node (NodeBool, NodeContainer, NodeDouble, NodeEmpty, NodeFloat, NodeInt, NodeInteger, NodeString, NodeText)
-       , PreNode (PreNodeBool, PreNodeDouble, PreNodeEmpty, PreNodeFloat, PreNodeInt, PreNodeInteger, PreNodeString, PreNodeText)
-       )
-import Primitive.Instance.Node
+import           Primitive.Definition.Error     ( NodeError(..) )
+import           Primitive.Definition.Node      ( Node
+                                                    ( NodeBool
+                                                    , NodeContainer
+                                                    , NodeDouble
+                                                    , NodeEmpty
+                                                    , NodeFloat
+                                                    , NodeInt
+                                                    , NodeInteger
+                                                    , NodeText
+                                                    )
+                                                , PreNode
+                                                    ( PreNodeBool
+                                                    , PreNodeDouble
+                                                    , PreNodeEmpty
+                                                    , PreNodeFloat
+                                                    , PreNodeInt
+                                                    , PreNodeInteger
+                                                    , PreNodeText
+                                                    )
+                                                )
+import           Primitive.Instance.Node
 -- end def
 -- start fn
-import FunctionDef.Setter ( Data2Node (..), IdTuple2Node (..) )
+import           FunctionDef.Setter             ( Data2Node(..)
+                                                , IdTuple2Node(..)
+                                                )
 -- end fn
 -- start utility
-import Data.Text ( Text, empty, pack, unpack )
+import           Data.Text                      ( Text
+                                                , empty
+                                                , pack
+                                                , unpack
+                                                )
 -- end utility
 
 makePreNode str = PreNodeInt (read str :: Int)
 makePreNode str = PreNodeInteger (read str :: Integer)
 makePreNode str = PreNodeFloat (read str :: Float)
 makePreNode str = PreNodeDouble (read str :: Double)
-makePreNode str = PreNodeString str
 makePreNode str = PreNodeText (pack str)
 makePreNode str = PreNodeBool (read str :: Bool)
-makePreNode str | null str = PreNodeNothing Nothing
 
 makeNodeFromPreNode :: PreNode -> Either NodeError Node
-makeNodeFromPreNode (PreNodeInt     pint) = fromInt pint
-makeNodeFromPreNode (PreNodeInteger pint) = fromInteger pint
-makeNodeFromPreNode (PreNodeFloat   pf  ) = fromFloat pf
-makeNodeFromPreNode (PreNodeDouble  pd  ) = fromDouble pf
-makeNodeFromPreNode (PreNodeBool    pb  ) = fromBool pf
-makeNodeFromPreNode (PreNodeString  str ) = fromString pf
-makeNodeFromPreNode (PreNodeNothing nth ) = fromEmpty nth
+makeNodeFromPreNode (PreNodeInt     pint) = Right (NodeInt pint)
+makeNodeFromPreNode (PreNodeInteger pint) = Right (NodeInteger pint)
+makeNodeFromPreNode (PreNodeFloat   pf  ) = Right (NodeFloat pf)
+makeNodeFromPreNode (PreNodeDouble  pd  ) = Right (NodeDouble pd)
+makeNodeFromPreNode (PreNodeBool    pb  ) = Right (NodeBool pb)
 
 makeNodeFromIdTupleString :: (String, String) -> Either NodeError Node
 makeNodeFromIdTupleString (str1, str2)
@@ -55,5 +73,3 @@ makeNodeFromIdTupleString (str1, str2)
     = makeNodeFromPreNode (PreNodeText (pack str2))
     | str1 == "bool"
     = makeNodeFromPreNode (PreNodeBool (read str2 :: Bool))
-    | str1 == "empty" `and` null str2
-    = makeNodeFromPreNode (PreNodeEmpty Nothing)

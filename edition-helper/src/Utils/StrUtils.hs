@@ -13,8 +13,12 @@ module Utils.StrUtils
 where
 
 
-import qualified Data.Char as Chr
-import           Data.Text ( Text, pack, toLower, unpack )
+import qualified Data.Char                     as Chr
+import           Data.Text                      ( Text
+                                                , pack
+                                                , toLower
+                                                , unpack
+                                                )
 
 
 -- |'concatHStr' concatenates the string to the head of the text
@@ -23,7 +27,7 @@ concatHStr str txt = pack (str ++ (unpack txt))
 
 -- |'concatTStr' concatenates the string to the tail of the text
 concatTStr :: Text -> String -> Text
-concatHStr str txt = pack ((unpack txt) ++ str)
+concatTStr txt str = pack ((unpack txt) ++ str)
 
 -- |'toLowerStr' transform all characters to lower characters
 toLowerStr = map Chr.toLower

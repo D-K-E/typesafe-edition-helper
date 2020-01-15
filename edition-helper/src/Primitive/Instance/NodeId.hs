@@ -13,13 +13,10 @@ module Primitive.Instance.NodeId
 where
 
 -- start def
-import           Primitive.Definition.NodeId    ( NodeId(TextIdCons) )
+import           Primitive.Definition.Node      ( NodeId(TextIdCons) )
 -- end def
 
 -- start fn
-import           FunctionDef.Setter             ( Text2NodeIdType(fromText)
-                                                , IdTuple2Node(fromTupleString)
-                                                )
 import           FunctionDef.Transformer        ( NodeIdType2Text(toText)
                                                 , Model2IdTuple(toIdTuple)
                                                 )
@@ -36,9 +33,6 @@ import           Data.Text                      ( Text
 
 -- start setter
 
-instance Text2NodeIdType NodeId where
-    fromText txt = Right (TextIdCons txt)
-
 -- end setter
 
 -- start transformer
@@ -47,7 +41,7 @@ instance NodeIdType2Text NodeId where
     toText (TextIdCons txt) = txt
 
 instance Model2IdTuple NodeId where
-    toIdTuple mid = ("id", mid)
+    toIdTuple mid = (pack "id", mid)
 
 -- end transformer
 
